@@ -1,0 +1,488 @@
+import {
+  DEFAULT_VALUE,
+  useStoreAccount,
+  useStoreAction,
+  useStoreInput,
+  useStoreSettings,
+  useStoreStats,
+  useStoreSwap,
+} from '@/store'
+import { getStatus } from '@/store/methods'
+import { BribeCardI, UserBalancesI } from '@/ts/interfaces'
+import { ADDRESS, ApproveType, BribeCardData, OptionType, SettingsTabsType, TransactionType } from '@/ts/types'
+import base_abi from '@/utils/abis/base.json'
+import abi from '@/utils/abis/bondingCurve.json'
+import abi_bribe from '@/utils/abis/bribe.json'
+import token_abi from '@/utils/abis/token.json'
+import abi_voter from '@/utils/abis/voter.json'
+import abi_vToken from '@/utils/abis/vtoken.json'
+import abi_vTokenReward from '@/utils/abis/vtokenrewarder.json'
+import { ExternalProvider } from '@ethersproject/providers'
+import { ethers, BigNumber } from 'ethers'
+import { MulticallWrapper } from 'ethers-multicall-provider'
+import debounce from 'lodash/debounce'
+import {
+  CONTRACTS,
+  CONTRACT_FUNCTIONS_BUY,
+  CONTRACT_FUNCTIONS_SELL,
+  CONTRACT_ZERO,
+  OPTIONS_FUNCTIONS,
+  MINT_AMOUNT,
+  POLYGON,
+} from './constants'
+import { getTimestamp } from './methods'
+import { NETWORK_RPC } from './networks'
+import { TOKENS, TOKENS_ARRAY } from './tokens'
+
+/**
+ * get a fallback provider to avoid max limit calls on one RPC.
+ * @returns  - A FallbackProvider
+ */
+export const getProvider = () => {
+  const ankerProvider = new ethers.providers.JsonRpcProvider(NETWORK_RPC[POLYGON][0])
+  // const maticvigilProvider = new ethers.providers.JsonRpcProvider(NETWORK_RPC[POLYGON][1])
+  // const blastProvider = new ethers.providers.JsonRpcProvider(NETWORK_RPC[POLYGON][2])
+  // const provider = new providers.FallbackProvider([ankerProvider, maticvigilProvider, blastProvider])
+
+  return ankerProvider
+}
+
+/**
+ * Retrieves the gas price based on the selected transaction speed.
+ *
+ * @param signer The JSON-RPC signer object.
+ * @param txSpeed The selected transaction speed (SettingsTabsType).
+ * @returns The adjusted gas price as a BigNumber.
+ */
+const getGasPrice = async (
+  signer: ethers.providers.JsonRpcSigner,
+  txSpeed: SettingsTabsType,
+): Promise<BigNumber | null> => {
+  const gasPrice = await signer.getGasPrice()
+  const gasPriceBN = BigNumber.from(gasPrice)
+  const DIV_AMOUNT = 100
+  if (txSpeed.id === 0) return gasPriceBN
+  if (txSpeed.id === 1) return gasPriceBN.mul(125).div(DIV_AMOUNT) // Increase the value by 25%
+  if (txSpeed.id === 2) return gasPriceBN.mul(150).div(DIV_AMOUNT) // Increase the value by 50%
+  if (txSpeed.id === 3) return null // Auto Market Gas
+  return gasPriceBN
+}
+
+/**
+ * Sets the quote for buying or selling based on the provided parameters.
+ *
+ * @param {number} chainId - The chain ID.
+ * @param {string} amount - The amount for the quote.
+ * @param {string} slippageTolerance - The slippage tolerance.
+ * @param {boolean} isInput - Indicates if the quote is for the input value or outputValue.
+ * @param {boolean} isBuy - Indicates if it's a buy quote or sell.
+ * @param {BigNumber} balance - The balance from the user.
+ */
+export const setQuote = async (
+  chainId: number,
+  amount: string,
+  slippageTolerance: string,
+  isInput: boolean,
+  isBuy: boolean,
+  balance: BigNumber,
+) => {
+  // Determine the key based on whether it's an input or output value
+  const key = isInput ? 'outputValue' : 'inputValue'
+  const { parseEther, formatEther } = ethers.utils
+  const parsedAmount = parseEther(amount)
+  const { maxMarketSell } = useStoreStats.getState()
+  const { slippage } = useStoreSettings.getState()
+  const { message } = useStoreSwap.getState()
+  let isMoreThanMarketSell = false
+  let isMoreThanSlippage = false
+
+  if (!isBuy && message === '') {
+    isMoreThanMarketSell = getStatus(amount, maxMarketSell, 'sell')
+  }
+
+  if ((isInput && parsedAmount.eq(DEFAULT_VALUE)) || (isInput && parsedAmount.gt(balance))) {
+    useStoreInput.setState({ [key]: amount })
+  } else if (!isMoreThanMarketSell) {
+    const provider = getProvider()
+    const contractMethods = isBuy ? CONTRACT_FUNCTIONS_BUY : CONTRACT_FUNCTIONS_SELL
+    const contract_function = isInput ? contractMethods[0] : contractMethods[1]
+    const tokenContract = new ethers.Contract(CONTRACTS[chainId].bondingCurve, abi, provider)
+    const [output, currentSlippage, minOutput, autoMinOutput] = await tokenContract[contract_function](
+      parsedAmount,
+      slippageTolerance,
+    )
+    const formatOutput = formatEther(output)
+    const formatSlippage = formatEther(currentSlippage)
+    const slippageValue = slippage.id === 2 ? (Number(slippageTolerance) + 1).toString() : slippage.value
+    const parsedSlippage = parseEther(slippageValue)
+
+    if (message === '') {
+      isMoreThanSlippage = getStatus(formatSlippage, parsedSlippage, 'loss')
+    }
+
+    if (!isInput && !isMoreThanSlippage) {
+      getStatus(formatOutput, balance, 'balance')
+    }
+
+    useStoreInput.setState({ [key]: formatOutput })
+    useStoreAction.setState({ minAmount: minOutput, autoMinOutput: BigNumber.from(autoMinOutput) })
+    useStoreSettings.setState({ slippageToletance: formatSlippage })
+  }
+}
+
+// Apply debounce to the setQuote function
+export const debouncedSetQuote = debounce(setQuote, 500)
+
+/**
+ * Retrieves the allowance value of a token for a user account.
+ *
+ * @param chainId The chain ID where the token contract resides.
+ * @param tokenAddress The address of the token contract.
+ * @param userAddress The address of the user account.
+ * @param spenderAddress The address of the contract or account authorized to spend the tokens.
+ * @returns The allowance value of the token for the user account.
+ */
+export const checkAllowance = async (tokenAddress: string, userAddress: string, spenderAddress: string) => {
+  try {
+    const provider = getProvider()
+    const tokenContract = new ethers.Contract(tokenAddress, token_abi, provider)
+    const allowance: BigNumber = await tokenContract.allowance(userAddress, spenderAddress)
+    return allowance
+  } catch {
+    return BigNumber.from('0')
+  }
+}
+
+/**
+ * Approves a certain amount of tokens to be spent by a specific contract or account.
+ *
+ * @param tokens The tokens object containing input and output token addresses.
+ * @param amountParsed The amount of tokens to approve for spending.
+ * @returns An object containing the transaction and any error that occurred.
+ */
+export const approve = async ({ contractAddress, spenderAddress }: ApproveType, amountParsed: BigNumber) => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const tokenContract = new ethers.Contract(contractAddress, token_abi, signer)
+    const tx: TransactionType = await tokenContract.approve(spenderAddress, amountParsed)
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * Performs a buy or sell action with a specified amount.
+ *
+ * @param amount The amount of tokens to buy or sell.
+ * @param action The type of action to perform (buy or sell).
+ * @returns An object containing the transaction and any error that occurred.
+ */
+export const buy_sell = async (amountParsed: BigNumber, action: OptionType) => {
+  const call_function = OPTIONS_FUNCTIONS[action]
+  const { address, chainId } = useStoreAccount.getState()
+  const { txSpeed, slippage } = useStoreSettings.getState()
+  const { minAmount, autoMinOutput } = useStoreAction.getState()
+  const selectedAmount = slippage.id === 2 ? autoMinOutput : minAmount
+  const timestamp = getTimestamp()
+  const tokenAddress = TOKENS[chainId].TOKEN.address as ADDRESS
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const gasPrice = await getGasPrice(signer, txSpeed)
+    const contract = new ethers.Contract(tokenAddress, token_abi, signer)
+    const tx: TransactionType = await contract[call_function](
+      amountParsed,
+      selectedAmount,
+      timestamp,
+      address,
+      CONTRACT_ZERO,
+      {
+        gasPrice,
+      },
+    )
+    return { tx, error: null }
+  } catch (error) {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * Performs a swap action with a specified amount.
+ *
+ * @param amount The amount of tokens to buy or sell.
+ * @param action The type of action to perform (buy or sell).
+ * @returns An object containing the transaction and any error that occurred.
+ */
+export const swap_action = async (amount: string, action: OptionType) => {
+  const call_function = OPTIONS_FUNCTIONS[action]
+  const { txSpeed } = useStoreSettings.getState()
+  const isVtoken = ['Stake', 'Unstake', 'Burn'].includes(action)
+  const needAddress = ['Exercise', 'Redeem'].includes(action)
+  const isBurn = ['Burn'].includes(action)
+  const { address, chainId } = useStoreAccount.getState()
+  const { TOKEN, VTOKEN } = TOKENS[chainId]
+  const tokenAddress = TOKEN.address as ADDRESS
+  const vTokenAddress = VTOKEN.address as ADDRESS
+  const parsedAmount = ethers.utils.parseEther(amount)
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const gasPrice = await getGasPrice(signer, txSpeed)
+    let contract: ethers.Contract | null = null
+    if (isVtoken) {
+      contract = new ethers.Contract(vTokenAddress, abi_vToken, signer)
+    } else {
+      contract = new ethers.Contract(tokenAddress, token_abi, signer)
+    }
+    let tx: TransactionType
+    if (needAddress) {
+      tx = await contract[call_function](parsedAmount, address, {
+        gasPrice,
+      })
+    } else if (isBurn) {
+      tx = await contract[call_function](address, parsedAmount, {
+        gasPrice,
+      })
+    } else {
+      tx = await contract[call_function](parsedAmount, {
+        gasPrice,
+      })
+    }
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * Mint tests tokens for a user.
+ *
+ * @param tokenAddress The address of the base token contract.
+ * @param userAddress The address of the user.
+ * @returns An object containing the transaction and any error that occurred.
+ */
+export const mintToken = async (tokenAddress: string, userAddress: string) => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const tokenContract = new ethers.Contract(tokenAddress, base_abi, signer)
+    const tx: TransactionType = await tokenContract.mint(userAddress, MINT_AMOUNT)
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * Harvest rewards tokens for a user.
+ *
+ * @param contractAddress The address of the rewards contract.
+ * @param userAddress The address of the user.
+ * @returns An object containing the transaction and any error that occurred.
+ */
+export const harvest = async (contractAddress: string, userAddress: string) => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(contractAddress, abi_vTokenReward, signer)
+    const tx: TransactionType = await contract.getReward(userAddress)
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * Format the BribeCards from the data.
+ * @param {bribeCardData[]} bribeCardData - The data from the blockchain.
+ * @returns {BribeCardI[]} - An Array of object.
+ */
+const formatBribeCard = (bribeCardData: BribeCardData[]): BribeCardI[] => {
+  const formatedBribes: BribeCardI[] = []
+
+  for (let i = 0; i < bribeCardData.length; i++) {
+    const [
+      pluginAddress,
+      bribeAddress,
+      isAlive,
+      protocol,
+      symbol,
+      rewardTokens,
+      rewardTokenDecimals,
+      rewardsPerToken,
+      accountRewardsEarned,
+      voteWeight,
+      votePercent,
+      accountVotePercent,
+    ] = bribeCardData[i]
+
+    const formattedBribe: BribeCardI = {
+      pluginAddress,
+      bribeAddress,
+      isAlive,
+      protocol,
+      symbol,
+      rewardTokens,
+      rewardTokenDecimals,
+      rewardsPerToken,
+      accountRewardsEarned,
+      voteWeight: BigNumber.from(voteWeight),
+      votePercent: BigNumber.from(votePercent),
+      accountVotePercent: BigNumber.from(accountVotePercent),
+    }
+
+    if (isAlive) formatedBribes.push(formattedBribe)
+  }
+
+  return formatedBribes
+}
+
+/**
+ * Vote the plugins.
+ * @param {string[]} plugins - Array of plugins to vote for.
+ * @param {string[]} votes - Array of votes corresponding to the plugins.
+ * @param {number} chainId - The current network Id.
+ * @returns {Object} - An object containing the transaction and error (if any).
+ */
+export const vote = async (plugins: string[], votes: string[], chainId: number) => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(CONTRACTS[chainId].voter, abi_voter, signer)
+    const tx: TransactionType = await contract.vote(plugins, votes)
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * reset the votes to 0.
+ * @param {number} chainId - The current network Id.
+ * @returns {Object} - An object containing the transaction and error (if any).
+ */
+export const reset = async (chainId: number) => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(CONTRACTS[chainId].voter, abi_voter, signer)
+    const tx: TransactionType = await contract.reset()
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+/**
+ * claim the rewards from the plugins.
+ * @param {string[]} plugins - Array of plugins to vote for.
+ * @param {number} chainId - The current network Id.
+ * @returns {Object} - An object containing the transaction and error (if any).
+ */
+export const claim = async (plugins: string[], chainId: number) => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(CONTRACTS[chainId].voter, abi_voter, signer)
+    const tx: TransactionType = await contract.claimBribes(plugins)
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * Create bribe for a specific token.
+ *
+ * @param contractAddress The address of the rewards contract.
+ * @param bribeAddress The address of the bribe.
+ * @param parsedAmount The amount parsed.
+ * @returns An object containing the transaction and any error that occurred.
+ */
+export const notifyRewardAmount = async (contractAddress: ADDRESS, bribeAddress: ADDRESS, parsedAmount: BigNumber) => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(bribeAddress, abi_bribe, signer)
+    const tx: TransactionType = await contract.notifyRewardAmount(contractAddress, parsedAmount)
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+
+/**
+ * check if the amount is higher that balance
+ * @param {string} amount - The value from the input
+ * @param {BigNumber} balance - The user token balance
+ * @returns {boolean} - Return a boolean if is greater or not that the balance
+ */
+export const isValidBalance = (amount: string, balance: BigNumber) => {
+  const parsedAmount = ethers.utils.parseEther(amount)
+  return parsedAmount.gt(balance)
+}
+
+/**
+ * get all bondingCurve, vote and tokens information in two calls.
+ * @param {number} chainId - The current network Id.
+ * @param {ADDRESS} userAddress - The current user address.
+ * @returns {Object} - An object containing the balances.
+ */
+export const getMulticallbondingVote = async (userAddress: ADDRESS, chainId: number) => {
+  const balances: UserBalancesI = {}
+
+  const providers = getProvider()
+  const provider = MulticallWrapper.wrap(providers)
+
+  MulticallWrapper.isMulticallProvider(provider)
+  const contract = new ethers.Contract(CONTRACTS[chainId].bondingCurve, abi, provider)
+  const bondingDataPromise = contract.bondingCurveData(userAddress)
+  const portfolioDataPromise = contract.portfolioData(userAddress)
+  const listOfPluginsPromise = contract.getPlugins()
+  const tokensExternal = TOKENS_ARRAY[chainId].filter((token) => token.id === 'external')
+  const tokens_balanceOf = tokensExternal.map((token) => {
+    const contract = new ethers.Contract(token.address as ADDRESS, token_abi, provider)
+
+    return contract.balanceOf(userAddress)
+  })
+
+  const [bondingCurveData, portfolioData, listOfPlugins]: [BigNumber[], BigNumber[], string[]] = await Promise.all([
+    bondingDataPromise,
+    portfolioDataPromise,
+    listOfPluginsPromise,
+  ])
+
+  const results = await Promise.all(tokens_balanceOf)
+  tokensExternal.forEach((token, index) => {
+    balances[token.symbol] = BigNumber.from(results[index])
+  })
+
+  const bribeCardData: BribeCardData[] = await contract.getBribeCards(0, listOfPlugins.length, userAddress)
+  const formatBribes = formatBribeCard(bribeCardData)
+  provider.isMulticallEnabled = false
+
+  return { bondingCurveData, portfolioData, formatBribes, balances }
+}
+
+/**
+ * Get the Bonding Curve data ans the Portafolio Data with rewards from the blockchain.
+ * @param {string} userAddress - The current address connected.
+ * @param {number} chainId - The current network Id.
+ * @returns {BigNumber[]} - An object with bondingCurveData and porfolioData.
+ */
+
+export const getMulticallBondingCurveData = async (userAddress: ADDRESS, chainId: number) => {
+  const provider = getProvider()
+  MulticallWrapper.isMulticallProvider(provider)
+  const contract = new ethers.Contract(CONTRACTS[chainId].bondingCurve, abi, provider)
+  const bondingDataPromise = contract.bondingCurveData(userAddress)
+  const portfolioDataPromise = contract.portfolioData(userAddress)
+
+  const [bondingCurveData, portfolioData]: [BigNumber[], BigNumber[]] = await Promise.all([
+    bondingDataPromise,
+    portfolioDataPromise,
+  ])
+
+  return { bondingCurveData, portfolioData }
+}

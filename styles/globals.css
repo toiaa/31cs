@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #030712;
+  color: #ffffff;
+  font-family: 'Jost', sans-serif;
+}
+
+/* Custom styles */
+@layer components {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .container-custom {
+    @apply w-full max-w-7xl mx-auto sm:px-12 px-2;
+  }
+  .title {
+    @apply md:text-xl lg:text-2xl font-bold;
+  }
+  .transition-ease {
+    @apply transition-all duration-200 ease-in-out;
+  }
+  .card-custom {
+    @apply sm:w-full lg:w-1/2 w-full min-h-[650px] h-fit lg:h-full bg-box transition-ease rounded-lg p-4;
+  }
+  .item-custom {
+    @apply w-full flex items-start justify-between bg-box-dark-neutral transition-ease rounded-md px-3 py-3 md:items-center lg:items-center;
+  }
+  .item-portfolio-custom {
+    @apply w-full flex flex-col items-start justify-between  bg-box-dark-neutral rounded-md px-3 py-3;
+  }
+  .button-disabled {
+    @apply disabled:bg-gray-borders disabled:cursor-pointer disabled:border-gray-borders disabled:hover:opacity-50;
+  }
+  .button-custom {
+    @apply flex-center px-[12px] py-[6px] text-sm lg:text-base w-full bg-button-main-darkest border border-button-main-border shadow-md shadow-box rounded-md cursor-pointer transition-ease button-disabled hover:opacity-70;
+  }
+  .button-no-min-width {
+    @apply min-w-0;
+  }
+  .button-min-width {
+    @apply min-w-[150px];
+  }
+  .farm-card-custom {
+    @apply flex flex-col gap-2 justify-between bg-box rounded-lg p-4 w-[270px] min-h-[435px];
+  }
+  .farm-card-items-custom {
+    @apply flex rounded text-sm md:text-base font-thin p-2 bg-box-dark-neutral;
+  }
+  .vote-card-custom {
+    @apply w-full bg-box transition-ease rounded-lg p-4;
+  }
+  .vote-row-rewards {
+    @apply w-full text-center font-normal text-sm md:text-base;
+  }
+  .selected-nav {
+    @apply bg-button-main-darkest bg-opacity-50 rounded gap-1 flex items-center px-2 py-1 text-[#d8b4fe];
+  }
+  .nav-mobile {
+    @apply flex flex-col w-full items-center justify-center gap-1 p-0;
+  }
+}
+
+/* REMOVE IT WHEN WE FIND A GOOD LOADER DESIGN */
+.loader {
+  border-top-color: #3498db;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* SQUARELOADING */
+@keyframes square-animation {
+  0% {
+    left: 0;
+    top: 0;
+  }
+
+  10.5% {
+    left: 0;
+    top: 0;
+  }
+
+  12.5% {
+    left: 32px;
+    top: 0;
+  }
+
+  23% {
+    left: 32px;
+    top: 0;
+  }
+
+  25% {
+    left: 64px;
+    top: 0;
+  }
+
+  35.5% {
+    left: 64px;
+    top: 0;
+  }
+
+  37.5% {
+    left: 64px;
+    top: 32px;
+  }
+
+  48% {
+    left: 64px;
+    top: 32px;
+  }
+
+  50% {
+    left: 32px;
+    top: 32px;
+  }
+
+  60.5% {
+    left: 32px;
+    top: 32px;
+  }
+
+  62.5% {
+    left: 32px;
+    top: 64px;
+  }
+
+  73% {
+    left: 32px;
+    top: 64px;
+  }
+
+  75% {
+    left: 0;
+    top: 64px;
+  }
+
+  85.5% {
+    left: 0;
+    top: 64px;
+  }
+
+  87.5% {
+    left: 0;
+    top: 32px;
+  }
+
+  98% {
+    left: 0;
+    top: 32px;
+  }
+
+  100% {
+    left: 0;
+    top: 0;
+  }
+}
+
+.loaderFarms {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  transform: rotate(45deg);
+}
+
+.loader-square {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  margin: 2px;
+  border-radius: 0px;
+  background: white;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  animation: square-animation 10s ease-in-out infinite both;
+}
+
+.loader-square:nth-of-type(0) {
+  animation-delay: 0s;
+}
+
+.loader-square:nth-of-type(1) {
+  animation-delay: -1.4285714286s;
+}
+
+.loader-square:nth-of-type(2) {
+  animation-delay: -2.8571428571s;
+}
+
+.loader-square:nth-of-type(3) {
+  animation-delay: -4.2857142857s;
+}
+
+.loader-square:nth-of-type(4) {
+  animation-delay: -5.7142857143s;
+}
+
+.loader-square:nth-of-type(5) {
+  animation-delay: -7.1428571429s;
+}
+
+.loader-square:nth-of-type(6) {
+  animation-delay: -8.5714285714s;
+}
+
+.loader-square:nth-of-type(7) {
+  animation-delay: -10s;
+}
