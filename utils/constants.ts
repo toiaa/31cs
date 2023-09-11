@@ -19,31 +19,6 @@ export const NAVLINKS: NavLinkInterface[] = [
     path: '/',
     label: 'Home',
   },
-  {
-    id: 'farms',
-    path: '/farms',
-    label: 'Farms',
-  },
-  {
-    id: 'vote',
-    path: '/vote',
-    label: 'Vote',
-  },
-  {
-    id: 'claim',
-    path: '/claim',
-    label: 'Claim',
-  },
-  {
-    id: 'governance',
-    path: 'https://www.tally.xyz/gov/liltokendao',
-    label: 'Gov',
-  },
-  {
-    id: 'docs',
-    path: 'https://heeshs-organization.gitbook.io/liltokenproject/liltoken/introduction',
-    label: 'Docs',
-  },
 ]
 
 export const STATS_DATA: StatsDataInterface[] = [
