@@ -9,14 +9,14 @@ const TokenInfo = ({ item }: { item: Token }) => {
   const { getBalance } = useBalance()
 
   const { id, symbol } = item
-  const balance = getBalance(id, symbol)
+  const balance = getBalance(id)
   const formatAmount = formatEther(balance)
 
   return (
     <>
       <div className='flex gap-2 items-center '>
-        <p>{item.symbol}</p>
-        <ImageTokens symbol={item.symbol} />
+        <p>{symbol}</p>
+        <ImageTokens symbol={symbol} />
       </div>
       <Amount amount={formatAmount} type='number' />
     </>

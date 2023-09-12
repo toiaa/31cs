@@ -13,7 +13,6 @@ import SwapInput from './SwapInput'
 import TokenInfoSection from './TokenInfoSection'
 
 const PercentageButtons = dynamic(() => import('@/components/PercentageButtons'))
-const TokensModal = dynamic(() => import('../TokensModal'))
 
 const TokenAmountCard = ({
   token,
@@ -21,21 +20,18 @@ const TokenAmountCard = ({
   inputKey,
   currentAction,
   currentOption,
-  showTokenList,
-  onSelectItem,
-  onOpenList,
   items,
   isLoading = false,
   inputToken,
 }: TokenAmountCardInterface) => {
   const { symbol, img, id } = token
-  const { symbol: inputSymbol, id: inputId } = inputToken
+  const { id: inputId } = inputToken
   const { getBalance, getPrice } = useBalance()
   const { accountMaxWidthdraw, accountVotingPower } = useStoreAccountStats()
   const { setValue, getValue } = useInput(currentAction, currentOption, inputKey)
   const value = getValue(inputKey)
-  const balance = getBalance(id, symbol)
-  const inputBalance = getBalance(inputId, inputSymbol)
+  const balance = getBalance(id)
+  const inputBalance = getBalance(inputId)
   const price = getPrice(id)
   const formatBalance = formatEther(balance)
   const formatVotingPower = formatEther(accountVotingPower)
@@ -44,7 +40,7 @@ const TokenAmountCard = ({
   const formatPrice = formatEther(price)
   const isDisabled = isInputDisabled(currentAction, inputKey)
   const amountUSD = useMemo(() => calculateAmountUSD(value, formatPrice), [value, formatPrice])
-  const showUsdPrice = ['Wrap', 'Lend', 'Bribe'].includes(currentAction) || currentOption === 'Stake'
+  const showUsdPrice = ['Wrap', 'Lend'].includes(currentAction) || currentOption === 'Stake'
   const showLend = useMemo(() => currentAction === 'Lend', [currentAction])
   const lendLabel: TokenType = currentOption === 'Borrow' ? 'credit' : 'debt'
   const lendBalance = getBalance(lendLabel)
@@ -60,10 +56,6 @@ const TokenAmountCard = ({
     },
     [currentAction, currentOption, inputKey, value, lendBalance, inputBalance, setValue, showLend, lendLabel],
   )
-
-  const onOpenBribe = () => {
-    if (onOpenList) onOpenList()
-  }
 
   const detailAmount: DetailAmountInterface = {
     amount: formatBalance,
@@ -94,7 +86,6 @@ const TokenAmountCard = ({
           {!showUsdPrice && <DetailAmount amount={amountUSD} label='≈' type='price' isLoading={isLoading} />}
         </div>
         <TokenInfoSection
-          onOpenBribe={onOpenBribe}
           items={items}
           img={img}
           symbol={symbol}
@@ -105,9 +96,6 @@ const TokenAmountCard = ({
         />
       </div>
       {showPercentage && <PercentageButtons handleInput={handleInput} balance={showLend ? lendBalance : balance} />}
-      {showTokenList && onSelectItem && items && (
-        <TokensModal onClose={() => null} items={items} onSelectItem={onSelectItem} type='toke' />
-      )}
     </div>
   )
 }

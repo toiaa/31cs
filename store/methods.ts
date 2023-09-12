@@ -1,11 +1,8 @@
-import { FarmsCardData } from '@/ts/types'
 import { ERRORS, ERRORS_TYPE } from '@/utils/constants'
-import { orderFarmsData } from '@/utils/farmsMethods'
 import { BigNumber } from '@ethersproject/bignumber'
 import { parseEther } from 'ethers/lib/utils.js'
 import {
   useStoreAccountStats,
-  useStoreGaugeCards,
   useStoreBalance,
   useStoreRewards,
   useStoreStats,
@@ -121,8 +118,4 @@ export const getStatus = (amount: string, balance: BigNumber, id: ERRORS_TYPE): 
 
 export const resetStatus = () => {
   useStoreSwap.setState({ isDisabled: false, message: '' })
-}
-export const setGaugeCardsData = async (data: FarmsCardData[]) => {
-  const orderedData = orderFarmsData(data)
-  useStoreGaugeCards.setState({ gauges: orderedData })
 }

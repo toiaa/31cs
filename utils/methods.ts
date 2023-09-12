@@ -1,29 +1,10 @@
-import { BribeCardI } from '@/ts/interfaces'
-import {
-  ADDRESS,
-  ActionType,
-  AmountType,
-  InputType,
-  OptionType,
-  Token,
-  TokensApproveType,
-  TokensType,
-} from '@/ts/types'
-import { BigNumber } from 'ethers'
+import { ActionType, AmountType, InputType, OptionType, TokensApproveType, TokensType } from '@/ts/types'
 import { DEFAULT_NETWORK } from './constants'
 import { NETWORKS_LIST } from './networks'
-import { TOKENS, TOKENS_ARRAY } from './tokens'
+import { TOKENS } from './tokens'
 
 const ONLY_NUMBER = /^[0-9]*\.?[0-9]*$/
 const ONLY_LETTERS = /[a-zA-Z]/
-
-/**
- * compare two addreses to verify if is the same
- * @param {ADDRESS} addressA - address A to compare.
- * @param {ADDRESS} addressB - address B to compare.
- * @returns {boolean} - a boolean that represent if is the same or not
- */
-export const isSameAddress = (addressA: ADDRESS, addressB: ADDRESS) => addressA.toLowerCase() === addressB.toLowerCase()
 
 /**
  * Formats an `amount` as a string with commas for the integer part and a period and `decimals` decimals (if any) for the decimal part.
@@ -236,58 +217,8 @@ export const getAllowanceInfo = (chainId: number, actionSelected: OptionType) =>
 }
 
 /**
- * Get the rewards Tokens based on the current chainId
- * @param {number} chainId - The current network Id.
- * @returns {Object} - An object with the tokens Mumbai is the default return tokens
- */
-export const findRewardTokens = (chainId: number, rewardTokens: string[]): Token[] => {
-  const tokenMap = new Map(TOKENS_ARRAY[chainId].map((token) => [token.address?.toLowerCase(), token]))
-  const foundTokens: Token[] = []
-  for (const address of rewardTokens) {
-    const token = tokenMap.get(address.toLowerCase())
-    if (token) {
-      foundTokens.push(token)
-    }
-  }
-
-  return foundTokens
-}
-
-/**
  * check if the value is greater than zero
  * @param {string} value - The value from the input
  * @returns {boolean} - Return a boolean if is greater or not
  */
 export const isValid = (value: string) => Number(value) > 0
-
-const getAmount = (rewardsPerToken: BigNumber, decimals: number): string => {
-  const rewardsPerTokenBN = BigNumber.from(rewardsPerToken)
-  const amount = rewardsPerTokenBN.div(BigNumber.from(10).pow(decimals)).toString()
-  return amount
-}
-
-/**
- * Get the total earned of each token rewards
- * @param {BribeCardI[]} bribes - The bribes array from the contract
- * @param {chainId} chainId - The current chainId connected
- * @returns {Record<string, number>} - Return an object of rewards tokens
- */
-export const getTokenRewards = (bribes: BribeCardI[], chainId: number): Record<string, number> => {
-  const rewardObject: Record<string, number> = {}
-  for (let i = 0; i < bribes.length; i++) {
-    const bribe = bribes[i]
-    const { accountRewardsEarned, rewardTokenDecimals } = bribe
-    const rewards = findRewardTokens(chainId, bribe.rewardTokens)
-    rewards.forEach((rt, index) => {
-      const amount = getAmount(accountRewardsEarned[index], rewardTokenDecimals[index])
-      const { symbol } = rt
-
-      if (rewardObject[symbol]) {
-        rewardObject[symbol] += Number(amount)
-      } else {
-        rewardObject[symbol] = Number(amount)
-      }
-    })
-  }
-  return rewardObject
-}

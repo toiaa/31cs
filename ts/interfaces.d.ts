@@ -9,7 +9,6 @@ import {
   ActionType,
   OptionType,
   TokenType,
-  ADDRESS,
   WeightTypes,
 } from '@/ts/types'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -104,9 +103,6 @@ export interface TokenAmountCardInterface {
   currentOption: OptionType
   isLoading?: boolean
   showPercentage?: boolean
-  showTokenList?: boolean
-  onSelectItem?: (item: BribeCardI | Token) => void
-  onOpenList?: () => void
   items?: Token[]
 }
 
@@ -168,41 +164,6 @@ export interface PercentageInterface {
   balance: BigNumber
 }
 
-export interface GaugeCardData {
-  plugin: string
-  underlyingAddress: string
-  underlyingDecimals: number
-  gaugeAddress: string
-  isAlive: boolean
-  symbol: string
-  protocol: string
-  tokensInUnderlying: string[]
-  priceBase: BigNumber
-  priceOTOKEN: BigNumber
-  rewardPerToken: BigNumber
-  rewardPerTokenUSD: BigNumber
-  votingWeight: BigNumber
-  totalSupply: BigNumber
-  accountUnderlyingTokens: BigNumber
-  accountStakedTokens: BigNumber
-  accountEarnedOTOKEN: BigNumber
-}
-
-export interface BribeCardI {
-  pluginAddress: ADDRESS
-  bribeAddress: ADDRESS
-  isAlive: boolean
-  protocol: string
-  symbol: string
-  rewardTokens: ADDRESS[]
-  rewardTokenDecimals: number[]
-  rewardsPerToken: BigNumber[]
-  accountRewardsEarned: BigNumber[]
-  voteWeight: BigNumber
-  votePercent: BigNumber
-  accountVotePercent: BigNumber
-}
-
 export interface UserBalancesI {
   [address: string]: BigNumber
 }
@@ -215,7 +176,6 @@ export interface TokenModalI {
 }
 
 export interface TokenInfoSectionI {
-  onOpenBribe: () => void
   items: Token[] | undefined
   img: string
   symbol: string

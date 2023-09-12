@@ -1,4 +1,3 @@
-import { UserBalancesI } from '@/ts/interfaces'
 import {
   StoreAccountType,
   StoreActionType,
@@ -10,8 +9,6 @@ import {
   StoreTokenRewardsType,
   StoreTokensType,
   StoreTxType,
-  StoreBribesType,
-  StoreGaugeType,
   StoreStatusContractsType,
 } from '@/ts/types'
 import { APPROVAL_TABS, CONTRACT_ZERO, DEFAULT_NETWORK, SLIPPAGE_TABS, TRANSACTION_SPEED_TABS } from '@/utils/constants'
@@ -42,9 +39,6 @@ export const useStoreBalance = create<StoreTokensType>(() => ({
   debt: DEFAULT_VALUE, // Debt token balance
   votingPower: DEFAULT_VALUE, // Voting power balance
 }))
-
-/* Store for tracking token balances from farms and vote*/
-export const useStoreTokensBalance = create<UserBalancesI>(() => ({}))
 
 /* Store for tracking token rewards */
 export const useStoreRewards = create<StoreTokenRewardsType>(() => ({
@@ -80,7 +74,6 @@ export const useStoreInput = create<StoreInputType>(() => ({
   inputValue: '0',
   craftValue: '0',
   outputValue: '0',
-  bribeValue: '0',
   activeValue: null,
 }))
 
@@ -137,17 +130,7 @@ export const useStoreTx = create<StoreTxType>(() => ({
   hash: null,
 }))
 
-export const useStoreBribes = create<StoreBribesType>(() => ({
-  bribes: [],
-}))
-export const useStoreGaugeCards = create<StoreGaugeType>(() => ({
-  gauges: null,
-  prices: null,
-}))
-
 /* Store for tracking inputs */
 export const useStatusContracts = create<StoreStatusContractsType>(() => ({
   loadingBonding: true,
-  loadingFarms: true,
-  loadingVote: true,
 }))
