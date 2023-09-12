@@ -1,12 +1,5 @@
 import { NavLinkInterface, StatsDataInterface } from '@/ts/interfaces'
-import {
-  SettingsTabsType,
-  PercentageSwapValuesType,
-  MainTabTypes,
-  ContractsType,
-  ADDRESS,
-  FilterFarmsObject,
-} from '@/ts/types'
+import { SettingsTabsType, PercentageSwapValuesType, MainTabTypes, ContractsType, ADDRESS } from '@/ts/types'
 
 export const IS_DEMO = true
 export const WEBSITE = 'TOKENPROJECT'
@@ -171,20 +164,6 @@ export const CONTRACTS: ContractsType = {
 
 export const CONTRACT_FUNCTIONS_BUY = ['quoteBuyIn', 'quoteBuyOut']
 export const CONTRACT_FUNCTIONS_SELL = ['quoteSellIn', 'quoteSellOut']
-
-export const ACTIONS_FARM_CARD = {
-  DEPOSIT: 'Deposit',
-  APPROVE: 'Approve',
-  WITHDRAW: 'Withdraw',
-  CLAIM: 'Claim',
-  NOACTION: '',
-}
-
-export const FILTER_FARMS: FilterFarmsObject = {
-  active: { id: 'active', label: 'Active farms' },
-  inactive: { id: 'inactive', label: 'Inactive farms' },
-  all: { id: 'all', label: 'All farms' },
-}
 
 export const ERRORS = {
   balance: 'Amount exceeds wallet balance',

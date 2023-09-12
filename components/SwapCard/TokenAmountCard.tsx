@@ -13,7 +13,7 @@ import SwapInput from './SwapInput'
 import TokenInfoSection from './TokenInfoSection'
 
 const PercentageButtons = dynamic(() => import('@/components/PercentageButtons'))
-const TokensModal = dynamic(() => import('../Vote/BribeModal/TokensModal'))
+const TokensModal = dynamic(() => import('../TokensModal'))
 
 const TokenAmountCard = ({
   token,

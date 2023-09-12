@@ -3,10 +3,10 @@ import { TOKENS_ARRAY } from '@/utils/tokens'
 import Image from 'next/image'
 import React from 'react'
 
-const ImageTokens = ({ symbol, strictFilter = false }: { symbol: string; strictFilter?: boolean }) => {
+const ImageTokens = ({ symbol }: { symbol: string }) => {
   const { chainId } = useStoreAccount.getState()
-  const tokens_pairs = TOKENS_ARRAY[chainId]
-    .filter((token) => (strictFilter ? token.symbol === symbol : symbol.includes(token.symbol)))
+  const tokens = TOKENS_ARRAY[chainId]
+    .filter((token) => symbol.includes(token.symbol))
     .sort((a, b) => {
       const symbolA = a.symbol.toUpperCase()
       const symbolB = b.symbol.toUpperCase()
@@ -21,7 +21,7 @@ const ImageTokens = ({ symbol, strictFilter = false }: { symbol: string; strictF
 
   return (
     <div className='flex gap-[3px]'>
-      {tokens_pairs.map((token, i) => (
+      {tokens.map((token, i) => (
         <Image key={`${token}-${i}-item`} src={token.img} alt='egg' width={30} height={30} />
       ))}
     </div>
