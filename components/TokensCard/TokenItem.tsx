@@ -16,7 +16,7 @@ const TokenItem = ({ token }: TokenItemInterface) => {
   const { isConnected } = useStoreAccount()
   const { loadingBonding } = useStatusContracts()
 
-  const balance = getBalance(id, symbol)
+  const balance = getBalance(id)
   const price = getPrice(id)
   const formatBalance = formatEther(balance)
   const formatPrice = formatEther(price)

@@ -1,36 +1,15 @@
 import Amount from '@/components/Amount'
 import useInput from '@/hooks/useInput'
-import useTransaction from '@/hooks/useTransaction'
 import { useStoreAction } from '@/store'
-import { InfoTransactionInterface } from '@/ts/interfaces'
-import { formatEther } from 'ethers/lib/utils'
 import React from 'react'
 
-const Information = ({ isFarm, value, actionSelectedFarms, rewards }: InfoTransactionInterface) => {
-  const { txError, txSuccess } = useTransaction()
+const Information = () => {
   const { actionSelected, tokens } = useStoreAction()
   const { getValue } = useInput()
   const inputValue = getValue('inputValue')
   const outputValue = getValue('outputValue')
 
   const renderDataInfo = () => {
-    if (isFarm && value) {
-      if (actionSelectedFarms === 'Claim' && rewards) {
-        const rewardsString = formatEther(rewards)
-        return (
-          <div className='flex w-full justify-between'>
-            {!(txSuccess || txError) && <p>{`${actionSelectedFarms} amount:`}</p>}
-            {!(txSuccess || txError) && <Amount amount={rewardsString} type='number' decimals={4} />}
-          </div>
-        )
-      }
-      return (
-        <div className='flex w-full justify-between'>
-          <p>{`${actionSelectedFarms} amount:`}</p>
-          <Amount amount={value} type='number' decimals={4} />
-        </div>
-      )
-    }
     return (
       <>
         <div className='flex w-full justify-between'>

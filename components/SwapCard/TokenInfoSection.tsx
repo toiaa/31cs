@@ -4,7 +4,6 @@ import DetailAmount from './DetailAmount'
 const SIZE = 30
 
 const TokenInfoSection = ({
-  onOpenBribe,
   items,
   img,
   symbol,
@@ -19,7 +18,6 @@ const TokenInfoSection = ({
   return (
     <div className='flex flex-col w-full justify-between items-end h-[68px]'>
       <div
-        onClick={onOpenBribe}
         className={`flex justify-end gap-2 p-2 rounded-md items-center h-[35px] transition-all ${
           items && 'cursor-pointer hover:bg-box-pale-neutral'
         }`}>

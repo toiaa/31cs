@@ -1,12 +1,5 @@
 import { NavLinkInterface, StatsDataInterface } from '@/ts/interfaces'
-import {
-  SettingsTabsType,
-  PercentageSwapValuesType,
-  MainTabTypes,
-  ContractsType,
-  ADDRESS,
-  FilterFarmsObject,
-} from '@/ts/types'
+import { SettingsTabsType, PercentageSwapValuesType, MainTabTypes, ContractsType, ADDRESS } from '@/ts/types'
 
 export const IS_DEMO = true
 export const WEBSITE = 'TOKENPROJECT'
@@ -165,26 +158,11 @@ export const CONTRACTS: ContractsType = {
   [POLYGON]: {
     bondingCurve: '0x3a0899Bf14c9165FdA500d63789Bd4732A20b879',
     vTokenReward: '0x6a42D6334e4A05FE480E3De3C8fc159dB15f41E3',
-    voter: '0x0375E50e3a58381b65Ce9D565313FD8f993101c5',
   },
 }
 
 export const CONTRACT_FUNCTIONS_BUY = ['quoteBuyIn', 'quoteBuyOut']
 export const CONTRACT_FUNCTIONS_SELL = ['quoteSellIn', 'quoteSellOut']
-
-export const ACTIONS_FARM_CARD = {
-  DEPOSIT: 'Deposit',
-  APPROVE: 'Approve',
-  WITHDRAW: 'Withdraw',
-  CLAIM: 'Claim',
-  NOACTION: '',
-}
-
-export const FILTER_FARMS: FilterFarmsObject = {
-  active: { id: 'active', label: 'Active farms' },
-  inactive: { id: 'inactive', label: 'Inactive farms' },
-  all: { id: 'all', label: 'All farms' },
-}
 
 export const ERRORS = {
   balance: 'Amount exceeds wallet balance',

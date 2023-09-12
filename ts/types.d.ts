@@ -1,5 +1,4 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { BribeCardI, GaugeCardData } from './interfaces'
 
 export type ADDRESS = `0x${string}`
 
@@ -41,7 +40,6 @@ export interface ContractsType {
   [key: number]: {
     bondingCurve: ADDRESS
     vTokenReward: ADDRESS
-    voter: ADDRESS
   }
 }
 
@@ -91,7 +89,6 @@ export type StoreInputType = {
   inputValue: string
   craftValue: string
   outputValue: string
-  bribeValue: string
   activeValue: InputType | null
 }
 
@@ -99,34 +96,6 @@ export type StoreSwapType = {
   isDisabled: boolean
   message: string
 }
-export type StoreGaugeType = {
-  [key: string]: GaugeCardData[] | null
-  [key: string]: BigNumber[] | null
-}
-
-export type GaugeCardList = GaugeCardData[]
-
-export type GaugeContractList = [
-  [
-    string,
-    string,
-    number,
-    string,
-    boolean,
-    string,
-    string,
-    string[],
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-  ],
-]
 
 export interface SwapActions {
   [action: string]: {
@@ -191,27 +160,22 @@ export type TokensApproveType = {
   }
 }
 
-export type StoreBribesType = {
-  bribes: BribeCardI[]
-}
-
 export type TransactionType = {
   hash: string
   wait: () => Promise<(value?: number | undefined) => void>
 }
 
 // Variables
-export type ErrorsTypes = 'balance' | 'sell' | 'slippage' | 'vote' | 'voting'
 export type AmountType = 'price' | 'percentage' | 'number'
 export type TokenLabelType = Omit<Token, 'address' | 'decimals'>
 export type SizeTypes = 'xs' | 'sm' | 'base' | 'lg' | 'xl'
 export type WeightTypes = 'normal' | 'bold' | 'semibold'
-export type NavLabelTypes = 'Home' | 'Vote' | 'Farms' | 'Docs' | 'Gov'
-export type NavLinkTypes = 'home' | 'vote' | 'farms' | 'docs' | 'governance' | 'claim'
+export type NavLabelTypes = 'Home' | 'Docs'
+export type NavLinkTypes = 'home' | 'docs'
 export type StatsType = 'tvl' | 'circulatingTOKEN' | 'stakedTOKEN' | 'apr' | 'ltv' | 'emission' | 'marketCap'
 export type TokenType = 'token' | 'otoken' | 'vtoken' | 'credit' | 'debt' | 'wrapped' | 'votingPower' | 'external'
-export type InputType = 'inputValue' | 'craftValue' | 'outputValue' | 'bribeValue'
-export type ActionType = 'Swap' | 'Options' | 'Earn' | 'Lend' | 'Wrap' | 'Bribe'
+export type InputType = 'inputValue' | 'craftValue' | 'outputValue'
+export type ActionType = 'Swap' | 'Options' | 'Earn' | 'Lend' | 'Wrap'
 export type OptionType =
   | 'Buy'
   | 'Sell'
@@ -225,52 +189,7 @@ export type OptionType =
   | 'Wrap'
   | 'Unrwap'
   | 'Approve'
-  | 'Bribe'
-
-export type BribeCardData = [
-  ADDRESS,
-  ADDRESS,
-  boolean,
-  string,
-  string,
-  ADDRESS[],
-  number[],
-  BigNumber[],
-  BigNumber[],
-  BigNumber,
-  BigNumber,
-  BigNumber,
-]
-export type FarmsCardData = [
-  ADDRESS,
-  ADDRESS,
-  number,
-  ADDRESS,
-  boolean,
-  string,
-  string,
-  ADDRESS[],
-  BigNumber,
-  BigNumber,
-  BigNumber,
-  BigNumber,
-  BigNumber,
-  BigNumber,
-  BigNumber,
-  BigNumber,
-  BigNumber,
-]
-export interface FilterFarm {
-  id: string
-  label: string
-}
-
-export interface FilterFarmsObject {
-  [key: string]: FilterFarm
-}
 
 export type StoreStatusContractsType = {
   loadingBonding: boolean
-  loadingFarms: boolean
-  loadingVote: boolean
 }

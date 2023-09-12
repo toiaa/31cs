@@ -1,6 +1,5 @@
 import { useStatusContracts, useStoreRewards } from '@/store'
 import { formatUnits } from 'ethers/lib/utils'
-import Link from 'next/link'
 import Amount from '../Amount'
 
 function PortfolioData() {
@@ -38,9 +37,7 @@ function PortfolioData() {
           <div className='flex'>
             <div className='flex gap-1 items-center text-sm md:text-md lg:text-md'>
               {showTextFarming && !loadingBonding ? (
-                <Link href='/farms' className='text-base text-button-main-darkest hover:underline'>
-                  Deposit in Farms to earn
-                </Link>
+                <p className='text-base text-button-main-darkest '>Get VTOKEN to earn</p>
               ) : (
                 <>
                   <Amount size='md' isLoading={loadingBonding} amount={farmingRewardsNumber} type='price' />

@@ -1,10 +1,10 @@
-import { BribeCardI, TokenModalI } from '@/ts/interfaces'
+import { TokenModalI } from '@/ts/interfaces'
 import { Token } from '@/ts/types'
 import React from 'react'
-import TokenInfo from './TokenInfo'
+import TokenInfo from '../TokenInfo'
 
 const TokensModal = ({ onClose, items, onSelectItem, type }: TokenModalI) => {
-  const onSelect = (item: BribeCardI | Token) => {
+  const onSelect = (item: Token) => {
     onSelectItem(item)
     onClose()
   }

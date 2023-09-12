@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import useBalance from './useBalance'
 
 const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: InputType) => {
-  const { craftValue, inputValue, outputValue, bribeValue, activeValue } = useStoreInput()
+  const { craftValue, inputValue, outputValue, activeValue } = useStoreInput()
   const { chainId } = useStoreAccount()
   const { slippage } = useStoreSettings()
   const { getBalance } = useBalance()
@@ -22,7 +22,7 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
     const { debouncedSetQuote } = await import('@/utils/web3Methods')
     const slippageTolerance = calculateSlippage(slippage.value)
     const { inputToken } = getTokensSwap(optionKey, chainId)
-    const inputBalance = getBalance(inputToken.id, inputToken.symbol)
+    const inputBalance = getBalance(inputToken.id)
     const currentSetQuote = isInterval ? setQuote : debouncedSetQuote
 
     if (optionKey === 'Buy') {
@@ -56,15 +56,6 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
     useStoreInput.setState({ inputValue: value, craftValue: value, outputValue: value, activeValue: 'inputValue' })
   }
 
-  /**
-   * Set the input value on the bribe Modal.
-   *
-   * @param {string} value - The new value to set.
-   */
-  const bribeAction = async (value: string) => {
-    useStoreInput.setState({ bribeValue: value })
-  }
-
   const resetInputs = () => {
     useStoreInput.setState({ inputValue: '0', outputValue: '', activeValue: 'inputValue', craftValue: '' })
   }
@@ -77,16 +68,12 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
     if (['Options', 'Earn', 'Lend', 'Wrap'].includes(actionKey)) {
       await staticAction(value)
     }
-    if (actionKey === 'Bribe') {
-      await bribeAction(value)
-    }
   }
 
   const getValue = (inputKey: InputType) => {
     if (inputKey === 'inputValue') return inputValue
     if (inputKey === 'craftValue') return craftValue
     if (inputKey === 'outputValue') return outputValue
-    if (inputKey === 'bribeValue') return bribeValue
     return ''
   }
 
