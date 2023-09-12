@@ -40,7 +40,6 @@ export interface ContractsType {
   [key: number]: {
     bondingCurve: ADDRESS
     vTokenReward: ADDRESS
-    voter: ADDRESS
   }
 }
 

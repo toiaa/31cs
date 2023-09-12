@@ -158,7 +158,6 @@ export const CONTRACTS: ContractsType = {
   [POLYGON]: {
     bondingCurve: '0x3a0899Bf14c9165FdA500d63789Bd4732A20b879',
     vTokenReward: '0x6a42D6334e4A05FE480E3De3C8fc159dB15f41E3',
-    voter: '0x0375E50e3a58381b65Ce9D565313FD8f993101c5',
   },
 }
 
