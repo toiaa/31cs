@@ -2,6 +2,6 @@
 
 ## Issue ticket number and link
 
-[Ticket](https://github.com/nico-limo/century31/issues/[TICKET])
+[Ticket](https://github.com/toiaa/31cs/issues/[TICKET])
 
 ## Screenshots
