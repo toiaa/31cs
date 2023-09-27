@@ -1,26 +1,17 @@
-import Stats from '@/components/Stats'
-import SwapCard from '@/components/SwapCard'
-import TokensCard from '@/components/TokensCard'
-import MintsButtons from '@/components/WebButtons/MintsAction'
+import GridContainer from '@/components/BoardSection'
 import Head from 'next/head'
 
 export default function Home() {
   return (
     <main className={'flex flex-col gap-[40px] mt-4 items-center container-custom'}>
       <Head key='home-page'>
-        <title>TOKENPROJECT</title>
+        <title>31CSGAME</title>
         <meta name='description' content='An incentive coordination system.' />
       </Head>
-      {/* STATS SECTION */}
-      <Stats />
-      {/* CARDS SECTION */}
+      {/* GRID SECTION */}
       <section className='flex w-full gap-5 flex-col lg:flex-row'>
-        {/* LEFT SIDE */}
-        <TokensCard />
-        {/* RIGHT SIDE */}
-        <SwapCard />
+        <GridContainer />
       </section>
-      <MintsButtons />
     </main>
   )
 }

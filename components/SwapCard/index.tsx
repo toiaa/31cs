@@ -82,7 +82,7 @@ const SwapCard = () => {
 
   return (
     <div className='card-custom relative flex flex-col gap-3'>
-      {isTransactionOpen && <TransactionStatus isFarm={false} />}
+      {isTransactionOpen && <TransactionStatus />}
       <div className='flex flex-col gap-1'>
         <Tabs activeTab={tab.id} list={TABS_LIST[chainId]} onUpdate={updateTab} />
         <SecondaryTabs activeTab={option} list={tab.options} onUpdate={updateOption} />

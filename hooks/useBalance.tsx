@@ -1,15 +1,13 @@
-import { DEFAULT_VALUE, useStoreBalance, useStoreTokensBalance, useStoreTokensPrice } from '@/store'
+import { DEFAULT_VALUE, useStoreBalance, useStoreTokensPrice } from '@/store'
 import { TokenType } from '@/ts/types'
 
 const useBalance = () => {
   const balances = useStoreBalance()
-  const tokensBalance = useStoreTokensBalance()
-  const isFull = Object.keys(tokensBalance).length > 0
   const prices = useStoreTokensPrice()
 
-  const getBalance = (id: TokenType, symbol?: string) => {
+  const getBalance = (id: TokenType) => {
     if (id !== 'external') return balances[id]
-    if (id === 'external' && isFull && symbol) return tokensBalance[symbol]
+
     return DEFAULT_VALUE
   }
   const getPrice = (id: TokenType) => {

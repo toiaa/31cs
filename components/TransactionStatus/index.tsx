@@ -1,31 +1,16 @@
 import Button from '@/components/Button'
 import useTransaction from '@/hooks/useTransaction'
 import { useStoreAction, useStoreAccount } from '@/store'
-import { TransactionStatusInterface } from '@/ts/interfaces'
-import { ACTIONS_FARM_CARD } from '@/utils/constants'
 import { NETWORK_SCAN } from '@/utils/networks'
 import React from 'react'
 import Information from './Information'
 
-const TransactionStatus = ({
-  action,
-  handleSelectAction,
-  value,
-  isFarm,
-  onTransaction,
-  actionSelectedFarms,
-  rewards,
-}: TransactionStatusInterface) => {
+const TransactionStatus = () => {
   const { txError, txLoading, txPrepared, txSuccess, hash, resetTransaction } = useTransaction()
   const { chainId } = useStoreAccount.getState()
   const { actionSelected } = useStoreAction()
   const onClose = () => {
     resetTransaction()
-    if (isFarm && onTransaction) {
-      action === ACTIONS_FARM_CARD.APPROVE && handleSelectAction && handleSelectAction(ACTIONS_FARM_CARD.DEPOSIT)
-      action === ACTIONS_FARM_CARD.CLAIM && handleSelectAction && handleSelectAction(ACTIONS_FARM_CARD.NOACTION)
-      onTransaction(false)
-    }
   }
   const renderData = () => {
     if (txError)
@@ -68,9 +53,9 @@ const TransactionStatus = ({
         txPrepared ? 'z-10 bg-modal-neutral h-full w-full opacity-1' : 'z-[-15] h-full w-full opacity-0'
       } rounded-lg transition-all duration-700`}>
       <div className='w-full flex flex-col justify-center items-center h-full gap-3'>
-        <h3 className='text-lg font-bold '>{`${isFarm ? actionSelectedFarms : actionSelected} Information`}</h3>
+        <h3 className='text-lg font-bold '>{`${actionSelected} Information`}</h3>
 
-        <Information rewards={rewards} actionSelectedFarms={actionSelectedFarms} isFarm={isFarm} value={value} />
+        <Information />
         {renderData()}
 
         {(txSuccess || txError) && <Button onClick={onClose}>Close</Button>}

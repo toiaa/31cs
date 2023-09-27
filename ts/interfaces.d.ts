@@ -9,7 +9,6 @@ import {
   ActionType,
   OptionType,
   TokenType,
-  ADDRESS,
   WeightTypes,
 } from '@/ts/types'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -104,9 +103,6 @@ export interface TokenAmountCardInterface {
   currentOption: OptionType
   isLoading?: boolean
   showPercentage?: boolean
-  showTokenList?: boolean
-  onSelectItem?: (item: BribeCardI | Token) => void
-  onOpenList?: () => void
   items?: Token[]
 }
 
@@ -168,168 +164,18 @@ export interface PercentageInterface {
   balance: BigNumber
 }
 
-export interface FarmCardHeaderInterface {
-  tokens: string
-}
-export interface FarmsStatsInterface {
-  rewardPerToken: BigNumber
-  rewardPerTokenUSD: BigNumber
-  stakedTokens: BigNumber
-  votingWeight: BigNumber
-}
-export interface FarmCardOptionInterface {
-  action: string
-  actionLabel: string
-  handleSelectAction: (action: string) => void
-  dataLabel: string
-  dataValue: BigNumber
-  priceMultiplier: BigNumber
-  gaugeAddress: string
-  onTransaction: (status: boolean) => void
-}
-export interface FarmCardActionInterface {
-  value: string
-  action: string
-  plugin: string
-  symbol: string
-  isAlive: boolean
-  balance: {
-    [key: string]: BigNumber
-  }
-  underlyingAddress: string
-  accountStakedTokens: BigNumber
-  cancelAction: () => void
-  handleSelectAction: (action: string) => void
-  isActionSelected: boolean
-  handleInput: (typeValue: string) => void
-  onTransaction: (status: boolean) => void
-}
-
-export interface FarmCardFooterInterface {
-  isInsuficient: boolean
-  isAlive: boolean
-  underlyingAddress: string
-  symbol: string
-  value: string
-  plugin: string
-  action: string
-  cancelAction: () => void
-  isActionSelected: boolean
-  handleSelectAction: (action: string) => void
-  onTransaction: (status: boolean) => void
-}
-
-export interface GaugeCardData {
-  plugin: string
-  underlyingAddress: string
-  underlyingDecimals: number
-  gaugeAddress: string
-  isAlive: boolean
-  symbol: string
-  protocol: string
-  tokensInUnderlying: string[]
-  priceBase: BigNumber
-  priceOTOKEN: BigNumber
-  rewardPerToken: BigNumber
-  rewardPerTokenUSD: BigNumber
-  votingWeight: BigNumber
-  totalSupply: BigNumber
-  accountUnderlyingTokens: BigNumber
-  accountStakedTokens: BigNumber
-  accountEarnedOTOKEN: BigNumber
-}
-
-export interface ClaimFarmsInterface {
-  disableClaim: boolean
-  handleSelectAction: (action: string) => void
-  gaugeAddress: string
-  onTransaction: (status: boolean) => void
-}
-
-export interface FilterFarmsInterface {
-  handleFilterSelect: (filter: string) => void
-  filter: string
-  protocols: string[]
-  checkedProtocols: string[]
-  onSelectProtocols: (protocol: string) => void
-}
-export interface BribeCardI {
-  pluginAddress: ADDRESS
-  bribeAddress: ADDRESS
-  isAlive: boolean
-  protocol: string
-  symbol: string
-  rewardTokens: ADDRESS[]
-  rewardTokenDecimals: number[]
-  rewardsPerToken: BigNumber[]
-  accountRewardsEarned: BigNumber[]
-  voteWeight: BigNumber
-  votePercent: BigNumber
-  accountVotePercent: BigNumber
-}
-
-export interface VoteTokenI {
-  symbol: string
-  protocol: string
-}
-
-export interface RewardSectionI {
-  rewardTokenDecimals: number[]
-  rewardTokens: Token[]
-  rewardsPerToken: BigNumber[]
-}
-
-export interface RewardVoteI {
-  symbol: string
-  amount: string
-}
-
-export interface UserVotes {
-  [address: string]: string
-}
 export interface UserBalancesI {
   [address: string]: BigNumber
 }
 
-export interface VoteInputI {
-  pluginAddress: string
-  updateVotes: (address: string, value: string) => void
-}
-
-export interface TransactionStatusInterface {
-  action?: string
-  handleSelectAction?: (action: string) => void
-  value?: string
-  actionSelectedFarms?: string
-  isFarm?: boolean
-  onTransaction?: (status: boolean) => void
-  rewards?: BigNumber
-}
-
-export interface InfoTransactionInterface {
-  isFarm?: boolean
-  value?: string
-  actionSelectedFarms?: string
-  rewards?: BigNumber
-}
-export interface BribeSelectorCardI {
-  bribe: BribeCardI
-  bribes: BribeCardI[]
-  onSelectItem: (item: BribeCardI | Token) => void
-}
 export interface TokenModalI {
   onClose: () => void
-  items: BribeCardI[] | Token[]
-  onSelectItem: (item: BribeCardI | Token) => void
+  items: Token[]
+  onSelectItem: (item: Token) => void
   type: string
-}
-export interface BribeModalI {
-  onClose: () => void
-  bribes: BribeCardI[]
 }
 
 export interface TokenInfoSectionI {
-  onOpenBribe: () => void
   items: Token[] | undefined
   img: string
   symbol: string
