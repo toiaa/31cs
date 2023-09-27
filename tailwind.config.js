@@ -6,6 +6,12 @@ module.exports = {
       fontFamily: {
         jostsans: ['Jost', 'sans-serif'],
       },
+      /*  main: '#4338ca', // darkest purple
+        'button-main-border': '#8b5cf6', // dark purple
+        'button-main-light': '#64748b', // gray
+        'button-main-dark': '#c084fc', // purple
+        'button-main-lightest': '#a78bfa', // light purple
+        'button-secondary-color': '#a78bfa', */
       colors: {
         // main
         main: '#4338ca', //purple
