@@ -8,12 +8,12 @@ import TilesStats from '../TilesStats'
 const SinglePlot = ({ svgId }: { svgId: string | string[] | undefined }) => {
   return (
     <div className='flex w-full gap-5 flex-col lg:flex-row'>
-      <div className='side-card-custom flex flex-col items-center gap-5'>
+      <div className='side-card-custom flex flex-col items-center gap-3'>
         <ControlPanel />
         <TilesStats />
       </div>
       <div className='side-card-custom flex flex-col items-center gap-2 '>
-        <div className='flex w-full gap-1'>
+        <div className='flex w-[460px] gap-1'>
           <div className='h-16 w-1/3 flex gap-3 items-center bg-box border border-button-main-light rounded p-2'>
             <Link href='/'>
               <ArrowLeftIcon />
@@ -30,7 +30,7 @@ const SinglePlot = ({ svgId }: { svgId: string | string[] | undefined }) => {
             className='border border-button-main-light rounded'
             src={`/images/board/board${svgId}.svg`}
             alt='nft'
-            width={475}
+            width={455}
             height={10}
           />
         </div>
