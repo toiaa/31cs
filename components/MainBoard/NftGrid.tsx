@@ -13,8 +13,8 @@ function NftGrid() {
             <Image
               className='hover:border hover:border-1 hover:border-pink'
               src={`/images/board/board${id}.svg`}
-              width={250}
-              height={15}
+              width={175}
+              height={35}
               alt='nft'
             />
           </Link>

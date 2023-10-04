@@ -1,4 +1,4 @@
-import GridContainer from '@/components/BoardSection'
+import GridContainer from '@/components/MainBoard'
 import Head from 'next/head'
 
 export default function Home() {

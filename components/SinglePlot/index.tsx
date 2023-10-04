@@ -7,32 +7,34 @@ import TilesStats from '../TilesStats'
 
 const SinglePlot = ({ svgId }: { svgId: string | string[] | undefined }) => {
   return (
-    <div className='flex w-full gap-5 flex-col lg:flex-row'>
-      <div className='side-card-custom flex flex-col items-center gap-3'>
-        <ControlPanel />
-        <TilesStats />
-      </div>
-      <div className='side-card-custom flex flex-col items-center gap-2 '>
-        <div className='flex w-[460px] gap-1'>
-          <div className='h-16 w-1/3 flex gap-3 items-center bg-box border border-button-main-light rounded p-2'>
-            <Link href='/'>
-              <ArrowLeftIcon />
-            </Link>
-            Token {svgId}
-          </div>
-          <div className='h-16 w-2/3 flex flex-col items-center bg-box border border-button-main-light rounded p-2'>
-            <p>X:1 Y:2</p>
-            <p>Owner:0x.....2323fe</p>
-          </div>
+    <div className='card-custom flex flex-col items-center justify-between gap-5'>
+      <div className='flex w-full items-center'>
+        <div className='card-custom flex flex-col items-start justify-between gap-3'>
+          <ControlPanel />
+          <TilesStats />
         </div>
-        <div className='flex'>
-          <Image
-            className='border border-button-main-light rounded'
-            src={`/images/board/board${svgId}.svg`}
-            alt='nft'
-            width={455}
-            height={10}
-          />
+        <div className='card-custom flex flex-col  items-end justify-center gap-2'>
+          <div className='flex w-[460px] gap-1'>
+            <div className='h-16 w-1/3 flex gap-3 items-center bg-box border border-button-main-light rounded p-2'>
+              <Link href='/'>
+                <ArrowLeftIcon />
+              </Link>
+              Token {svgId}
+            </div>
+            <div className='h-16 w-2/3 flex flex-col items-center bg-box border border-button-main-light rounded p-2'>
+              <p>X:1 Y:2</p>
+              <p>Owner:0x.....2323fe</p>
+            </div>
+          </div>
+          <div className='flex flex-wrap items-center justify-center'>
+            <Image
+              className='border border-button-main-light rounded'
+              src={`/images/board/board${svgId}.svg`}
+              alt='nft'
+              width={455}
+              height={10}
+            />
+          </div>
         </div>
       </div>
     </div>
