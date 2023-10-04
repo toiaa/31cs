@@ -12,7 +12,7 @@ export default function Page() {
         <title>single token</title>
         <meta name='description' content='An incentive coordination system.' />
       </Head>
-      <section className='flex w-full flex-col'>
+      <section className='container-custom flex flex-row gap-[40px] mt-4 items-center'>
         <SinglePlot svgId={id} />
       </section>
     </main>

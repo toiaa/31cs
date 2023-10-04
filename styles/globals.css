@@ -24,6 +24,9 @@ body {
   .transition-ease {
     @apply transition-all duration-200 ease-in-out;
   }
+  .side-card-custom {
+    @apply sm:w-full lg:w-1/2 w-full min-h-[650px] h-fit lg:h-full transition-ease rounded-lg p-4;
+  }
   .card-custom {
     @apply sm:w-full w-full h-fit lg:h-full bg-box transition-ease rounded-lg p-4;
   }
