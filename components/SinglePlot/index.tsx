@@ -14,13 +14,13 @@ const SinglePlot = ({ svgId }: { svgId: string | string[] | undefined }) => {
           <TilesStats />
         </div>
         <div className='card-custom flex flex-col  items-end justify-center gap-2'>
-          <div className='flex w-[460px] gap-1'>
-            <div className='h-16 w-1/3 flex gap-3 items-center bg-box border border-button-main-light rounded p-2'>
-              <Link href='/'>
-                <ArrowLeftIcon />
-              </Link>
+          <div className='flex w-[455px] gap-1'>
+            <Link
+              className='h-16 w-1/3 flex gap-3 items-center bg-box border border-button-main-light rounded p-2'
+              href='/'>
+              <ArrowLeftIcon />
               Token {svgId}
-            </div>
+            </Link>
             <div className='h-16 w-2/3 flex flex-col items-center bg-box border border-button-main-light rounded p-2'>
               <p>X:1 Y:2</p>
               <p>Owner:0x.....2323fe</p>
@@ -28,7 +28,7 @@ const SinglePlot = ({ svgId }: { svgId: string | string[] | undefined }) => {
           </div>
           <div className='flex flex-wrap items-center justify-center'>
             <Image
-              className='border border-button-main-light rounded'
+              className='border border-box-dark-neutral '
               src={`/images/board/board${svgId}.svg`}
               alt='nft'
               width={455}
