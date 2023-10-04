@@ -16,7 +16,7 @@ export const ControlPanel = () => {
     '#FFFFFF',
     '#000000',
   ]
-  const [selectedColor, setSelectedColor] = useState('EA00EF')
+  const [selectedColor, setSelectedColor] = useState('#EA00EF')
   const handleColorSelection = (color: string) => {
     setSelectedColor(color)
   }
@@ -49,7 +49,11 @@ export const ControlPanel = () => {
       <div className='flex justify-between gap-3 w-full'>
         <div className='flex flex-col items-center gap-2 bg-box rounded p-2'>
           <p className='font-thin text-md text-gray-subtitle'>Selected color: </p>
-          <div className={`bg-[${selectedColor}] h-10 w-10`}></div>
+          <div
+            className={`bg-[${selectedColor}] h-10 w-10`}
+            style={{
+              backgroundColor: `${selectedColor}`,
+            }}></div>
         </div>
         <div className='flex flex-col items-center gap-2  bg-box rounded p-2'>
           <p className='font-thin text-md text-gray-subtitle'>Choose a color: </p>
@@ -58,7 +62,10 @@ export const ControlPanel = () => {
               return (
                 <div
                   key={color}
-                  className={`hover:border-2 hover:border-blue-400  bg-[${color}] h-8 w-8`}
+                  style={{
+                    backgroundColor: `${color}`,
+                  }}
+                  className={`hover:border-2 hover:border-blue-400 bg-[${color}] h-8 w-8`}
                   onClick={() => handleColorSelection(color)}></div>
               )
             })}
