@@ -10,13 +10,16 @@ function NftGrid() {
       {svgIds.map((id) => {
         return (
           <Link href={`/plot/${id}`} key={id}>
-            <Image
-              className='hover:border hover:border-1 hover:border-pink'
-              src={`/images/board/board${id}.svg`}
-              width={250}
-              height={15}
-              alt='nft'
-            />
+            <div className='flex items-center justify-center group'>
+              <p className='hidden group-hover:block z-100 absolute text-2xl text-bold text-[#A78BFA]'>{id}</p>
+              <Image
+                className='hover:border-2 hover:border-[#A78BFA] hover:opacity-30'
+                src={`/images/board/board${id}.svg`}
+                width={175}
+                height={35}
+                alt='nft'
+              />
+            </div>
           </Link>
         )
       })}
