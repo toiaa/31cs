@@ -3,7 +3,7 @@ import Amount from '../Amount'
 import Button from '../Button'
 import SwapInput from '../SwapCard/SwapInput'
 
-export const ControlPanel = () => {
+const ControlPanel = () => {
   const COLORS = [
     '#EA00EF',
     '#4CFF45',
@@ -21,13 +21,13 @@ export const ControlPanel = () => {
     setSelectedColor(color)
   }
   return (
-    <div className='flex flex-col p-3 w-[280px] h-60 bg-box items-center border border-button-main-light rounded '>
+    <div className='flex flex-col p-3 w-full h-[210px] bg-box items-center border border-button-main-light rounded '>
       <div className='flex flex-col rounded w-full'>
         <div className='flex justify-between items-center gap-2'>
           <SwapInput
             value={''}
             onInput={() => {
-              console.log('hi')
+              console.log('input')
             }}
             isDisabled={false}
             type='number'
@@ -35,7 +35,7 @@ export const ControlPanel = () => {
           />
           <p className='font-thin text-md '>TILES</p>
         </div>
-        <div className='flex items-center justify-between gap-2 p-2'>
+        <div className='flex items-center justify-between gap-2 p-1'>
           <div className='flex items-center gap-2'>
             ≈<Amount amount='0' type='price' />
           </div>
@@ -45,30 +45,29 @@ export const ControlPanel = () => {
           </div>
         </div>
       </div>
-      <div className='flex justify-between items-center gap-2 w-full p-2'>
+      <div className='flex justify-between items-center gap-2 w-full p-1'>
         <div
           className={`bg-[${selectedColor}] h-10 w-10`}
           style={{
             backgroundColor: `${selectedColor}`,
           }}></div>
 
-        <div className='flex flex-col items-center gap-2  bg-box rounded p-2'>
-          <div className='flex flex-wrap items-center justify-center w-44 '>
-            {COLORS.map((color) => {
-              return (
-                <div
-                  key={color}
-                  style={{
-                    backgroundColor: `${color}`,
-                  }}
-                  className={`hover:border-2 hover:border-blue-400 bg-[${color}] h-8 w-8`}
-                  onClick={() => handleColorSelection(color)}></div>
-              )
-            })}
-          </div>
+        <div className='flex flex-wrap py-1 justify-end w-44'>
+          {COLORS.map((color) => {
+            return (
+              <div
+                key={color}
+                style={{
+                  backgroundColor: `${color}`,
+                }}
+                className={`hover:border-2 hover:border-blue-400 bg-[${color}] h-8 w-8`}
+                onClick={() => handleColorSelection(color)}></div>
+            )
+          })}
         </div>
       </div>
       <Button isFull>Place Tile</Button>
     </div>
   )
 }
+export default ControlPanel

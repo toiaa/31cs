@@ -16,7 +16,7 @@ body {
     @apply flex justify-center items-center;
   }
   .container-custom {
-    @apply w-full max-w-7xl mx-auto sm:px-8 px-2;
+    @apply w-full max-w-7xl mx-auto;
   }
   .title {
     @apply md:text-xl lg:text-2xl font-bold;
