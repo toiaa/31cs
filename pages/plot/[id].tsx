@@ -10,9 +10,9 @@ export default function Page() {
     <main className={'flex flex-col gap-[40px] mt-4 items-center container-custom'}>
       <Head key='plot-single-page'>
         <title>single token</title>
-        <meta name='description' content='An incentive coordination system.' />
+        <meta name='description' content='Single view of your tiles' />
       </Head>
-      <section className='container-custom flex flex-row gap-[40px]   items-center'>
+      <section className='container-custom flex flex-row gap-[30px]   items-center'>
         <SinglePlot svgId={id} />
       </section>
     </main>

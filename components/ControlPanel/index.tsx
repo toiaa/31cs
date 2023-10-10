@@ -21,7 +21,7 @@ export const ControlPanel = () => {
     setSelectedColor(color)
   }
   return (
-    <div className='flex flex-col p-3 w-[350px] h-64 bg-box items-center border border-button-main-light rounded '>
+    <div className='flex flex-col p-3 w-[280px] h-60 bg-box items-center border border-button-main-light rounded '>
       <div className='flex flex-col rounded w-full'>
         <div className='flex justify-between items-center gap-2'>
           <SwapInput
@@ -45,18 +45,14 @@ export const ControlPanel = () => {
           </div>
         </div>
       </div>
+      <div className='flex justify-between items-center gap-2 w-full p-2'>
+        <div
+          className={`bg-[${selectedColor}] h-10 w-10`}
+          style={{
+            backgroundColor: `${selectedColor}`,
+          }}></div>
 
-      <div className='flex justify-between gap-3 w-full'>
-        <div className='flex flex-col items-center gap-2 bg-box rounded p-2'>
-          <p className='font-thin text-md text-gray-subtitle'>Selected color: </p>
-          <div
-            className={`bg-[${selectedColor}] h-10 w-10`}
-            style={{
-              backgroundColor: `${selectedColor}`,
-            }}></div>
-        </div>
         <div className='flex flex-col items-center gap-2  bg-box rounded p-2'>
-          <p className='font-thin text-md text-gray-subtitle'>Choose a color: </p>
           <div className='flex flex-wrap items-center justify-center w-44 '>
             {COLORS.map((color) => {
               return (

@@ -4,9 +4,9 @@ import React from 'react'
 // import svg from '/images/board/board1.svg'
 
 function NftGrid() {
-  const svgIds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  const svgIds = [0, 1, 2, 3, 4, 5, 6, 7, 8]
   return (
-    <div className='flex flex-wrap items-center justify-center'>
+    <div className='flex flex-wrap items-center justify-center h-[530px]'>
       {svgIds.map((id) => {
         return (
           <Link href={`/plot/${id}`} key={id}>
