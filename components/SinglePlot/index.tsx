@@ -7,7 +7,7 @@ import GridActions from '../GridActions'
 const SinglePlot = ({ svgId }: { svgId: string | string[] | undefined }) => {
   return (
     <div className='flex items-center justify-between gap-2 rounded bg-box p-2'>
-      <div className='card-custom flex flex-col gap-2'>
+      <div className='card-custom flex flex-col gap-2 '>
         <div className='flex w-full gap-2'>
           <Link className=' w-1/3 flex gap-3 items-center bg-box border border-button-main-light rounded p-2' href='/'>
             <ArrowLeftIcon />
@@ -18,15 +18,14 @@ const SinglePlot = ({ svgId }: { svgId: string | string[] | undefined }) => {
             <p>Owner:0x.....2323fe</p>
           </div>
         </div>
-        <div className='flex items-center justify-center'>
-          <Image
-            className='border border-box-dark-neutral '
-            src={`/images/board/board${svgId}.svg`}
-            alt='nft'
-            width={540}
-            height={580}
-          />
-        </div>
+
+        <Image
+          className='border border-box-dark-neutral '
+          src={`/images/board/board${svgId}.svg`}
+          alt='nft'
+          width={540}
+          height={580}
+        />
       </div>
       <GridActions />
     </div>

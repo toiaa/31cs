@@ -12,7 +12,7 @@ export default function Page() {
         <title>single token</title>
         <meta name='description' content='Single view of your tiles' />
       </Head>
-      <section className='flex items-center '>
+      <section className='flex justify-center items-center'>
         <SinglePlot svgId={id} />
       </section>
     </main>

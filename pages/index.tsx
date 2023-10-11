@@ -9,7 +9,7 @@ export default function Home() {
         <meta name='description' content='An incentive coordination game.' />
       </Head>
       {/* GRID SECTION */}
-      <section className='flex items-center'>
+      <section className='flex justify-center items-center'>
         <GridContainer />
       </section>
     </main>
