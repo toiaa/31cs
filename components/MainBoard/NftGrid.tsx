@@ -6,7 +6,7 @@ import React from 'react'
 function NftGrid() {
   const svgIds = [0, 1, 2, 3, 4, 5, 6, 7, 8]
   return (
-    <div className='flex flex-wrap items-center justify-center '>
+    <div className='flex w-[540px] h-[540px] flex-wrap  justify-center '>
       {svgIds.map((id) => {
         return (
           <Link href={`/plot/${id}`} key={id}>
