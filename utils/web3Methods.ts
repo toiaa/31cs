@@ -11,6 +11,7 @@ import { getStatus } from '@/store/methods'
 import { ADDRESS, ApproveType, OptionType, SettingsTabsType, TransactionType } from '@/ts/types'
 import base_abi from '@/utils/abis/base.json'
 import abi from '@/utils/abis/bondingCurve.json'
+import grid_abi from '@/utils/abis/grid.json'
 import token_abi from '@/utils/abis/token.json'
 import abi_vToken from '@/utils/abis/vtoken.json'
 import abi_vTokenReward from '@/utils/abis/vtokenrewarder.json'
@@ -26,6 +27,7 @@ import {
   OPTIONS_FUNCTIONS,
   MINT_AMOUNT,
   POLYGON,
+  NFT_IDS,
 } from './constants'
 import { getTimestamp } from './methods'
 import { NETWORK_RPC } from './networks'
@@ -311,4 +313,36 @@ export const getMulticallBondingCurveData = async (userAddress: ADDRESS, chainId
   ])
 
   return { bondingCurveData, portfolioData }
+}
+
+export const getNftGallery = async (userAddress: ADDRESS, chainId: number) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+  const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
+  const svgDataPromises = NFT_IDS.map((nftId) => {
+    try {
+      const svgData = gridNftContract.tokenURI(BigInt(nftId))
+      return svgData
+    } catch (error) {
+      console.error('Error fetching grid SVG data for NFTs')
+      return null
+    }
+  })
+  const svgGridData = await Promise.all(svgDataPromises)
+  return { svgGridData }
+}
+
+export const getSingleGridData = async (userAddress: ADDRESS, chainId: number) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+  const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
+  const singleGridPromises = NFT_IDS.map((nftId) => {
+    try {
+      const svgData = gridNftContract.getGrid(BigInt(nftId))
+      return svgData
+    } catch (error) {
+      console.error('Error fetching grid SVG data for NFTs')
+      return null
+    }
+  })
+  const singleGridData = await Promise.all(singleGridPromises)
+  return { singleGridData }
 }

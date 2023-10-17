@@ -40,6 +40,10 @@ export interface ContractsType {
   [key: number]: {
     bondingCurve: ADDRESS
     vTokenReward: ADDRESS
+    gridNFT: ADDRESS
+    gridRewarder: ADDRESS
+    minter: ADDRESS
+    multicall: ADDRESS
   }
 }
 
@@ -193,3 +197,8 @@ export type OptionType =
 export type StoreStatusContractsType = {
   loadingBonding: boolean
 }
+
+export type colorMapType = { [key: number]: string }
+
+export type StoreGridGalleryType = { gridGallery: string[] }
+export type StorePixelGrids = { pixelGrids: [][][] }

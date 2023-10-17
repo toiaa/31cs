@@ -1,4 +1,4 @@
-import MainBoard from '@/components/MainBoard'
+import MainBoardGallery from '@/components/MainBoardGallery'
 import Head from 'next/head'
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       </Head>
       {/* GRID SECTION */}
       <section className='flex justify-center items-center'>
-        <MainBoard />
+        <MainBoardGallery />
       </section>
     </main>
   )
