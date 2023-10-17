@@ -323,8 +323,7 @@ export const getNftGallery = async (userAddress: ADDRESS, chainId: number) => {
       const svgData = gridNftContract.tokenURI(BigInt(nftId))
       return svgData
     } catch (error) {
-      console.error('Error fetching grid SVG data for NFTs')
-      return null
+      return { error: 'Error fetching grid SVG data for NFTs' }
     }
   })
   const svgGridData = await Promise.all(svgDataPromises)
