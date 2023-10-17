@@ -316,7 +316,7 @@ export const getMulticallBondingCurveData = async (userAddress: ADDRESS, chainId
 }
 
 export const getNftGallery = async (userAddress: ADDRESS, chainId: number) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+  const provider = getProvider()
   const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
   const svgDataPromises = NFT_IDS.map((nftId) => {
     try {
@@ -331,18 +331,13 @@ export const getNftGallery = async (userAddress: ADDRESS, chainId: number) => {
   return { svgGridData }
 }
 
-export const getSingleGridData = async (userAddress: ADDRESS, chainId: number) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+export const getSingleGridData = async (userAddress: ADDRESS, chainId: number, nftId: string) => {
+  const provider = getProvider()
   const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
-  const singleGridPromises = NFT_IDS.map((nftId) => {
-    try {
-      const svgData = gridNftContract.getGrid(BigInt(nftId))
-      return svgData
-    } catch (error) {
-      console.error('Error fetching grid SVG data for NFTs')
-      return null
-    }
-  })
-  const singleGridData = await Promise.all(singleGridPromises)
-  return { singleGridData }
+  try {
+    const svgData = await gridNftContract.getGrid(BigInt(nftId))
+    return { svgData }
+  } catch (error) {
+    return { error: 'error fetching single grid view pixels' }
+  }
 }

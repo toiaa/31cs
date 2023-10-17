@@ -142,5 +142,5 @@ export const useStoreGridGallery = create<StoreGridGalleryType>(() => ({
   gridGallery: [''],
 }))
 export const useStorePixelGrid = create<StorePixelGrids>(() => ({
-  pixelGrids: [[[], []]],
+  pixelGrid: [],
 }))

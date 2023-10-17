@@ -6,9 +6,9 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 
 const PixelGrid = ({ svgId }: SingleGridInterface) => {
-  const { pixelGrids } = useStorePixelGrid()
+  const { pixelGrid } = useStorePixelGrid()
   const id = Number(svgId)
-
+  console.log(pixelGrid)
   const [selectedX, setSelectedX] = useState<number | null>(null)
   const [selectedY, setSelectedY] = useState<number | null>(null)
   const [tilesOwner, setTilesOwner] = useState<string | null>('')
@@ -38,9 +38,10 @@ const PixelGrid = ({ svgId }: SingleGridInterface) => {
           </p>
         </div>
       </div>
+
       <div className='grid grid-cols-10 gap-0 w-auto h-auto mx-auto'>
-        {pixelGrids &&
-          pixelGrids[id].map((row, rowIndex) => {
+        {pixelGrid &&
+          pixelGrid.map((row, rowIndex) => {
             return row.map((tile, colIndex) => {
               const tileColorIndex = Number(tile[0])
               const owner = tile[1] as string
@@ -50,10 +51,8 @@ const PixelGrid = ({ svgId }: SingleGridInterface) => {
                   onClick={() => {
                     handleSelectTile(rowIndex, colIndex, owner)
                   }}
-                  className='flex items-center justify-center border-1 border-button-main-light '
+                  className='flex w-[54px] h-[54px] items-center justify-center border border-button-main-light '
                   style={{
-                    width: '54px',
-                    height: '54px',
                     backgroundColor: tileColors[tileColorIndex],
                   }}></div>
               )

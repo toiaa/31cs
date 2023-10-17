@@ -9,14 +9,13 @@ import { useEffect, useState } from 'react'
 
 const useGridNft = () => {
   const { primaryWallet, network } = useDynamicContext()
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     if (!primaryWallet) {
       useStoreAccount.setState({ address: undefined, isConnected: false })
     }
     const fetchTokenURI = async () => {
-      setLoading(true)
       const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
       const validNetwork = getNetwork(Number(network ?? POLYGON))
       const { svgGridData } = await getNftGallery(address, validNetwork)

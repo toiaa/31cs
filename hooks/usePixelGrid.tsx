@@ -7,21 +7,19 @@ import { getSingleGridData } from '@/utils/web3Methods'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useEffect, useState } from 'react'
 
-const usePixelGrid = () => {
+const usePixelGrid = (nftId: string) => {
   const { primaryWallet, network } = useDynamicContext()
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     if (!primaryWallet) {
       useStoreAccount.setState({ address: undefined, isConnected: false })
     }
     const fetchTokenURI = async () => {
-      setLoading(true)
       const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
       const validNetwork = getNetwork(Number(network ?? POLYGON))
-      const { singleGridData } = await getSingleGridData(address, validNetwork)
-
-      useStorePixelGrid.setState({ pixelGrids: singleGridData })
+      const { svgData } = await getSingleGridData(address, validNetwork, nftId)
+      useStorePixelGrid.setState({ pixelGrid: svgData })
       useStoreAccount.setState({
         address,
         chainId: validNetwork,
