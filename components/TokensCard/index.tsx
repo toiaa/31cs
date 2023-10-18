@@ -9,7 +9,7 @@ const TokensCard = () => {
   const { WRAPPED, OTOKEN, TOKEN, VTOKEN } = TOKENS[chainId]
 
   return (
-    <div className='card-custom flex flex-col items-center justify-between gap-5'>
+    <div className='card-swap flex flex-col items-center justify-between gap-5'>
       <PortfolioData />
       <div className='flex flex-col gap-3 w-full h-full'>
         <TokenItem key={`${VTOKEN.symbol}-item`} token={VTOKEN} />

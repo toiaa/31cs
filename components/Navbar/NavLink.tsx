@@ -1,4 +1,5 @@
 import DocsIcon from '@/assets/Icons/DocsIcon'
+import GridIcon from '@/assets/Icons/GridIcon'
 import HomeIcon from '@/assets/Icons/HomeIcon'
 import { NavInterface } from '@/ts/interfaces'
 import Link from 'next/link'
@@ -10,8 +11,8 @@ const NavLink = ({ path, id, isMobile, label }: NavInterface) => {
   const isCurrent = router.pathname === path
   const renderIcon = () => {
     if (id === 'home') return <HomeIcon />
-
     if (id === 'docs') return <DocsIcon />
+    if (id === 'grid') return <GridIcon />
     return <HomeIcon />
   }
   return (
