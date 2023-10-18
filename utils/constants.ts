@@ -19,6 +19,11 @@ export const NAVLINKS: NavLinkInterface[] = [
     path: '/',
     label: 'Home',
   },
+  {
+    id: 'grid',
+    path: '/grid',
+    label: 'Grid',
+  },
 ]
 
 export const STATS_DATA: StatsDataInterface[] = [
