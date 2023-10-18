@@ -8,7 +8,6 @@ import React, { useState } from 'react'
 const PixelGrid = ({ svgId }: SingleGridInterface) => {
   const { pixelGrid } = useStorePixelGrid()
   const id = Number(svgId)
-  console.log(pixelGrid)
   const [selectedX, setSelectedX] = useState<number | null>(null)
   const [selectedY, setSelectedY] = useState<number | null>(null)
   const [tilesOwner, setTilesOwner] = useState<string | null>('')
