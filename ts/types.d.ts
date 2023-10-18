@@ -198,7 +198,11 @@ export type StoreStatusContractsType = {
   loadingBonding: boolean
 }
 
-export type colorMapType = { [key: number]: string }
+export type colorMapType = { [key: string]: string }
 
 export type StoreGridGalleryType = { gridGallery: string[] }
 export type StorePixelGrids = { pixelGrid: [][] }
+export type Tile = {
+  x: number
+  y: number
+}

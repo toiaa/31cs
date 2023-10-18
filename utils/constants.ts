@@ -224,12 +224,16 @@ export const TOOLTIPS_SWAP_TABS: { [key: string]: string } = {
 export type ERRORS_TYPE = keyof typeof ERRORS
 export const WEEK = 604800
 
-export const tileColors: colorMapType = {
-  0: '#000000',
-  1: '#18fc03',
-  2: '#fce303',
-  3: '#fc0317',
-  4: '#03a5fc',
-  5: '#db03fc',
+export const TILE_COLORS: colorMapType = {
+  0: '#000000', // black
+  1: '#FFFFFF', // white
+  2: '#FCE303', // yellow
+  3: '#FC0317', // red
+  4: '#03A5FC', // blue
+  5: '#DB03FC', // purple
+  6: '#18FC03', // green
+  7: '#FF9700', // orange
+  8: '#FD6665', // peach
+  9: '#02FBCF', // teal
 }
 export const NFT_IDS = [0, 1, 2, 3, 4, 5, 6]

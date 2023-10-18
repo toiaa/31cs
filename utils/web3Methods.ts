@@ -340,3 +340,21 @@ export const getSingleGridData = async (userAddress: ADDRESS, chainId: number, n
     return { error: 'error fetching single grid view pixels' }
   }
 }
+
+export const placeTiles = async (
+  userAddress: ADDRESS,
+  chainId: number,
+  tokenId: string,
+  coordinateX: string,
+  coordinateY: string,
+  colorId: string,
+) => {
+  const provider = getProvider()
+  const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
+  try {
+    const tx = await gridNftContract.placeFor([BigInt(tokenId), coordinateX, coordinateY, BigInt(colorId)])
+    return { tx }
+  } catch (error) {
+    return { error: 'error placing tiles' }
+  }
+}

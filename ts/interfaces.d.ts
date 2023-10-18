@@ -185,6 +185,15 @@ export interface TokenInfoSectionI {
   showMaxWithdraw: boolean
 }
 
+export interface PixelGridInterface {
+  svgId: string
+  handleSaveSelection: (x: number, y: number, owner: string) => void
+  selectedTiles: Tile[]
+  clearSelection: () => void
+}
 export interface SingleGridInterface {
   svgId: string
+}
+export interface GridActionsInterface {
+  clearSelection?: () => void
 }

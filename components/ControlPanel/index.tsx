@@ -1,27 +1,17 @@
+import { GridActionsInterface } from '@/ts/interfaces'
+import { TILE_COLORS } from '@/utils/constants'
 import React, { useState } from 'react'
 import Amount from '../Amount'
 import Button from '../Button'
 import SwapInput from '../SwapCard/SwapInput'
 
-const ControlPanel = () => {
-  const COLORS = [
-    '#EA00EF',
-    '#4CFF45',
-    '#EFCA02',
-    '#FF3130',
-    '#33BDFF',
-    '#02FBCF',
-    '#FD6665',
-    '#FF9700',
-    '#FFFFFF',
-    '#000000',
-  ]
-  const [selectedColor, setSelectedColor] = useState('#EA00EF')
-  const handleColorSelection = (color: string) => {
-    setSelectedColor(color)
+const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
+  const [selectedColor, setSelectedColor] = useState('4')
+  const handleColorSelection = (colorIndex: string) => {
+    setSelectedColor(colorIndex)
   }
   return (
-    <div className='flex flex-col p-3 w-full h-[210px] bg-box items-center border border-button-main-light rounded '>
+    <div className='grid-cards'>
       <div className='flex flex-col rounded w-full'>
         <div className='flex justify-between items-center gap-2'>
           <SwapInput
@@ -47,26 +37,31 @@ const ControlPanel = () => {
       </div>
       <div className='flex justify-between items-center gap-2 w-full p-1'>
         <div
-          className={`bg-[${selectedColor}] h-10 w-10`}
+          className={`bg-${TILE_COLORS[selectedColor]} h-10 w-10`}
           style={{
-            backgroundColor: `${selectedColor}`,
+            backgroundColor: `${TILE_COLORS[selectedColor]}`,
           }}></div>
 
         <div className='flex flex-wrap py-1 justify-end w-44'>
-          {COLORS.map((color) => {
+          {Object.keys(TILE_COLORS).map((colorIndex) => {
             return (
               <div
-                key={color}
+                key={colorIndex}
                 style={{
-                  backgroundColor: `${color}`,
+                  backgroundColor: `${TILE_COLORS[colorIndex]}`,
                 }}
-                className={`hover:border-2 hover:border-blue-400 bg-[${color}] h-8 w-8`}
-                onClick={() => handleColorSelection(color)}></div>
+                className={'hover:border-2 hover:border-blue-400 h-8 w-8'}
+                onClick={() => handleColorSelection(colorIndex)}></div>
             )
           })}
         </div>
       </div>
-      <Button isFull>Place Tile</Button>
+      <div className='flex gap-3'>
+        <Button notMinW onClick={() => clearSelection && clearSelection()}>
+          Clear
+        </Button>
+        <Button notMinW>Place Tiles</Button>
+      </div>
     </div>
   )
 }
