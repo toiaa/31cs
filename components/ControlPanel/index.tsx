@@ -33,7 +33,7 @@ const ControlPanel = () => {
             type='number'
             textCenter={true}
           />
-          <p className='font-thin text-md '>TILES</p>
+          <p className='font-thin text-md '>OTOKEN</p>
         </div>
         <div className='flex items-center justify-between gap-2 p-1'>
           <div className='flex items-center gap-2'>

@@ -1,5 +1,12 @@
 import { NavLinkInterface, StatsDataInterface } from '@/ts/interfaces'
-import { SettingsTabsType, PercentageSwapValuesType, MainTabTypes, ContractsType, ADDRESS } from '@/ts/types'
+import {
+  SettingsTabsType,
+  PercentageSwapValuesType,
+  MainTabTypes,
+  ContractsType,
+  ADDRESS,
+  colorMapType,
+} from '@/ts/types'
 
 export const IS_DEMO = true
 export const WEBSITE = 'TOKENPROJECT'
@@ -158,6 +165,10 @@ export const CONTRACTS: ContractsType = {
   [POLYGON]: {
     bondingCurve: '0x3a0899Bf14c9165FdA500d63789Bd4732A20b879',
     vTokenReward: '0x6a42D6334e4A05FE480E3De3C8fc159dB15f41E3',
+    gridNFT: '0x9fCb31f4d7397b477c6ad4c6891831A587edAD76',
+    gridRewarder: '0x98FDb3bA2Cd17Fc118fB63578729a63B20959B59',
+    minter: '0x76eCFc57E32d2d535683AEE809811BAf184A9854',
+    multicall: '0xad79CadC417c0BA5C49e13FD26f673419357c5D3',
   },
 }
 
@@ -212,3 +223,13 @@ export const TOOLTIPS_SWAP_TABS: { [key: string]: string } = {
 
 export type ERRORS_TYPE = keyof typeof ERRORS
 export const WEEK = 604800
+
+export const tileColors: colorMapType = {
+  0: '#000000',
+  1: '#18fc03',
+  2: '#fce303',
+  3: '#fc0317',
+  4: '#03a5fc',
+  5: '#db03fc',
+}
+export const NFT_IDS = [0, 1, 2, 3, 4, 5, 6]

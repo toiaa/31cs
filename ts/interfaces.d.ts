@@ -184,3 +184,7 @@ export interface TokenInfoSectionI {
   isLoading: boolean
   showMaxWithdraw: boolean
 }
+
+export interface SingleGridInterface {
+  svgId: string
+}

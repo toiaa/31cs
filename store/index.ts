@@ -10,6 +10,8 @@ import {
   StoreTokensType,
   StoreTxType,
   StoreStatusContractsType,
+  StoreGridGalleryType,
+  StorePixelGrids,
 } from '@/ts/types'
 import { APPROVAL_TABS, CONTRACT_ZERO, DEFAULT_NETWORK, SLIPPAGE_TABS, TRANSACTION_SPEED_TABS } from '@/utils/constants'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -133,4 +135,12 @@ export const useStoreTx = create<StoreTxType>(() => ({
 /* Store for tracking inputs */
 export const useStatusContracts = create<StoreStatusContractsType>(() => ({
   loadingBonding: true,
+}))
+/* Store for Grid Gallery SVGs*/
+
+export const useStoreGridGallery = create<StoreGridGalleryType>(() => ({
+  gridGallery: [''],
+}))
+export const useStorePixelGrid = create<StorePixelGrids>(() => ({
+  pixelGrid: [],
 }))
