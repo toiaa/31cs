@@ -43,7 +43,7 @@ const PixelGrid = ({ svgId, handleSaveSelection, selectedTiles }: PixelGridInter
         </div>
       </div>
 
-      <div className='grid grid-cols-10 gap-0 w-auto h-auto mx-auto' onMouseLeave={() => hoverTile(null, null, '')}>
+      <div className='grid grid-cols-10 gap-0 h-auto mx-auto w-[540px]' onMouseLeave={() => hoverTile(null, null, '')}>
         {pixelGrid &&
           pixelGrid.map((row, rowIndex) => {
             return row.map((tile, colIndex) => {
