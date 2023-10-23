@@ -1,6 +1,7 @@
 import Stats from '@/components/Stats'
 import SwapCard from '@/components/SwapCard'
 import TokensCard from '@/components/TokensCard'
+import MintsButtons from '@/components/WebButtons/MintsAction'
 import Head from 'next/head'
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
         {/* RIGHT SIDE */}
         <SwapCard />
       </section>
+      <MintsButtons />
     </main>
   )
 }

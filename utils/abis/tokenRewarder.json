@@ -1,26 +1,51 @@
 [
   {
-    "inputs": [{ "internalType": "address", "name": "_VTOKEN", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_TOKEN", "type": "address" },
+      { "internalType": "address", "name": "_OTOKEN", "type": "address" }
+    ],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
-  { "inputs": [], "name": "VTOKENRewarder__NotAuthorizedVTOKEN", "type": "error" },
-  { "inputs": [], "name": "VTOKENRewarder__NotRewardToken", "type": "error" },
-  { "inputs": [], "name": "VTOKENRewarder__RewardSmallerThanDuration", "type": "error" },
-  { "inputs": [], "name": "VTOKENRewarder__RewardTokenAlreadyAdded", "type": "error" },
+  { "inputs": [], "name": "TOKENRewarder__CollateralActive", "type": "error" },
+  { "inputs": [], "name": "TOKENRewarder__InvalidZeroAddress", "type": "error" },
+  { "inputs": [], "name": "TOKENRewarder__InvalidZeroInput", "type": "error" },
+  { "inputs": [], "name": "TOKENRewarder__NotAuthorizedTOKEN", "type": "error" },
+  { "inputs": [], "name": "TOKENRewarder__NotRewardToken", "type": "error" },
+  { "inputs": [], "name": "TOKENRewarder__RewardSmallerThanDuration", "type": "error" },
+  { "inputs": [], "name": "TOKENRewarder__RewardTokenAlreadyAdded", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "burner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "account", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "TOKENRewarder__BurnedFor",
+    "type": "event"
+  },
   {
     "anonymous": false,
     "inputs": [
       { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
       { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
     ],
-    "name": "VTOKENRewarder__Deposited",
+    "name": "TOKENRewarder__Deposited",
     "type": "event"
   },
   {
     "anonymous": false,
     "inputs": [{ "indexed": true, "internalType": "address", "name": "rewardToken", "type": "address" }],
-    "name": "VTOKENRewarder__RewardAdded",
+    "name": "TOKENRewarder__RewardAdded",
     "type": "event"
   },
   {
@@ -29,7 +54,7 @@
       { "indexed": true, "internalType": "address", "name": "rewardToken", "type": "address" },
       { "indexed": false, "internalType": "uint256", "name": "reward", "type": "uint256" }
     ],
-    "name": "VTOKENRewarder__RewardNotified",
+    "name": "TOKENRewarder__RewardNotified",
     "type": "event"
   },
   {
@@ -39,7 +64,7 @@
       { "indexed": true, "internalType": "address", "name": "rewardsToken", "type": "address" },
       { "indexed": false, "internalType": "uint256", "name": "reward", "type": "uint256" }
     ],
-    "name": "VTOKENRewarder__RewardPaid",
+    "name": "TOKENRewarder__RewardPaid",
     "type": "event"
   },
   {
@@ -48,7 +73,7 @@
       { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
       { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
     ],
-    "name": "VTOKENRewarder__Withdrawn",
+    "name": "TOKENRewarder__Withdrawn",
     "type": "event"
   },
   {
@@ -60,29 +85,16 @@
   },
   {
     "inputs": [],
-    "name": "VTOKEN",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "OTOKEN",
+    "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
-    "name": "_deposit",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
-    "name": "_withdraw",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "inputs": [],
+    "name": "TOKEN",
+    "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -100,11 +112,42 @@
     "type": "function"
   },
   {
+    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
+    "name": "balanceOfTOKEN",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "account", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "burnFor",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }],
+    "name": "deposit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "account", "type": "address" },
       { "internalType": "address", "name": "_rewardsToken", "type": "address" }
     ],
     "name": "earned",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_account", "type": "address" }],
+    "name": "getMaxWithdraw",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -162,6 +205,14 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
     "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "name": "rewardData",
     "outputs": [
@@ -205,6 +256,20 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "totalSupplyTOKEN",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "", "type": "address" },
       { "internalType": "address", "name": "", "type": "address" }
@@ -212,6 +277,13 @@
     "name": "userRewardPerTokenPaid",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
