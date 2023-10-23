@@ -61,7 +61,7 @@ export const updateMulticallData = async ({
       wrapped: BigNumber.from(accountBASE),
       token: BigNumber.from(accountTOKEN),
       otoken: BigNumber.from(accountOTOKEN),
-      vtoken: BigNumber.from(accountStaked), // This is going to be the reward token, update the key value
+      vtoken: BigNumber.from(accountStaked),
       credit: BigNumber.from(accountBorrowCredit),
       debt: BigNumber.from(accountBorrowDebt),
       votingPower: BigNumber.from(accountPower),
