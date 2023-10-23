@@ -1,6 +1,5 @@
 import { Token } from '@/ts/types'
 import { POLYGON } from '@/utils/constants'
-import { LP_TEST } from '@/utils/liquidityPools'
 import { TOKENS_ARRAY } from '@/utils/tokens'
 import MintButton from '../MintButton'
 
@@ -19,7 +18,6 @@ const MintsButtons = () => {
   return (
     <div className='flex flex-col gap-1'>
       <MintGroup label='Mint tokens to test Home and Vote' list={TOKENS_ARRAY[POLYGON]} />
-      <MintGroup label='Mint LPs to test Farms' list={LP_TEST} />
     </div>
   )
 }

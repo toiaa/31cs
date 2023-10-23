@@ -1,9 +1,9 @@
 import useNotification from '@/hooks/useNotification'
 import { useStoreAccount } from '@/store'
-import { updateBondingCurveData } from '@/store/methods'
+import { updateMulticallData } from '@/store/methods'
 import { ADDRESS, ToastMessageType, Token } from '@/ts/types'
 import { MINT_AMOUNT } from '@/utils/constants'
-import { getMulticallBondingCurveData, mintToken } from '@/utils/web3Methods'
+import { getMulticallData, mintToken } from '@/utils/web3Methods'
 import React, { useState } from 'react'
 import Button from '../Button'
 
@@ -28,9 +28,9 @@ const MintButton = ({ token }: { token: Token }) => {
         await tx.wait()
       }
       if (error) errorToast('error', message.error)
-      const { bondingCurveData, portfolioData } = await getMulticallBondingCurveData(address, chainId)
+      const { multicallData, portfolioData } = await getMulticallData(address, chainId)
 
-      updateBondingCurveData({ bondingCurveData, portfolioData })
+      updateMulticallData({ multicallData, portfolioData })
       setIsLoading(false)
     }
   }

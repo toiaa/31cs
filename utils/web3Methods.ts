@@ -10,11 +10,10 @@ import {
 import { getStatus } from '@/store/methods'
 import { ADDRESS, ApproveType, OptionType, SettingsTabsType, TransactionType } from '@/ts/types'
 import base_abi from '@/utils/abis/base.json'
-import abi from '@/utils/abis/bondingCurve.json'
 import grid_abi from '@/utils/abis/grid.json'
+import abi_multicall from '@/utils/abis/multicall.json'
 import token_abi from '@/utils/abis/token.json'
-import abi_vToken from '@/utils/abis/vtoken.json'
-import abi_vTokenReward from '@/utils/abis/vtokenrewarder.json'
+import abi_tokenReward from '@/utils/abis/tokenRewarder.json'
 import { ExternalProvider } from '@ethersproject/providers'
 import { ethers, BigNumber } from 'ethers'
 import { MulticallWrapper } from 'ethers-multicall-provider'
@@ -27,7 +26,6 @@ import {
   OPTIONS_FUNCTIONS,
   MINT_AMOUNT,
   POLYGON,
-  NFT_IDS,
 } from './constants'
 import { getTimestamp } from './methods'
 import { NETWORK_RPC } from './networks'
@@ -105,7 +103,7 @@ export const setQuote = async (
     const provider = getProvider()
     const contractMethods = isBuy ? CONTRACT_FUNCTIONS_BUY : CONTRACT_FUNCTIONS_SELL
     const contract_function = isInput ? contractMethods[0] : contractMethods[1]
-    const tokenContract = new ethers.Contract(CONTRACTS[chainId].bondingCurve, abi, provider)
+    const tokenContract = new ethers.Contract(CONTRACTS[chainId].multicall, abi_multicall, provider)
     const [output, currentSlippage, minOutput, autoMinOutput] = await tokenContract[contract_function](
       parsedAmount,
       slippageTolerance,
@@ -231,7 +229,7 @@ export const swap_action = async (amount: string, action: OptionType) => {
     const gasPrice = await getGasPrice(signer, txSpeed)
     let contract: ethers.Contract | null = null
     if (isVtoken) {
-      contract = new ethers.Contract(vTokenAddress, abi_vToken, signer)
+      contract = new ethers.Contract(vTokenAddress, abi_tokenReward, signer)
     } else {
       contract = new ethers.Contract(tokenAddress, token_abi, signer)
     }
@@ -285,7 +283,7 @@ export const harvest = async (contractAddress: string, userAddress: string) => {
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
     const signer = provider.getSigner()
-    const contract = new ethers.Contract(contractAddress, abi_vTokenReward, signer)
+    const contract = new ethers.Contract(contractAddress, abi_tokenReward, signer)
     const tx: TransactionType = await contract.getReward(userAddress)
     return { tx, error: null }
   } catch {
@@ -294,31 +292,33 @@ export const harvest = async (contractAddress: string, userAddress: string) => {
 }
 
 /**
- * Get the Bonding Curve data ans the Portafolio Data with rewards from the blockchain.
+ * Get the Multicall data and the Portafolio Data with rewards from the blockchain.
  * @param {string} userAddress - The current address connected.
  * @param {number} chainId - The current network Id.
- * @returns {BigNumber[]} - An object with bondingCurveData and porfolioData.
+ * @returns {BigNumber[]} - An object with multicallData and porfolioData.
  */
 
-export const getMulticallBondingCurveData = async (userAddress: ADDRESS, chainId: number) => {
+export const getMulticallData = async (userAddress: ADDRESS, chainId: number) => {
   const provider = getProvider()
   MulticallWrapper.isMulticallProvider(provider)
-  const contract = new ethers.Contract(CONTRACTS[chainId].bondingCurve, abi, provider)
+  const contract = new ethers.Contract(CONTRACTS[chainId].multicall, abi_multicall, provider)
   const bondingDataPromise = contract.bondingCurveData(userAddress)
   const portfolioDataPromise = contract.portfolioData(userAddress)
 
-  const [bondingCurveData, portfolioData]: [BigNumber[], BigNumber[]] = await Promise.all([
+  const [multicallData, portfolioData]: [BigNumber[], BigNumber[]] = await Promise.all([
     bondingDataPromise,
     portfolioDataPromise,
   ])
 
-  return { bondingCurveData, portfolioData }
+  return { multicallData, portfolioData }
 }
 
 export const getNftGallery = async (userAddress: ADDRESS, chainId: number) => {
   const provider = getProvider()
   const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
-  const svgDataPromises = NFT_IDS.map((nftId) => {
+  const lengthGridNFT: BigNumber = await gridNftContract.totalSupply()
+  const totalGridsNFT = Number(lengthGridNFT.toString())
+  const svgDataPromises = Array.from(Array(totalGridsNFT).keys()).map((nftId) => {
     try {
       const svgData = gridNftContract.tokenURI(BigInt(nftId))
       return svgData

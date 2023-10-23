@@ -1,12 +1,13 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "_voter", "type": "address" },
       { "internalType": "address", "name": "_BASE", "type": "address" },
       { "internalType": "address", "name": "_TOKEN", "type": "address" },
       { "internalType": "address", "name": "_OTOKEN", "type": "address" },
-      { "internalType": "address", "name": "_VTOKEN", "type": "address" },
-      { "internalType": "address", "name": "_rewarder", "type": "address" }
+      { "internalType": "address", "name": "_tokenRewarder", "type": "address" },
+      { "internalType": "address", "name": "_gridNFT", "type": "address" },
+      { "internalType": "address", "name": "_gridRewarder", "type": "address" },
+      { "internalType": "address", "name": "_minter", "type": "address" }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -62,8 +63,15 @@
   },
   {
     "inputs": [],
-    "name": "VTOKEN",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "X_MAX",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "Y_MAX",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -79,26 +87,24 @@
           { "internalType": "uint256", "name": "maxMarketSell", "type": "uint256" },
           { "internalType": "uint256", "name": "tvl", "type": "uint256" },
           { "internalType": "uint256", "name": "supplyTOKEN", "type": "uint256" },
-          { "internalType": "uint256", "name": "supplyVTOKEN", "type": "uint256" },
+          { "internalType": "uint256", "name": "supplyStaked", "type": "uint256" },
           { "internalType": "uint256", "name": "apr", "type": "uint256" },
           { "internalType": "uint256", "name": "ltv", "type": "uint256" },
           { "internalType": "uint256", "name": "marketCap", "type": "uint256" },
-          { "internalType": "uint256", "name": "weeklyOSOLID", "type": "uint256" },
+          { "internalType": "uint256", "name": "weeklyOTOKEN", "type": "uint256" },
           { "internalType": "uint256", "name": "accountBASE", "type": "uint256" },
           { "internalType": "uint256", "name": "accountTOKEN", "type": "uint256" },
           { "internalType": "uint256", "name": "accountOTOKEN", "type": "uint256" },
           { "internalType": "uint256", "name": "accountEarnedBASE", "type": "uint256" },
           { "internalType": "uint256", "name": "accountEarnedTOKEN", "type": "uint256" },
           { "internalType": "uint256", "name": "accountEarnedOTOKEN", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountVTOKEN", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountVotingPower", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountUsedWeights", "type": "uint256" },
+          { "internalType": "uint256", "name": "accountStaked", "type": "uint256" },
+          { "internalType": "uint256", "name": "accountPower", "type": "uint256" },
           { "internalType": "uint256", "name": "accountBorrowCredit", "type": "uint256" },
           { "internalType": "uint256", "name": "accountBorrowDebt", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountMaxWithdraw", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountLastVoted", "type": "uint256" }
+          { "internalType": "uint256", "name": "accountMaxWithdraw", "type": "uint256" }
         ],
-        "internalType": "struct Multicall_Mumbai.BondingCurve",
+        "internalType": "struct Multicall.BondingCurve",
         "name": "bondingCurve",
         "type": "tuple"
       }
@@ -107,30 +113,17 @@
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "plugin", "type": "address" },
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
-    "name": "bribeCardData",
+    "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+    "name": "getGrid",
     "outputs": [
       {
         "components": [
-          { "internalType": "address", "name": "plugin", "type": "address" },
-          { "internalType": "address", "name": "bribe", "type": "address" },
-          { "internalType": "bool", "name": "isAlive", "type": "bool" },
-          { "internalType": "string", "name": "protocol", "type": "string" },
-          { "internalType": "string", "name": "symbol", "type": "string" },
-          { "internalType": "address[]", "name": "rewardTokens", "type": "address[]" },
-          { "internalType": "uint8[]", "name": "rewardTokenDecimals", "type": "uint8[]" },
-          { "internalType": "uint256[]", "name": "rewardsPerToken", "type": "uint256[]" },
-          { "internalType": "uint256[]", "name": "accountRewardsEarned", "type": "uint256[]" },
-          { "internalType": "uint256", "name": "voteWeight", "type": "uint256" },
-          { "internalType": "uint256", "name": "votePercent", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountVote", "type": "uint256" }
+          { "internalType": "uint256", "name": "color", "type": "uint256" },
+          { "internalType": "address", "name": "account", "type": "address" }
         ],
-        "internalType": "struct Multicall_Mumbai.BribeCard",
-        "name": "bribeCard",
-        "type": "tuple"
+        "internalType": "struct IGridNFT.Tile[10][10]",
+        "name": "",
+        "type": "tuple[10][10]"
       }
     ],
     "stateMutability": "view",
@@ -138,63 +131,17 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "plugin", "type": "address" },
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
       { "internalType": "address", "name": "account", "type": "address" }
     ],
-    "name": "gaugeCardData",
+    "name": "getOwnedTiles",
     "outputs": [
       {
         "components": [
-          { "internalType": "address", "name": "plugin", "type": "address" },
-          { "internalType": "address", "name": "underlying", "type": "address" },
-          { "internalType": "uint8", "name": "underlyingDecimals", "type": "uint8" },
-          { "internalType": "address", "name": "gauge", "type": "address" },
-          { "internalType": "bool", "name": "isAlive", "type": "bool" },
-          { "internalType": "string", "name": "protocol", "type": "string" },
-          { "internalType": "string", "name": "symbol", "type": "string" },
-          { "internalType": "address[]", "name": "tokensInUnderlying", "type": "address[]" },
-          { "internalType": "uint256", "name": "priceBase", "type": "uint256" },
-          { "internalType": "uint256", "name": "priceOTOKEN", "type": "uint256" },
-          { "internalType": "uint256", "name": "rewardPerToken", "type": "uint256" },
-          { "internalType": "uint256", "name": "rewardPerTokenUSD", "type": "uint256" },
-          { "internalType": "uint256", "name": "votingWeight", "type": "uint256" },
-          { "internalType": "uint256", "name": "totalSupply", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountUnderlyingBalance", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountStakedBalance", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountEarnedOTOKEN", "type": "uint256" }
+          { "internalType": "uint256", "name": "x", "type": "uint256" },
+          { "internalType": "uint256", "name": "y", "type": "uint256" }
         ],
-        "internalType": "struct Multicall_Mumbai.GaugeCard",
-        "name": "gaugeCard",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "start", "type": "uint256" },
-      { "internalType": "uint256", "name": "stop", "type": "uint256" },
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
-    "name": "getBribeCards",
-    "outputs": [
-      {
-        "components": [
-          { "internalType": "address", "name": "plugin", "type": "address" },
-          { "internalType": "address", "name": "bribe", "type": "address" },
-          { "internalType": "bool", "name": "isAlive", "type": "bool" },
-          { "internalType": "string", "name": "protocol", "type": "string" },
-          { "internalType": "string", "name": "symbol", "type": "string" },
-          { "internalType": "address[]", "name": "rewardTokens", "type": "address[]" },
-          { "internalType": "uint8[]", "name": "rewardTokenDecimals", "type": "uint8[]" },
-          { "internalType": "uint256[]", "name": "rewardsPerToken", "type": "uint256[]" },
-          { "internalType": "uint256[]", "name": "accountRewardsEarned", "type": "uint256[]" },
-          { "internalType": "uint256", "name": "voteWeight", "type": "uint256" },
-          { "internalType": "uint256", "name": "votePercent", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountVote", "type": "uint256" }
-        ],
-        "internalType": "struct Multicall_Mumbai.BribeCard[]",
+        "internalType": "struct Multicall.Coord[]",
         "name": "",
         "type": "tuple[]"
       }
@@ -203,52 +150,112 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getPriceBase",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+    "name": "getSVG",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "uint256", "name": "start", "type": "uint256" },
-      { "internalType": "uint256", "name": "stop", "type": "uint256" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      { "internalType": "uint256", "name": "end", "type": "uint256" }
     ],
-    "name": "getGaugeCards",
+    "name": "getSVGs",
+    "outputs": [{ "internalType": "string[]", "name": "", "type": "string[]" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+      { "internalType": "uint256", "name": "x", "type": "uint256" },
+      { "internalType": "uint256", "name": "y", "type": "uint256" }
+    ],
+    "name": "getTile",
     "outputs": [
       {
         "components": [
-          { "internalType": "address", "name": "plugin", "type": "address" },
-          { "internalType": "address", "name": "underlying", "type": "address" },
-          { "internalType": "uint8", "name": "underlyingDecimals", "type": "uint8" },
-          { "internalType": "address", "name": "gauge", "type": "address" },
-          { "internalType": "bool", "name": "isAlive", "type": "bool" },
-          { "internalType": "string", "name": "protocol", "type": "string" },
-          { "internalType": "string", "name": "symbol", "type": "string" },
-          { "internalType": "address[]", "name": "tokensInUnderlying", "type": "address[]" },
-          { "internalType": "uint256", "name": "priceBase", "type": "uint256" },
-          { "internalType": "uint256", "name": "priceOTOKEN", "type": "uint256" },
-          { "internalType": "uint256", "name": "rewardPerToken", "type": "uint256" },
-          { "internalType": "uint256", "name": "rewardPerTokenUSD", "type": "uint256" },
-          { "internalType": "uint256", "name": "votingWeight", "type": "uint256" },
-          { "internalType": "uint256", "name": "totalSupply", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountUnderlyingBalance", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountStakedBalance", "type": "uint256" },
-          { "internalType": "uint256", "name": "accountEarnedOTOKEN", "type": "uint256" }
+          { "internalType": "uint256", "name": "color", "type": "uint256" },
+          { "internalType": "address", "name": "account", "type": "address" }
         ],
-        "internalType": "struct Multicall_Mumbai.GaugeCard[]",
+        "internalType": "struct IGridNFT.Tile",
         "name": "",
-        "type": "tuple[]"
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "index", "type": "uint256" }],
-    "name": "getPlugin",
+    "inputs": [
+      { "internalType": "address", "name": "account", "type": "address" },
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+    ],
+    "name": "gridData",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "tilesOwned", "type": "uint256" },
+          { "internalType": "uint256", "name": "tilesPlaced", "type": "uint256" },
+          { "internalType": "uint256", "name": "tileRewardForDuration", "type": "uint256" },
+          { "internalType": "string[]", "name": "colors", "type": "string[]" },
+          { "internalType": "uint256", "name": "colorsLength", "type": "uint256" },
+          {
+            "components": [
+              { "internalType": "uint256", "name": "color", "type": "uint256" },
+              { "internalType": "address", "name": "account", "type": "address" }
+            ],
+            "internalType": "struct IGridNFT.Tile[10][10]",
+            "name": "grid",
+            "type": "tuple[10][10]"
+          },
+          { "internalType": "uint256", "name": "accountTilesOwned", "type": "uint256" },
+          { "internalType": "uint256", "name": "accountTilesPlaced", "type": "uint256" },
+          { "internalType": "uint256", "name": "accountTilesOwnedTokenId", "type": "uint256" },
+          {
+            "components": [
+              { "internalType": "uint256", "name": "x", "type": "uint256" },
+              { "internalType": "uint256", "name": "y", "type": "uint256" }
+            ],
+            "internalType": "struct Multicall.Coord[]",
+            "name": "accountTilesOwnedCoordsTokenId",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct Multicall.Grid",
+        "name": "grid",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gridNFT",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "getPlugins",
-    "outputs": [{ "internalType": "address[]", "name": "", "type": "address[]" }],
+    "name": "gridRewarder",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "minter",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -260,9 +267,9 @@
         "components": [
           { "internalType": "uint256", "name": "total", "type": "uint256" },
           { "internalType": "uint256", "name": "stakingRewards", "type": "uint256" },
-          { "internalType": "uint256", "name": "farmingRewards", "type": "uint256" }
+          { "internalType": "uint256", "name": "gridRewards", "type": "uint256" }
         ],
-        "internalType": "struct Multicall_Mumbai.Portfolio",
+        "internalType": "struct Multicall.Portfolio",
         "name": "portfolio",
         "type": "tuple"
       }
@@ -332,13 +339,6 @@
   },
   {
     "inputs": [],
-    "name": "rewarder",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "swapCardData",
     "outputs": [
       {
@@ -349,7 +349,7 @@
           { "internalType": "uint256", "name": "mrrTOKEN", "type": "uint256" },
           { "internalType": "uint256", "name": "marketMaxTOKEN", "type": "uint256" }
         ],
-        "internalType": "struct Multicall_Mumbai.SwapCard",
+        "internalType": "struct Multicall.SwapCard",
         "name": "swapCard",
         "type": "tuple"
       }
@@ -359,7 +359,7 @@
   },
   {
     "inputs": [],
-    "name": "voter",
+    "name": "tokenRewarder",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
