@@ -11,6 +11,7 @@ import { getStatus } from '@/store/methods'
 import { ADDRESS, ApproveType, OptionType, SettingsTabsType, TransactionType } from '@/ts/types'
 import base_abi from '@/utils/abis/base.json'
 import grid_abi from '@/utils/abis/grid.json'
+import abi_minter from '@/utils/abis/minter.json'
 import abi_multicall from '@/utils/abis/multicall.json'
 import token_abi from '@/utils/abis/token.json'
 import abi_tokenReward from '@/utils/abis/tokenRewarder.json'
@@ -266,6 +267,25 @@ export const mintToken = async (tokenAddress: string, userAddress: string) => {
     const signer = provider.getSigner()
     const tokenContract = new ethers.Contract(tokenAddress, base_abi, signer)
     const tx: TransactionType = await tokenContract.mint(userAddress, MINT_AMOUNT)
+    return { tx, error: null }
+  } catch {
+    return { tx: null, error: 'Error' }
+  }
+}
+/**
+ * Mint tests tokens for a user.
+ *
+ * @param tokenAddress The address of the base token contract.
+ * @param userAddress The address of the user.
+ * @returns An object containing the transaction and any error that occurred.
+ */
+export const updatePeriod = async () => {
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const signer = provider.getSigner()
+    const minterAddress = CONTRACTS[POLYGON].minter
+    const tokenContract = new ethers.Contract(minterAddress, abi_minter, signer)
+    const tx: TransactionType = await tokenContract.update_period()
     return { tx, error: null }
   } catch {
     return { tx: null, error: 'Error' }
