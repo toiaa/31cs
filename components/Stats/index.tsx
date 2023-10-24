@@ -1,9 +1,9 @@
-import useBondingCurve from '@/hooks/useBondingCurve'
+import useMulticall from '@/hooks/useMulticall'
 import { STATS_DATA } from '@/utils/constants'
 import StatData from './StatData'
 
 const Stats = () => {
-  const { isLoading } = useBondingCurve()
+  const { isLoading } = useMulticall()
 
   return (
     <section className='grid grid-cols-3 md:grid-cols-6 w-full bg-box rounded-lg'>

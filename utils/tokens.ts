@@ -5,7 +5,7 @@ import { IS_DEMO, POLYGON } from './constants'
 const TOKENS_PATH = '/images/tokens'
 
 const DEMO_BASE_Polygon: Token = {
-  address: '0x17548E0b3f3d556907DF9A61352afB18D8506C32',
+  address: '0x1E9C07E3731981575717EE825e4d54C735925F50',
   decimals: 18,
   img: `${TOKENS_PATH}/eth.png`,
   name: 'WRAPPED ETHER',
@@ -22,7 +22,7 @@ const REAL_BASE_Polygon: Token = {
 }
 
 const OTOKEN_Polygon: Token = {
-  address: '0xc759291f52cA29d754cb071Cc7BC41F3E029b045',
+  address: '0x21C1289F81310397d9b1103F30eBa3279D5417de',
   decimals: 18,
   img: `${TOKENS_PATH}/otoken.png`,
   name: 'OTOKEN',
@@ -30,7 +30,7 @@ const OTOKEN_Polygon: Token = {
   id: 'otoken',
 }
 const TOKEN_Polygon: Token = {
-  address: '0x6cC3217Eed6d45497b0f566522C36927da108321',
+  address: '0x3b53Da4DE9B159e3EB70aC6763023f529ea89CA1',
   decimals: 18,
   img: `${TOKENS_PATH}/token.png`,
   name: 'TOKEN',
@@ -39,7 +39,7 @@ const TOKEN_Polygon: Token = {
 }
 
 const VTOKEN_Polygon: Token = {
-  address: '0xCa65906fc9FA6212169BcFE04D8e3df6ABC79e10',
+  address: '0xB12c1346E1e2FBadB12Deed34ff91ce4554d3276',
   decimals: 18,
   img: `${TOKENS_PATH}/vtoken.png`,
   name: 'VTOKEN',
@@ -72,42 +72,6 @@ const VP_Polygon: Token = {
   id: 'votingPower',
 }
 
-const USDC: Token = {
-  address: '0xeaD12Cd8fcb3ed3Fc2e0FD881b53048eCEbD1290',
-  decimals: 18,
-  img: `${TOKENS_PATH}/usdc.png`,
-  name: 'Voting Power',
-  symbol: 'USDC',
-  id: 'external',
-}
-
-const DAI: Token = {
-  address: '0x218c66c9092DC6025343e3d36B3Cc38ae49a3577',
-  decimals: 18,
-  img: `${TOKENS_PATH}/dai.png`,
-  name: 'Voting Power',
-  symbol: 'DAI',
-  id: 'external',
-}
-
-const WBTC: Token = {
-  address: '0x6d6C42723Dea7C2077AFF8a8fdB6417c6e20D041',
-  decimals: 18,
-  img: `${TOKENS_PATH}/wbtc.png`,
-  name: 'Wrapped Bitcoin',
-  symbol: 'WBTC',
-  id: 'external',
-}
-
-const SWAP: Token = {
-  address: '0x329b3F5A680389D03EeFe6987dC8Fc82eE839EE1',
-  decimals: 18,
-  img: `${TOKENS_PATH}/swap.png`,
-  name: 'Voting Power',
-  symbol: 'SWAP',
-  id: 'external',
-}
-
 const BASE = IS_DEMO ? DEMO_BASE_Polygon : REAL_BASE_Polygon
 
 export const TOKENS: TokensNetworkInterface = {
@@ -125,5 +89,5 @@ export const TOKENS: TokensNetworkInterface = {
 export const TOKENS_ARRAY: {
   [key: number]: Token[]
 } = {
-  [POLYGON]: [BASE, USDC, WBTC, DAI, SWAP],
+  [POLYGON]: [BASE],
 }

@@ -3,11 +3,11 @@ import useNotification from '@/hooks/useNotification'
 import useSetting from '@/hooks/useSetting'
 import useTransaction from '@/hooks/useTransaction'
 import { DEFAULT_VALUE, useStoreAccount, useStoreAction, useStoreSwap } from '@/store'
-import { updateBondingCurveData } from '@/store/methods'
+import { updateMulticallData } from '@/store/methods'
 import { ContainerBottomSwapInterface } from '@/ts/interfaces'
 import { ADDRESS, ToastMessageType, Token, TransactionType } from '@/ts/types'
 import { getAllowanceInfo, getTokensSwap } from '@/utils/methods'
-import { approve, buy_sell, checkAllowance, getMulticallBondingCurveData, swap_action } from '@/utils/web3Methods'
+import { approve, buy_sell, checkAllowance, getMulticallData, swap_action } from '@/utils/web3Methods'
 import { BigNumber } from '@ethersproject/bignumber'
 import { ethers } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
@@ -115,9 +115,9 @@ const BottomSwap = ({ currentOption, onTransactionStatus }: ContainerBottomSwapI
           }
           await awaitTransaction(tx, error, message)
         }
-        const { bondingCurveData, portfolioData } = await getMulticallBondingCurveData(address, chainId)
+        const { multicallData, portfolioData } = await getMulticallData(address, chainId)
 
-        updateBondingCurveData({ bondingCurveData, portfolioData })
+        updateMulticallData({ multicallData, portfolioData })
         setIsLoading(false)
       } catch (error) {
         setIsLoading(false)

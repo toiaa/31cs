@@ -3,9 +3,9 @@ import {
   SettingsTabsType,
   PercentageSwapValuesType,
   MainTabTypes,
-  ContractsType,
   ADDRESS,
   colorMapType,
+  ContractsType,
 } from '@/ts/types'
 
 export const IS_DEMO = true
@@ -166,14 +166,14 @@ export const PERCENTAGES_SWAP: PercentageSwapValuesType[] = [
 
 export const CONTRACT_ZERO: ADDRESS = '0x0000000000000000000000000000000000000000'
 export const DEFAULT_NETWORK = POLYGON
+
 export const CONTRACTS: ContractsType = {
   [POLYGON]: {
-    bondingCurve: '0x3a0899Bf14c9165FdA500d63789Bd4732A20b879',
-    vTokenReward: '0x6a42D6334e4A05FE480E3De3C8fc159dB15f41E3',
-    gridNFT: '0x9fCb31f4d7397b477c6ad4c6891831A587edAD76',
-    gridRewarder: '0x98FDb3bA2Cd17Fc118fB63578729a63B20959B59',
-    minter: '0x76eCFc57E32d2d535683AEE809811BAf184A9854',
-    multicall: '0xad79CadC417c0BA5C49e13FD26f673419357c5D3',
+    multicall: '0x31e7B6ed09B863f952c9648754a146eF30Df33bc',
+    gridNFT: '0xde84d1E00cA5c27F598dea68320F25167fde308F',
+    gridRewarder: '0xA0377Fe6d61f8D568344dBD3bEBb5D3721931Ab6',
+    minter: '0x5bB6134c6a4559dDBa0c60b1AcE7c2597E91E7e2',
+    fees: '0x6ae1b766cB88eE2c403D861bd1a8Fc0FD3512466',
   },
 }
 
@@ -237,4 +237,4 @@ export const tileColors: colorMapType = {
   4: '#03a5fc',
   5: '#db03fc',
 }
-export const NFT_IDS = [0, 1, 2, 3, 4, 5, 6]
+export const NFT_IDS = [0, 1, 2, 3]
