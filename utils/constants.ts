@@ -231,14 +231,13 @@ export const WEEK = 604800
 
 export const TILE_COLORS: colorMapType = {
   0: '#000000', // black
-  1: '#FFFFFF', // white
-  2: '#FCE303', // yellow
-  3: '#FC0317', // red
-  4: '#03A5FC', // blue
-  5: '#DB03FC', // purple
-  6: '#18FC03', // green
+  1: '#18fc03', // green
+  2: '#fce303', // yellow
+  3: '#fc0317', // red
+  4: '#03a5fc', // blue
+  5: '#db03fc', // purple
+  6: '#FFFFFF', // white
   7: '#FF9700', // orange
   8: '#FD6665', // peach
   9: '#02FBCF', // teal
 }
-export const NFT_IDS = [0, 1, 2, 3]

@@ -365,14 +365,15 @@ export const placeTiles = async (
   userAddress: ADDRESS,
   chainId: number,
   tokenId: string,
-  coordinateX: string,
-  coordinateY: string,
+  coordinatesX: bigint[],
+  coordinatesY: bigint[],
   colorId: string,
 ) => {
-  const provider = getProvider()
-  const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
+  const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+  const signer = provider.getSigner()
+  const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, signer)
   try {
-    const tx = await gridNftContract.placeFor([BigInt(tokenId), coordinateX, coordinateY, BigInt(colorId)])
+    const tx = await gridNftContract.placeFor(BigInt(tokenId), userAddress, coordinatesX, coordinatesY, BigInt(colorId))
     return { tx }
   } catch (error) {
     return { error: 'error placing tiles' }

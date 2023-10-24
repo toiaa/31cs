@@ -1,29 +1,23 @@
+import PlaceTile from '@/components/ControlPanel/PlaceTile'
+import { useStoreSelectedTiles } from '@/store'
 import { GridActionsInterface } from '@/ts/interfaces'
 import { TILE_COLORS } from '@/utils/constants'
 import React, { useState } from 'react'
 import Amount from '../Amount'
 import Button from '../Button'
-import SwapInput from '../SwapCard/SwapInput'
 
 const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
   const [selectedColor, setSelectedColor] = useState('4')
   const handleColorSelection = (colorIndex: string) => {
     setSelectedColor(colorIndex)
+    useStoreSelectedTiles.setState({ selectedColor: colorIndex })
   }
   return (
     <div className='grid-cards'>
       <div className='flex flex-col rounded w-full'>
         <div className='flex justify-between items-center gap-2'>
-          <SwapInput
-            value={''}
-            onInput={() => {
-              console.log('input')
-            }}
-            isDisabled={false}
-            type='number'
-            textCenter={true}
-          />
-          <p className='font-thin text-md '>OTOKEN</p>
+          <div className='border border-gray-borders rounded w-full h-10'></div>
+          <p className='font-thin text-md'>OTOKEN</p>
         </div>
         <div className='flex items-center justify-between gap-2 p-1'>
           <div className='flex items-center gap-2'>
@@ -60,7 +54,7 @@ const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
         <Button notMinW onClick={() => clearSelection && clearSelection()}>
           Clear
         </Button>
-        <Button notMinW>Place Tiles</Button>
+        <PlaceTile />
       </div>
     </div>
   )

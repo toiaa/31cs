@@ -195,5 +195,5 @@ export interface SingleGridInterface {
   svgId: string
 }
 export interface GridActionsInterface {
-  clearSelection?: () => void
+  clearSelection?: () => null
 }

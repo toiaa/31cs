@@ -205,3 +205,11 @@ export type Tile = {
   x: number
   y: number
 }
+export type StoreSelectedTiles = {
+  tokenId: string
+  selectedTiles: Tile[]
+  selectedColor: string
+}
+export type StoreGridApproved = {
+  gridApproved: boolean
+}
