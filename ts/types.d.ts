@@ -38,12 +38,11 @@ export interface MainTabTypes {
 
 export interface ContractsType {
   [key: number]: {
-    bondingCurve: ADDRESS
-    vTokenReward: ADDRESS
+    multicall: ADDRESS
     gridNFT: ADDRESS
     gridRewarder: ADDRESS
     minter: ADDRESS
-    multicall: ADDRESS
+    fees: ADDRESS
   }
 }
 

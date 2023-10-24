@@ -1,14 +1,14 @@
 import { useStatusContracts, useStoreAccount } from '@/store'
-import { updateBondingCurveData } from '@/store/methods'
+import { updateMulticallData } from '@/store/methods'
 import { ADDRESS } from '@/ts/types'
 import { CONTRACT_ZERO, POLYGON, TIMEOUT } from '@/utils/constants'
 import { getNetwork } from '@/utils/methods'
 import { NETWORKS_LIST } from '@/utils/networks'
-import { getMulticallBondingCurveData } from '@/utils/web3Methods'
+import { getMulticallData } from '@/utils/web3Methods'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useEffect } from 'react'
 
-const useBondingCurve = () => {
+const useMulticall = () => {
   const { primaryWallet, network } = useDynamicContext()
   const { loadingBonding } = useStatusContracts()
 
@@ -16,12 +16,12 @@ const useBondingCurve = () => {
     if (!primaryWallet) {
       useStoreAccount.setState({ address: undefined, isConnected: false })
     }
-    const fetchBondingData = async () => {
+    const fetchMulticallgData = async () => {
       const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
       const validNetwork = getNetwork(Number(network ?? POLYGON))
-      const { bondingCurveData, portfolioData } = await getMulticallBondingCurveData(address, validNetwork)
+      const { multicallData, portfolioData } = await getMulticallData(address, validNetwork)
 
-      updateBondingCurveData({ bondingCurveData, portfolioData })
+      updateMulticallData({ multicallData, portfolioData })
       useStoreAccount.setState({
         address,
         chainId: validNetwork,
@@ -32,7 +32,7 @@ const useBondingCurve = () => {
     }
 
     const timeoutId = setTimeout(() => {
-      fetchBondingData()
+      fetchMulticallgData()
     }, TIMEOUT)
 
     return () => clearTimeout(timeoutId)
@@ -41,4 +41,4 @@ const useBondingCurve = () => {
   return { isLoading: loadingBonding }
 }
 
-export default useBondingCurve
+export default useMulticall

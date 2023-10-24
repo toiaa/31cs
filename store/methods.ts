@@ -10,11 +10,11 @@ import {
   useStoreTokensPrice,
 } from '.'
 
-export const updateBondingCurveData = async ({
-  bondingCurveData,
+export const updateMulticallData = async ({
+  multicallData,
   portfolioData,
 }: {
-  bondingCurveData: BigNumber[]
+  multicallData: BigNumber[]
   portfolioData: BigNumber[]
 }) => {
   const [
@@ -23,26 +23,24 @@ export const updateBondingCurveData = async ({
     priceOTOKEN,
     maxMarketSell,
     tvl,
-    circulatingTOKEN,
-    stakedTOKEN,
+    supplyTOKEN,
+    supplyStaked,
     apr,
     ltv,
     marketCap,
-    weeklyOSOLID,
+    weeklyOTOKEN,
     accountBASE,
     accountTOKEN,
     accountOTOKEN,
     accountEarnedBASE,
     accountEarnedTOKEN,
     accountEarnedOTOKEN,
-    accountVTOKEN,
-    accountVotingPower,
-    accountUsedWeights,
+    accountStaked,
+    accountPower,
     accountBorrowCredit,
     accountBorrowDebt,
     accountMaxWithdraw,
-    accountIsLastVote,
-  ] = bondingCurveData
+  ] = multicallData
 
   const [totalRewards, stakingRewards, farmingRewards] = portfolioData
 
@@ -63,10 +61,10 @@ export const updateBondingCurveData = async ({
       wrapped: BigNumber.from(accountBASE),
       token: BigNumber.from(accountTOKEN),
       otoken: BigNumber.from(accountOTOKEN),
-      vtoken: BigNumber.from(accountVTOKEN),
+      vtoken: BigNumber.from(accountStaked),
       credit: BigNumber.from(accountBorrowCredit),
       debt: BigNumber.from(accountBorrowDebt),
-      votingPower: BigNumber.from(accountVotingPower),
+      votingPower: BigNumber.from(accountPower),
     },
     true,
   )
@@ -83,22 +81,21 @@ export const updateBondingCurveData = async ({
   )
   useStoreAccountStats.setState(
     {
-      accountVotingPower: BigNumber.from(accountVotingPower),
-      accountUsedWeights: BigNumber.from(accountUsedWeights),
+      accountVotingPower: BigNumber.from(accountPower),
+
       accountMaxWidthdraw: BigNumber.from(accountMaxWithdraw),
-      accountIsLastVote: BigNumber.from(accountIsLastVote),
     },
     true,
   )
   useStoreStats.setState(
     {
       tvl,
-      circulatingTOKEN,
-      stakedTOKEN,
+      circulatingTOKEN: supplyTOKEN,
+      stakedTOKEN: supplyStaked,
       apr,
       ltv,
       marketCap,
-      emission: weeklyOSOLID,
+      emission: weeklyOTOKEN,
       maxMarketSell: BigNumber.from(maxMarketSell),
     },
     true,

@@ -1,9 +1,9 @@
 import useNotification from '@/hooks/useNotification'
 import { DEFAULT_VALUE, useStoreAccount, useStoreRewards } from '@/store'
-import { updateBondingCurveData } from '@/store/methods'
-import { ToastMessageType } from '@/ts/types'
-import { CONTRACTS } from '@/utils/constants'
-import { getMulticallBondingCurveData, harvest } from '@/utils/web3Methods'
+import { updateMulticallData } from '@/store/methods'
+import { ADDRESS, ToastMessageType } from '@/ts/types'
+import { TOKENS } from '@/utils/tokens'
+import { getMulticallData, harvest } from '@/utils/web3Methods'
 import { useState } from 'react'
 import Button from '../Button'
 
@@ -17,7 +17,7 @@ const HarvestButton = () => {
   }
 
   const [isLoading, setIsLoading] = useState(false)
-  const contractAddress = CONTRACTS[chainId].vTokenReward
+  const contractAddress = TOKENS[chainId].VTOKEN.address as ADDRESS
   const { pendingToast, errorToast } = useNotification()
 
   const message: ToastMessageType = {
@@ -33,9 +33,9 @@ const HarvestButton = () => {
       await tx.wait()
     }
     if (error) errorToast('error', message.error)
-    const { bondingCurveData, portfolioData } = await getMulticallBondingCurveData(address, chainId)
+    const { multicallData, portfolioData } = await getMulticallData(address, chainId)
 
-    updateBondingCurveData({ bondingCurveData, portfolioData })
+    updateMulticallData({ multicallData, portfolioData })
     setIsLoading(false)
   }
 
