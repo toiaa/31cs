@@ -54,7 +54,7 @@ const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
         <Button notMinW onClick={() => clearSelection && clearSelection()}>
           Clear
         </Button>
-        <PlaceTile />
+        <PlaceTile clearSelection={clearSelection} />
       </div>
     </div>
   )

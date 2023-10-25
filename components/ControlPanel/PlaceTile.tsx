@@ -1,6 +1,7 @@
 import Button from '@/components/Button'
 import { useStoreGridApproved, useStoreSelectedTiles } from '@/store'
 import { updateGridData } from '@/store/methods'
+import { GridActionsInterface } from '@/ts/interfaces'
 import { ADDRESS, ToastMessageType, Token, TransactionType } from '@/ts/types'
 import { CONTRACTS, CONTRACT_ZERO, POLYGON, MAX_VALUE } from '@/utils/constants'
 import { getNetwork } from '@/utils/methods'
@@ -11,7 +12,7 @@ import { BigNumber } from 'ethers'
 import useNotification from '../../hooks/useNotification'
 import useTransaction from '../../hooks/useTransaction'
 
-const PlaceTile = () => {
+const PlaceTile = ({ clearSelection }: GridActionsInterface) => {
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
   const { updateTxStatus, updateHash } = useTransaction()
@@ -68,8 +69,8 @@ const PlaceTile = () => {
     }
     await awaitTransaction(tx, error, message)
     const { pixels } = await getSingleGridData(address, validNetwork, nftId)
-    console.log(nftId)
     updateGridData({ nftId, pixels })
+    clearSelection && clearSelection()
   }
   return <Button onClick={placeTile}>Place Tile</Button>
 }
