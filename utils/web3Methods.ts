@@ -346,9 +346,9 @@ export const getNftGallery = async (chainId: number) => {
   const totalGridsNFT = Number(lengthGridNFT.toString())
   const svgDataPromises = Array.from(Array(totalGridsNFT).keys()).map((nftId) => {
     try {
-      const svgData = gridNftContract.tokenURI(BigInt(nftId))
-      return svgData as Promise<string>
-    } catch (error) {
+      const svgData: Promise<string> = gridNftContract.tokenURI(BigInt(nftId))
+      return svgData
+    } catch {
       return 'Error fetching grid SVG data for NFTs'
     }
   })

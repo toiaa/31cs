@@ -60,7 +60,7 @@ const PixelGrid = ({ svgId, handleSaveSelection, selectedTiles }: PixelGridInter
                   onMouseOver={() => {
                     hoverTile(colIndex, rowIndex, owner)
                   }}
-                  className={`flex w-[54px] h-[54px] items-center justify-center 
+                  className={`flex w-[50px] h-[50px] items-center justify-center 
                    ${
                      isSelected(colIndex, rowIndex, selectedTiles)
                        ? 'selectedTile hover:border-2 hover:border-tile-hover-border'
