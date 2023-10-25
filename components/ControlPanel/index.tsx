@@ -14,7 +14,7 @@ const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
   }
   return (
     <div className='grid-cards'>
-      <div className='flex flex-col rounded w-full'>
+      <div className='w-full flex flex-col rounded '>
         <div className='flex justify-between items-center gap-2'>
           <div className='border border-gray-borders rounded w-full h-10'></div>
           <p className='font-thin text-md'>OTOKEN</p>
