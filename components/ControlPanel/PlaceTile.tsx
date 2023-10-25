@@ -1,10 +1,11 @@
 import Button from '@/components/Button'
 import { useStoreGridApproved, useStoreSelectedTiles } from '@/store'
+import { updateGridData } from '@/store/methods'
 import { ADDRESS, ToastMessageType, Token, TransactionType } from '@/ts/types'
-import { CONTRACTS, CONTRACT_ZERO, POLYGON } from '@/utils/constants'
+import { CONTRACTS, CONTRACT_ZERO, POLYGON, MAX_VALUE } from '@/utils/constants'
 import { getNetwork } from '@/utils/methods'
 import { TOKENS } from '@/utils/tokens'
-import { approve, checkAllowance, placeTiles } from '@/utils/web3Methods'
+import { approve, checkAllowance, getSingleGridData, placeTiles } from '@/utils/web3Methods'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { BigNumber } from 'ethers'
 import useNotification from '../../hooks/useNotification'
@@ -14,7 +15,7 @@ const PlaceTile = () => {
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
   const { updateTxStatus, updateHash } = useTransaction()
-  const { selectedTiles, selectedColor, tokenId } = useStoreSelectedTiles()
+  const { selectedTiles, selectedColor, nftId } = useStoreSelectedTiles()
   const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
   const validNetwork = getNetwork(Number(network ?? POLYGON))
   const awaitTransaction = async (
@@ -43,10 +44,9 @@ const PlaceTile = () => {
     const allowance = await checkAllowance(tokenAddress, address, spenderAddress)
     useStoreGridApproved.setState((state) => ({ ...state, allowance }))
     const allowanceBN = BigNumber.from(allowance)
-    const parsedValue = BigNumber.from('1000000000000000000')
-    if (allowanceBN.lt(parsedValue)) {
+    if (allowanceBN.lt(MAX_VALUE)) {
       updateTxStatus('txPrepared')
-      const { error, tx } = await approve({ contractAddress: tokenAddress, spenderAddress }, parsedValue)
+      const { error, tx } = await approve({ contractAddress: tokenAddress, spenderAddress }, MAX_VALUE)
       const message: ToastMessageType = {
         pending: `Approving ${token.symbol}`,
         success: `Approve ${token.symbol} success`,
@@ -59,7 +59,7 @@ const PlaceTile = () => {
     const xValues = selectedTiles.map((coor) => BigInt(coor.x))
     const yValues = selectedTiles.map((coor) => BigInt(coor.y))
     await onAllowanceAndApprove(TOKENS[validNetwork].OTOKEN, CONTRACTS[validNetwork].gridNFT)
-    const { tx, error } = await placeTiles(address, validNetwork, tokenId, yValues, xValues, selectedColor)
+    const { tx, error } = await placeTiles(address, validNetwork, nftId, yValues, xValues, selectedColor)
     updateTxStatus('txPrepared')
     const message: ToastMessageType = {
       pending: 'Placing tiles with OTOKEN',
@@ -67,12 +67,11 @@ const PlaceTile = () => {
       error: 'Error, Placing tiles failed',
     }
     await awaitTransaction(tx, error, message)
+    const { pixels } = await getSingleGridData(address, validNetwork, nftId)
+    console.log(nftId)
+    updateGridData({ nftId, pixels })
   }
-  return (
-    <>
-      <Button onClick={placeTile}>Place Tile FX</Button>
-    </>
-  )
+  return <Button onClick={placeTile}>Place Tile</Button>
 }
 
 export default PlaceTile

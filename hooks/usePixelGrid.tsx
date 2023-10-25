@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 const usePixelGrid = (nftId: string) => {
   const { primaryWallet, network } = useDynamicContext()
   const [loading, setLoading] = useState<boolean>(true)
+  const [singleGridData, setSingleGridData] = useState<{ pixels: string; nftId: string }>({ pixels: '', nftId: '' })
 
   useEffect(() => {
     if (!primaryWallet) {
@@ -18,8 +19,9 @@ const usePixelGrid = (nftId: string) => {
     const fetchPixelGrid = async () => {
       const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
       const validNetwork = getNetwork(Number(network ?? POLYGON))
-      const { svgData } = await getSingleGridData(address, validNetwork, nftId)
-      useStorePixelGrid.setState({ pixelGrid: svgData })
+      const { pixels } = await getSingleGridData(address, validNetwork, nftId)
+      useStorePixelGrid.setState({ nftId: { nftId, pixels } })
+      setSingleGridData({ pixels, nftId })
       useStoreAccount.setState({
         address,
         chainId: validNetwork,
@@ -36,7 +38,7 @@ const usePixelGrid = (nftId: string) => {
     return () => clearTimeout(timeoutId)
   }, [primaryWallet, network])
 
-  return { isLoading: loading }
+  return { isLoading: loading, singleGridData }
 }
 
 export default usePixelGrid

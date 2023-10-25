@@ -6,25 +6,25 @@ import React, { useState } from 'react'
 import GridActions from '../GridActions'
 import SquareLoader from '../Loader/SquareLoader'
 import PixelGrid from './PixelGrid'
-const SingleGrid = ({ svgId }: SingleGridInterface) => {
-  const { isLoading } = usePixelGrid(svgId)
+const SingleGrid = ({ nftId }: SingleGridInterface) => {
+  const { isLoading } = usePixelGrid(nftId)
   const [selectedTiles, setSelectedTiles] = useState<Tile[]>([])
-  const { selectedTiles: storeSelectedTiles } = useStoreSelectedTiles()
 
   const handleSaveSelection = (x: number, y: number) => {
     const isTileSelected = selectedTiles.some((tile) => tile.x === x && tile.y === y)
     if (isTileSelected) {
       const updatedTiles = selectedTiles.filter((tile) => !(tile.x === x && tile.y === y))
-      useStoreSelectedTiles.setState({ selectedTiles: updatedTiles, tokenId: svgId })
+      setSelectedTiles(updatedTiles)
+      useStoreSelectedTiles.setState({ selectedTiles: updatedTiles, nftId: nftId })
     } else {
       setSelectedTiles([...selectedTiles, { x, y }])
-      useStoreSelectedTiles.setState({ selectedTiles: [...selectedTiles, { x, y }], tokenId: svgId })
+      useStoreSelectedTiles.setState({ selectedTiles: [...selectedTiles, { x, y }], nftId: nftId })
     }
   }
   const clearSelection = () => {
     if (selectedTiles) {
       setSelectedTiles([])
-      useStoreSelectedTiles.setState({ selectedTiles: [], tokenId: svgId })
+      useStoreSelectedTiles.setState({ selectedTiles: [], nftId: nftId })
     }
     return null
   }
@@ -37,7 +37,7 @@ const SingleGrid = ({ svgId }: SingleGridInterface) => {
           </div>
         ) : (
           <PixelGrid
-            svgId={svgId}
+            nftId={nftId}
             handleSaveSelection={handleSaveSelection}
             selectedTiles={selectedTiles}
             clearSelection={clearSelection}

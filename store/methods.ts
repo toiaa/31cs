@@ -4,6 +4,7 @@ import { parseEther } from 'ethers/lib/utils.js'
 import {
   useStoreAccountStats,
   useStoreBalance,
+  useStorePixelGrid,
   useStoreRewards,
   useStoreStats,
   useStoreSwap,
@@ -100,6 +101,15 @@ export const updateMulticallData = async ({
     },
     true,
   )
+}
+
+export const updateGridData = async ({ nftId, pixels }: { nftId: string; pixels: [] }) => {
+  useStorePixelGrid.setState({
+    nftId: {
+      nftId,
+      pixels,
+    },
+  })
 }
 
 export const getStatus = (amount: string, balance: BigNumber, id: ERRORS_TYPE): boolean => {

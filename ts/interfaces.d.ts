@@ -186,13 +186,13 @@ export interface TokenInfoSectionI {
 }
 
 export interface PixelGridInterface {
-  svgId: string
+  nftId: string
   handleSaveSelection: (x: number, y: number, owner: string) => void
   selectedTiles: Tile[]
   clearSelection: () => void
 }
 export interface SingleGridInterface {
-  svgId: string
+  nftId: string
 }
 export interface GridActionsInterface {
   clearSelection?: () => null

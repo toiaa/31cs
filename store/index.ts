@@ -144,12 +144,15 @@ export const useStoreGridGallery = create<StoreGridGalleryType>(() => ({
   gridGallery: [''],
 }))
 export const useStorePixelGrid = create<StorePixelGrids>(() => ({
-  pixelGrid: [],
+  nftId: {
+    nftId: '',
+    pixels: [],
+  },
 }))
 
 export const useStoreSelectedTiles = create<StoreSelectedTiles>(() => ({
   quantity: 0,
-  tokenId: '',
+  nftId: '',
   selectedTiles: [],
   selectedColor: '',
 }))

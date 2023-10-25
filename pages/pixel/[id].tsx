@@ -13,7 +13,7 @@ export default function Page() {
         <meta name='description' content='Single view of your tiles' />
       </Head>
       <section className='flex justify-center items-center'>
-        <SingleGrid svgId={id} />
+        <SingleGrid nftId={id} />
       </section>
     </main>
   )

@@ -354,8 +354,8 @@ export const getSingleGridData = async (userAddress: ADDRESS, chainId: number, n
   const provider = getProvider()
   const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
   try {
-    const svgData = await gridNftContract.getGrid(BigInt(nftId))
-    return { svgData }
+    const pixels = await gridNftContract.getGrid(BigInt(nftId))
+    return { pixels }
   } catch (error) {
     return { error: 'error fetching single grid view pixels' }
   }

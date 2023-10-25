@@ -36,7 +36,7 @@ const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
             backgroundColor: `${TILE_COLORS[selectedColor]}`,
           }}></div>
 
-        <div className='flex flex-wrap py-1 justify-end w-44'>
+        <div className='flex flex-wrap py-1 justify-end w-32'>
           {Object.keys(TILE_COLORS).map((colorIndex) => {
             return (
               <div

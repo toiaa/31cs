@@ -200,13 +200,18 @@ export type StoreStatusContractsType = {
 export type colorMapType = { [key: string]: string }
 
 export type StoreGridGalleryType = { gridGallery: string[] }
-export type StorePixelGrids = { pixelGrid: [][] }
+export type StorePixelGrids = {
+  nftId: {
+    nftId: string
+    pixels: [][]
+  }
+}
 export type Tile = {
   x: number
   y: number
 }
 export type StoreSelectedTiles = {
-  tokenId: string
+  nftId: string
   selectedTiles: Tile[]
   selectedColor: string
 }

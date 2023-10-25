@@ -6,9 +6,9 @@ import { TILE_COLORS } from '@/utils/constants'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-const PixelGrid = ({ svgId, handleSaveSelection, selectedTiles }: PixelGridInterface) => {
-  const { pixelGrid } = useStorePixelGrid()
-  const id = Number(svgId)
+const PixelGrid = ({ nftId, handleSaveSelection, selectedTiles }: PixelGridInterface) => {
+  const svgs = useStorePixelGrid()
+  const id = Number(nftId)
   const [tileOwner, setTileOwner] = useState<string | null>('')
   const [hoverCoorX, setHoverCoorX] = useState<number | null>(null)
   const [hoverCoorY, setHoverCoorY] = useState<number | null>(null)
@@ -44,23 +44,22 @@ const PixelGrid = ({ svgId, handleSaveSelection, selectedTiles }: PixelGridInter
           </p>
         </div>
       </div>
-
       <div className='grid grid-cols-10 gap-0 w-auto h-auto mx-auto' onMouseLeave={() => hoverTile(null, null, '')}>
-        {pixelGrid &&
-          pixelGrid.map((row, rowIndex) => {
+        {svgs?.nftId.pixels &&
+          svgs.nftId.pixels.map((row, rowIndex) => {
             return row.map((tile, colIndex) => {
               const tileColorIndex = Number(tile[0])
               const owner = tile[1] as string
               return (
                 <div
-                  key={colIndex}
+                  key={'colIndex' + 'rowIndex'}
                   onClick={() => {
                     handleSaveSelection(colIndex, rowIndex, owner)
                   }}
                   onMouseOver={() => {
                     hoverTile(colIndex, rowIndex, owner)
                   }}
-                  className={`flex w-[54px] h-[54px] items-center justify-center 
+                  className={`flex w-[50px] h-[50px] items-center justify-center 
                    ${
                      isSelected(colIndex, rowIndex, selectedTiles)
                        ? 'selectedTile hover:border-2 hover:border-tile-hover-border'
