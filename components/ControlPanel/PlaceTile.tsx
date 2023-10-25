@@ -1,5 +1,5 @@
 import Button from '@/components/Button'
-import { useStoreGridApproved, useStoreSelectedTiles } from '@/store'
+import { useStoreSelectedTiles } from '@/store'
 import { updateGridData } from '@/store/methods'
 import { GridActionsInterface } from '@/ts/interfaces'
 import { ADDRESS, ToastMessageType, Token, TransactionType } from '@/ts/types'
@@ -43,7 +43,6 @@ const PlaceTile = ({ clearSelection }: GridActionsInterface) => {
     const tokenAddress = token.address as ADDRESS
     const spenderAddress = spender as ADDRESS
     const allowance = await checkAllowance(tokenAddress, address, spenderAddress)
-    useStoreGridApproved.setState((state) => ({ ...state, allowance }))
     const allowanceBN = BigNumber.from(allowance)
     if (allowanceBN.lt(MAX_VALUE)) {
       updateTxStatus('txPrepared')
