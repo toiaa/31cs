@@ -61,7 +61,7 @@ body {
     @apply flex flex-col p-3 w-full min-h-[210px] bg-box items-center border border-button-main-light rounded;
   }
   .selectedTile {
-    @apply border border-tile-selected-border;
+    @apply border-2 border-tile-selected-border;
   }
 }
 

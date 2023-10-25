@@ -19,10 +19,10 @@ function GalleryGrid() {
         <p>Owner:0x.....2323fe</p>
       </div>
 
-      <div className='flex w-[540px] h-[540px] flex-wrap justify-center '>
+      <div className='flex w-[540px] flex-wrap justify-start '>
         {gridGallery.map((svg, id) => {
           return (
-            <Link href={`/pixel/${id}`} key={id} onMouseOver={() => handlehover(id)}>
+            <Link className='h-fit' href={`/pixel/${id}`} key={id} onMouseOver={() => handlehover(id)}>
               <div className='flex items-center justify-center group'>
                 <Image
                   className='hover:border-2 hover:border-[#A78BFA] hover:opacity-30'
