@@ -319,8 +319,8 @@ export const harvest = async (contractAddress: string, userAddress: string) => {
  */
 
 export const getMulticallData = async (userAddress: ADDRESS, chainId: number) => {
-  const provider = getProvider()
-  MulticallWrapper.isMulticallProvider(provider)
+  const providers = getProvider()
+  const provider = MulticallWrapper.wrap(providers)
   const contract = new ethers.Contract(CONTRACTS[chainId].multicall, abi_multicall, provider)
   const bondingDataPromise = contract.bondingCurveData(userAddress)
   const portfolioDataPromise = contract.portfolioData(userAddress)
@@ -329,24 +329,31 @@ export const getMulticallData = async (userAddress: ADDRESS, chainId: number) =>
     bondingDataPromise,
     portfolioDataPromise,
   ])
-
+  provider.isMulticallEnabled = false
   return { multicallData, portfolioData }
 }
 
-export const getNftGallery = async (userAddress: ADDRESS, chainId: number) => {
-  const provider = getProvider()
+/**
+ * Get all the NFTs svg from the Multicall Contract.
+ * @param {number} chainId - The current network Id.
+ * @returns {string[]} - An array of SVGs.
+ */
+export const getNftGallery = async (chainId: number) => {
+  const providers = getProvider()
+  const provider = MulticallWrapper.wrap(providers)
   const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
   const lengthGridNFT: BigNumber = await gridNftContract.totalSupply()
   const totalGridsNFT = Number(lengthGridNFT.toString())
   const svgDataPromises = Array.from(Array(totalGridsNFT).keys()).map((nftId) => {
     try {
-      const svgData = gridNftContract.tokenURI(BigInt(nftId))
+      const svgData: Promise<string> = gridNftContract.tokenURI(BigInt(nftId))
       return svgData
-    } catch (error) {
-      return { error: 'Error fetching grid SVG data for NFTs' }
+    } catch {
+      return 'Error fetching grid SVG data for NFTs'
     }
   })
   const svgGridData = await Promise.all(svgDataPromises)
+  provider.isMulticallEnabled = false
   return { svgGridData }
 }
 
@@ -354,9 +361,28 @@ export const getSingleGridData = async (userAddress: ADDRESS, chainId: number, n
   const provider = getProvider()
   const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
   try {
-    const svgData = await gridNftContract.getGrid(BigInt(nftId))
-    return { svgData }
+    const pixels = await gridNftContract.getGrid(BigInt(nftId))
+    return { pixels }
   } catch (error) {
     return { error: 'error fetching single grid view pixels' }
+  }
+}
+
+export const placeTiles = async (
+  userAddress: ADDRESS,
+  chainId: number,
+  tokenId: string,
+  coordinatesX: bigint[],
+  coordinatesY: bigint[],
+  colorId: string,
+) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+  const signer = provider.getSigner()
+  const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, signer)
+  try {
+    const tx = await gridNftContract.placeFor(BigInt(tokenId), userAddress, coordinatesX, coordinatesY, BigInt(colorId))
+    return { tx }
+  } catch (error) {
+    return { error: 'error placing tiles' }
   }
 }

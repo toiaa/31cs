@@ -57,6 +57,12 @@ body {
   .nav-mobile {
     @apply flex flex-col w-full items-center justify-center gap-1 p-0;
   }
+  .grid-cards {
+    @apply flex flex-col p-3 w-full min-h-[210px] bg-box items-center border border-button-main-light rounded;
+  }
+  .selectedTile {
+    @apply border-2 border-tile-selected-border;
+  }
 }
 
 /* REMOVE IT WHEN WE FIND A GOOD LOADER DESIGN */

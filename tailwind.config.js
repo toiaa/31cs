@@ -20,6 +20,8 @@ module.exports = {
         'button-main-dark': '#c084fc',
         'button-secondary-color': '#a78bfa',
         'button-main-darkest': '#a78bfa',
+        'tile-hover-border': '#c4b5fd',
+        'tile-selected-border': '#d8b4fe',
         // white
         white: '#ffffff',
         'button-text': '#ffffff',

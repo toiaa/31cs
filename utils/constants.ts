@@ -7,12 +7,14 @@ import {
   colorMapType,
   ContractsType,
 } from '@/ts/types'
+import { BigNumber } from 'ethers'
 
 export const IS_DEMO = true
 export const WEBSITE = 'TOKENPROJECT'
 export const MINT_AMOUNT = '10'
 export const POLYGON = 80001
 export const TIMEOUT = 800
+export const MAX_VALUE = BigNumber.from('1000000000000000000')
 export const NAVLINKS: NavLinkInterface[] = [
   {
     id: 'home',
@@ -229,12 +231,13 @@ export const TOOLTIPS_SWAP_TABS: { [key: string]: string } = {
 export type ERRORS_TYPE = keyof typeof ERRORS
 export const WEEK = 604800
 
-export const tileColors: colorMapType = {
-  0: '#000000',
-  1: '#18fc03',
-  2: '#fce303',
-  3: '#fc0317',
-  4: '#03a5fc',
-  5: '#db03fc',
+export const TILE_COLORS: colorMapType = {
+  0: '#000000', // black
+  1: '#18fc03', // green
+  2: '#fce303', // yellow
+  3: '#fc0317', // red
+  4: '#03a5fc', // blue
+  5: '#db03fc', // purple
+  6: '#FFFFFF', // white
+  7: '#FF9700', // orange
 }
-export const NFT_IDS = [0, 1, 2, 3]

@@ -18,7 +18,7 @@ const useGridNft = () => {
     const fetchTokenURI = async () => {
       const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
       const validNetwork = getNetwork(Number(network ?? POLYGON))
-      const { svgGridData } = await getNftGallery(address, validNetwork)
+      const { svgGridData } = await getNftGallery(validNetwork)
       useStoreGridGallery.setState({ gridGallery: svgGridData })
       useStoreAccount.setState({
         address,

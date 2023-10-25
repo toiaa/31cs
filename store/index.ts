@@ -12,6 +12,7 @@ import {
   StoreStatusContractsType,
   StoreGridGalleryType,
   StorePixelGrids,
+  StoreSelectedTiles,
 } from '@/ts/types'
 import { APPROVAL_TABS, CONTRACT_ZERO, DEFAULT_NETWORK, SLIPPAGE_TABS, TRANSACTION_SPEED_TABS } from '@/utils/constants'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -142,5 +143,15 @@ export const useStoreGridGallery = create<StoreGridGalleryType>(() => ({
   gridGallery: [''],
 }))
 export const useStorePixelGrid = create<StorePixelGrids>(() => ({
-  pixelGrid: [],
+  nftId: {
+    nftId: '',
+    pixels: [],
+  },
+}))
+
+export const useStoreSelectedTiles = create<StoreSelectedTiles>(() => ({
+  quantity: 0,
+  nftId: '',
+  selectedTiles: [],
+  selectedColor: '',
 }))
