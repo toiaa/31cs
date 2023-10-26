@@ -1,13 +1,22 @@
 import PlaceTile from '@/components/ControlPanel/PlaceTile'
+import useBalance from '@/hooks/useBalance'
 import { useStoreSelectedTiles } from '@/store'
 import { GridActionsInterface } from '@/ts/interfaces'
 import { TILE_COLORS } from '@/utils/constants'
+import { formatEther } from 'ethers/lib/utils'
 import React, { useState } from 'react'
 import Amount from '../Amount'
 import Button from '../Button'
 
 const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
   const [selectedColor, setSelectedColor] = useState('4')
+  const { getBalance, getPrice } = useBalance()
+  const balanceOTOKEN = getBalance('otoken')
+  const priceOTOKEN = getPrice('otoken')
+  const { selectedTiles } = useStoreSelectedTiles()
+  const formatBalanceOTOKEN = formatEther(balanceOTOKEN)
+  const OTOKENAmount = selectedTiles.length.toString()
+  const priceAmount = Number(OTOKENAmount) * Number(formatEther(priceOTOKEN))
   const handleColorSelection = (colorIndex: string) => {
     setSelectedColor(colorIndex)
     useStoreSelectedTiles.setState({ selectedColor: colorIndex })
@@ -16,16 +25,18 @@ const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
     <div className='grid-cards'>
       <div className='w-full flex flex-col rounded '>
         <div className='flex justify-between items-center gap-2'>
-          <div className='border border-gray-borders rounded w-full h-10'></div>
+          <div className='flex flex-center border border-gray-borders rounded w-full h-7'>
+            <Amount amount={OTOKENAmount} type='number' />
+          </div>
           <p className='font-thin text-md'>OTOKEN</p>
         </div>
         <div className='flex items-center justify-between gap-2 p-1'>
           <div className='flex items-center gap-2'>
-            ≈<Amount amount='0' type='price' />
+            ≈<Amount amount={priceAmount.toString()} type='price' />
           </div>
           <div className='flex gap-2'>
             <p className='font-thin text-sm text-gray-subtitle'>Balance:</p>
-            <Amount amount='0' type='number' />
+            <Amount amount={formatBalanceOTOKEN} type='number' />
           </div>
         </div>
       </div>

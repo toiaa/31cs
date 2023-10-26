@@ -52,7 +52,7 @@ const PixelGrid = ({ nftId, handleSaveSelection, selectedTiles }: PixelGridInter
               const owner = tile[1] as string
               return (
                 <div
-                  key={'colIndex' + 'rowIndex'}
+                  key={colIndex + rowIndex + nftId}
                   onClick={() => {
                     handleSaveSelection(colIndex, rowIndex, owner)
                   }}
