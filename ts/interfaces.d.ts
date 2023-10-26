@@ -23,6 +23,10 @@ interface LinkProps extends WrapperInterface {
   target?: string
 }
 
+export interface StatsInterface {
+  isLoading: boolean
+}
+
 export interface ButtonInterface extends WrapperInterface {
   onClick?: (() => void) | (() => Promise<void>)
   isDisabled?: boolean
