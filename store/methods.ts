@@ -104,12 +104,13 @@ export const updateMulticallData = async ({
 }
 
 export const updateGridData = async ({ nftId, pixels }: { nftId: string; pixels: [] }) => {
-  useStorePixelGrid.setState({
-    nftId: {
-      nftId,
+  useStorePixelGrid.setState((state) => ({
+    ...state,
+    [nftId]: {
+      ...state[nftId],
       pixels,
     },
-  })
+  }))
 }
 
 export const getStatus = (amount: string, balance: BigNumber, id: ERRORS_TYPE): boolean => {

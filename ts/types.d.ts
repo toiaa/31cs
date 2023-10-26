@@ -201,7 +201,7 @@ export type colorMapType = { [key: string]: string }
 
 export type StoreGridGalleryType = { gridGallery: string[] }
 export type StorePixelGrids = {
-  nftId: {
+  [key: string]: {
     nftId: string
     pixels: [][]
   }
