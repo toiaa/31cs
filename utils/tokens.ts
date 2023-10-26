@@ -67,8 +67,8 @@ const VP_Polygon: Token = {
   address: undefined,
   decimals: 18,
   img: `${TOKENS_PATH}/votingpower.png`,
-  name: 'Voting Power',
-  symbol: 'Voting Power',
+  name: 'Power',
+  symbol: 'Power',
   id: 'votingPower',
 }
 

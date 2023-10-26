@@ -12,7 +12,7 @@ const TokenInfoSection = ({
   isLoading,
   showMaxWithdraw,
 }: TokenInfoSectionI) => {
-  const isNotVotingPower = symbol !== 'Voting Power'
+  const isNotVotingPower = symbol !== 'Power'
   const [detailAmount, detailMaxWithdraw, detailVotingPower, detailLendAmount] = detailAmountProps
 
   return (

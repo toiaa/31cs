@@ -1,7 +1,7 @@
 import { useStoreAccount, useStoreInput, useStoreSettings } from '@/store'
 import { ActionType, InputType, OptionType } from '@/ts/types'
 import { calculateSlippage, getTokensSwap, isValid } from '@/utils/methods'
-import { setQuote } from '@/utils/web3Methods'
+import { optionValue, setQuote } from '@/utils/web3Methods'
 import { useEffect } from 'react'
 import useBalance from './useBalance'
 
@@ -56,6 +56,30 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
     useStoreInput.setState({ inputValue: value, craftValue: value, outputValue: value, activeValue: 'inputValue' })
   }
 
+  /**
+   * Update the input, output and craft value.
+   *
+   * @param {string} value - The new value to set on Option.
+   */
+  const optionAction = async (optionKey: OptionType, value: string) => {
+    if (optionKey === 'Exercise') {
+      useStoreInput.setState({
+        inputValue: value,
+        craftValue: optionValue(value),
+        outputValue: value,
+        activeValue: 'inputValue',
+      })
+    }
+    if (optionKey === 'Redeem') {
+      useStoreInput.setState({
+        inputValue: value,
+        craftValue: optionValue(value),
+        outputValue: optionValue(value),
+        activeValue: 'inputValue',
+      })
+    }
+  }
+
   const resetInputs = () => {
     useStoreInput.setState({ inputValue: '0', outputValue: '', activeValue: 'inputValue', craftValue: '' })
   }
@@ -65,7 +89,10 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
     if (actionKey === 'Swap') {
       await swapAction(optionKey, inputKey, value)
     }
-    if (['Options', 'Earn', 'Lend', 'Wrap'].includes(actionKey)) {
+    if (actionKey === 'Options') {
+      await optionAction(optionKey, value)
+    }
+    if (['Earn', 'Lend', 'Wrap'].includes(actionKey)) {
       await staticAction(value)
     }
   }

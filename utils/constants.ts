@@ -188,7 +188,7 @@ export const ERRORS = {
   debt: 'Exceeds debt limit',
   sell: 'Amount exceeds the max sell available',
   slippage: 'Caution, your slippage is high. Your trade may be front run',
-  voting: 'Need at least 1 Voting Power',
+  voting: 'Need at least 1 Power',
   votes: 'Exceed votes percentage',
   loss: 'Loss tolerance exceeded, increase loss tolerance in settings',
   unstake: 'You need to reset your votes and pay your debts',
@@ -202,7 +202,7 @@ export const TOOLTIPS_TOKEN_CARD: { [key: string]: string } = {
   No expiration, 1 WETH strike price.`,
   vtoken: `Non-transferable voting token to govern and vote on farm emission weights.
   Earns swap fees, staking rewards, and voting rewards.
-  Voting Power: Amount of votes available.
+  Power: Amount of votes available.
   Credit: Amount of WETH that can be borrowed from the bonding curve.
   Debt: Amount of WETH owed to the bonding curve.`,
 }
@@ -212,10 +212,10 @@ export const TOOLTIPS_SECONDARY_SWAP_TABS: { [key: string]: string } = {
   sell: 'Sell TOKEN for WETH at its market price.',
   exercise: 'Exercise 1 OTOKEN to Buy 1 TOKEN with 1 WETH.',
   redeem: 'Redeem to sell 1 TOKEN for 1 WETH.',
-  stake: 'Staken 1 TOKEN for 1 VTOKEN to receive 1 Voting Power, 1 WETH Credit, and earn rewards.',
+  stake: 'Staken 1 TOKEN for 1 VTOKEN to receive 1 Power, 1 WETH Credit, and earn rewards.',
   unstake: `Unstake 1 VTOKEN to receive 1 TOKEN.
   Must reset votes and repay debts to unstake.`,
-  burn: `Burn 1 OTOKEN to recieve 1 Voting Power and earn rewards.
+  burn: `Burn 1 OTOKEN to recieve 1 Power and earn rewards.
    Burned OTOKEN is gone forever.`,
   borrow: 'Borrow 1 WETH with 1 VTOKEN collateral.',
   repay: 'Repay 1 WETH to unlock 1 VTOKEN collateral.',
