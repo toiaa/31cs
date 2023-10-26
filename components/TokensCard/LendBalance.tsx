@@ -24,7 +24,7 @@ const LendBalance = () => {
         <Amount amount={formatVTOKEN_APR} type='percentage' decimals={2} color='#a78bfa' />
       </div>
       <div className='flex gap-1 w-full items-center'>
-        <p className='font-semibold'>Voting Power</p>
+        <p className='font-semibold'>Power</p>
         <Amount amount={formatVotingPowerBalance} type='number' decimals={4} />
       </div>
       <div className='flex gap-1 w-full items-center'>

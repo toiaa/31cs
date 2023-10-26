@@ -18,6 +18,7 @@ import abi_tokenReward from '@/utils/abis/tokenRewarder.json'
 import { ExternalProvider } from '@ethersproject/providers'
 import { ethers, BigNumber } from 'ethers'
 import { MulticallWrapper } from 'ethers-multicall-provider'
+import { formatUnits, parseEther } from 'ethers/lib/utils'
 import debounce from 'lodash/debounce'
 import {
   CONTRACTS,
@@ -385,4 +386,15 @@ export const placeTiles = async (
   } catch (error) {
     return { error: 'error placing tiles' }
   }
+}
+
+/**
+ * Get the value from the Excersice or Reedem value on the Swap Page.
+ * @param {otokenValue} string - The otoken value.
+ * @returns {string} - A new string value.
+ */
+export const optionValue = (otokenValue: string): string => {
+  const OTOKEN_parsed = parseEther(otokenValue)
+  const WETH_parsed = parseEther('0.0001')
+  return formatUnits(OTOKEN_parsed.mul(WETH_parsed), 36)
 }
