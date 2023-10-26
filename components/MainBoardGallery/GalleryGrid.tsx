@@ -6,8 +6,8 @@ import React, { useState } from 'react'
 
 function GalleryGrid() {
   const { gridGallery } = useStoreGridGallery()
-  const [tokenId, setTokenId] = useState<number | null>(null)
-  const handlehover = (id: number) => {
+  const [tokenId, setTokenId] = useState<string | null>(null)
+  const handlehover = (id: string) => {
     setTokenId(id)
   }
   return (
@@ -20,7 +20,8 @@ function GalleryGrid() {
       </div>
 
       <div className='flex w-[540px] flex-wrap justify-start '>
-        {gridGallery.map((svg, id) => {
+        {Object.keys(gridGallery).map((id: string) => {
+          const svg = gridGallery[id]
           return (
             <Link className='h-fit' href={`/pixel/${id}`} key={id} onMouseOver={() => handlehover(id)}>
               <div className='flex items-center justify-center group'>

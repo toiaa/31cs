@@ -1,18 +1,18 @@
 import Button from '@/components/Button'
 import { useStoreSelectedTiles } from '@/store'
-import { updateGridData } from '@/store/methods'
+import { updateFullGridData, updateGridData } from '@/store/methods'
 import { GridActionsInterface } from '@/ts/interfaces'
 import { ADDRESS, ToastMessageType, Token, TransactionType } from '@/ts/types'
 import { CONTRACTS, CONTRACT_ZERO, POLYGON, MAX_VALUE } from '@/utils/constants'
 import { getNetwork } from '@/utils/methods'
 import { TOKENS } from '@/utils/tokens'
-import { approve, checkAllowance, getSingleGridData, placeTiles } from '@/utils/web3Methods'
+import { approve, checkAllowance, getNftGallery, getSingleGridData, placeTiles } from '@/utils/web3Methods'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { BigNumber } from 'ethers'
 import useNotification from '../../hooks/useNotification'
 import useTransaction from '../../hooks/useTransaction'
 
-const PlaceTile = ({ clearSelection }: GridActionsInterface) => {
+const PlaceTile = ({ clearPixelSelect }: GridActionsInterface) => {
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
   const { updateTxStatus, updateHash } = useTransaction()
@@ -68,8 +68,10 @@ const PlaceTile = ({ clearSelection }: GridActionsInterface) => {
     }
     await awaitTransaction(tx, error, message)
     const { pixels } = await getSingleGridData(address, validNetwork, nftId)
+    const { svgGridData } = await getNftGallery(validNetwork)
+    updateFullGridData(svgGridData)
     updateGridData({ nftId, pixels })
-    clearSelection && clearSelection()
+    clearPixelSelect && clearPixelSelect()
   }
   return <Button onClick={placeTile}>Place Tile</Button>
 }
