@@ -3,10 +3,10 @@ import React from 'react'
 import ControlPanel from '../ControlPanel'
 import TilesStats from '../TilesStats'
 
-const GridActions = ({ clearSelection }: GridActionsInterface) => {
+const GridActions = ({ clearPixelSelect }: GridActionsInterface) => {
   return (
     <div className='card-custom grid grid-cols-2 items-center gap-3'>
-      <ControlPanel clearSelection={clearSelection} />
+      <ControlPanel clearPixelSelect={clearPixelSelect} />
       <TilesStats />
       <div className='grid-cards'></div>
       <div className='grid-cards'></div>

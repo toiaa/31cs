@@ -6,22 +6,16 @@ module.exports = {
       fontFamily: {
         jostsans: ['Jost', 'sans-serif'],
       },
-      /*  main: '#4338ca', // darkest purple
-        'button-main-border': '#8b5cf6', // dark purple
-        'button-main-light': '#64748b', // gray
-        'button-main-dark': '#c084fc', // purple
-        'button-main-lightest': '#a78bfa', // light purple
-        'button-secondary-color': '#a78bfa', */
       colors: {
         // main
         main: '#4338ca', //purple
-        'button-main-border': '#8b5cf6',
-        'button-main-light': '#64748b',
-        'button-main-dark': '#c084fc',
-        'button-secondary-color': '#a78bfa',
-        'button-main-darkest': '#a78bfa',
-        'tile-hover-border': '#c4b5fd',
-        'tile-selected-border': '#d8b4fe',
+        'button-main-border': '#8b5cf6', // dark purple
+        'button-main-light': '#64748b', // gray
+        'button-main-dark': '#c084fc', // light purple
+        'button-secondary-color': '#a78bfa', // light purple
+        'button-main-darkest': '#a78bfa', // light purple
+        'tile-hover-border': '#c4b5fd', // light purple
+        'tile-selected-border': '#d8b4fe', // light purple
         // white
         white: '#ffffff',
         'button-text': '#ffffff',

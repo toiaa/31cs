@@ -1,33 +1,23 @@
 import usePixelGrid from '@/hooks/usePixelGrid'
 import { useStoreSelectedTiles } from '@/store'
+import { clearPixelSelect } from '@/store/methods'
 import { SingleGridInterface } from '@/ts/interfaces'
-import { Tile } from '@/ts/types'
-import React, { useState } from 'react'
 import GridActions from '../GridActions'
 import SquareLoader from '../Loader/SquareLoader'
 import PixelGrid from './PixelGrid'
 const SingleGrid = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
-  const [selectedTiles, setSelectedTiles] = useState<Tile[]>([])
-
+  const { selectedTiles: selectedTilesStore } = useStoreSelectedTiles()
   const handleSaveSelection = (x: number, y: number) => {
-    const isTileSelected = selectedTiles.some((tile) => tile.x === x && tile.y === y)
+    const isTileSelected = selectedTilesStore.some((tile) => tile.x === x && tile.y === y)
     if (isTileSelected) {
-      const updatedTiles = selectedTiles.filter((tile) => !(tile.x === x && tile.y === y))
-      setSelectedTiles(updatedTiles)
+      const updatedTiles = selectedTilesStore.filter((tile) => !(tile.x === x && tile.y === y))
       useStoreSelectedTiles.setState({ selectedTiles: updatedTiles, nftId: nftId })
     } else {
-      setSelectedTiles([...selectedTiles, { x, y }])
-      useStoreSelectedTiles.setState({ selectedTiles: [...selectedTiles, { x, y }], nftId: nftId })
+      useStoreSelectedTiles.setState({ selectedTiles: [...selectedTilesStore, { x, y }], nftId: nftId })
     }
   }
-  const clearSelection = () => {
-    if (selectedTiles) {
-      setSelectedTiles([])
-      useStoreSelectedTiles.setState({ selectedTiles: [], nftId: nftId })
-    }
-    return null
-  }
+
   return (
     <div className='flex flex-col md:flex-col lg:flex-row gap-2 rounded bg-box p-2 h-full'>
       <div className='card-custom flex flex-col gap-5'>
@@ -39,12 +29,12 @@ const SingleGrid = ({ nftId }: SingleGridInterface) => {
           <PixelGrid
             nftId={nftId}
             handleSaveSelection={handleSaveSelection}
-            selectedTiles={selectedTiles}
-            clearSelection={clearSelection}
+            selectedTiles={selectedTilesStore}
+            clearPixelSelect={clearPixelSelect}
           />
         )}
       </div>
-      <GridActions clearSelection={clearSelection} />
+      <GridActions clearPixelSelect={clearPixelSelect} />
     </div>
   )
 }
