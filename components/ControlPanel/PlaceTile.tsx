@@ -1,22 +1,24 @@
 import Button from '@/components/Button'
 import { useStoreSelectedTiles } from '@/store'
-import { updateGridData } from '@/store/methods'
+import { updateFullGridData, updateGridData } from '@/store/methods'
 import { GridActionsInterface } from '@/ts/interfaces'
 import { ADDRESS, ToastMessageType, Token, TransactionType } from '@/ts/types'
-import { CONTRACTS, CONTRACT_ZERO, POLYGON, MAX_VALUE } from '@/utils/constants'
+import { CONTRACTS, CONTRACT_ZERO, POLYGON } from '@/utils/constants'
 import { getNetwork } from '@/utils/methods'
 import { TOKENS } from '@/utils/tokens'
-import { approve, checkAllowance, getSingleGridData, placeTiles } from '@/utils/web3Methods'
+import { approve, checkAllowance, getNftGallery, getSingleGridData, placeTiles } from '@/utils/web3Methods'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
-import { BigNumber } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
+import { parseEther } from 'ethers/lib/utils'
 import useNotification from '../../hooks/useNotification'
 import useTransaction from '../../hooks/useTransaction'
 
-const PlaceTile = ({ clearSelection }: GridActionsInterface) => {
+const PlaceTile = ({ clearPixelSelect }: GridActionsInterface) => {
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
   const { updateTxStatus, updateHash } = useTransaction()
   const { selectedTiles, selectedColor, nftId } = useStoreSelectedTiles()
+  const approvalValue = parseEther(selectedTiles.length.toString())
   const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
   const validNetwork = getNetwork(Number(network ?? POLYGON))
   const awaitTransaction = async (
@@ -44,9 +46,10 @@ const PlaceTile = ({ clearSelection }: GridActionsInterface) => {
     const spenderAddress = spender as ADDRESS
     const allowance = await checkAllowance(tokenAddress, address, spenderAddress)
     const allowanceBN = BigNumber.from(allowance)
-    if (allowanceBN.lt(MAX_VALUE)) {
+    console.log('allowance:', allowanceBN.toString(), 'approval:', approvalValue.toString())
+    if (allowanceBN.lt(ethers.constants.MaxUint256)) {
       updateTxStatus('txPrepared')
-      const { error, tx } = await approve({ contractAddress: tokenAddress, spenderAddress }, MAX_VALUE)
+      const { error, tx } = await approve({ contractAddress: tokenAddress, spenderAddress }, approvalValue)
       const message: ToastMessageType = {
         pending: `Approving ${token.symbol}`,
         success: `Approve ${token.symbol} success`,
@@ -68,8 +71,10 @@ const PlaceTile = ({ clearSelection }: GridActionsInterface) => {
     }
     await awaitTransaction(tx, error, message)
     const { pixels } = await getSingleGridData(address, validNetwork, nftId)
+    const { svgGridData } = await getNftGallery(validNetwork)
+    updateFullGridData(svgGridData)
     updateGridData({ nftId, pixels })
-    clearSelection && clearSelection()
+    clearPixelSelect && clearPixelSelect()
   }
   return <Button onClick={placeTile}>Place Tile</Button>
 }

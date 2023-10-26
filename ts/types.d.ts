@@ -199,9 +199,9 @@ export type StoreStatusContractsType = {
 
 export type colorMapType = { [key: string]: string }
 
-export type StoreGridGalleryType = { gridGallery: string[] }
+export type StoreGridGalleryType = { gridGallery: { [key: string]: string } }
 export type StorePixelGrids = {
-  [key: string]: {
+  [nftId: string]: {
     nftId: string
     pixels: [][]
   }

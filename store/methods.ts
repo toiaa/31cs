@@ -4,8 +4,10 @@ import { parseEther } from 'ethers/lib/utils.js'
 import {
   useStoreAccountStats,
   useStoreBalance,
+  useStoreGridGallery,
   useStorePixelGrid,
   useStoreRewards,
+  useStoreSelectedTiles,
   useStoreStats,
   useStoreSwap,
   useStoreTokensPrice,
@@ -104,13 +106,26 @@ export const updateMulticallData = async ({
 }
 
 export const updateGridData = async ({ nftId, pixels }: { nftId: string; pixels: [] }) => {
-  useStorePixelGrid.setState((state) => ({
-    ...state,
-    [nftId]: {
-      ...state[nftId],
-      pixels,
-    },
-  }))
+  if (useStoreSelectedTiles.getState().nftId === nftId) {
+    useStorePixelGrid.setState({
+      nftId: {
+        nftId,
+        pixels,
+      },
+    })
+  }
+}
+
+export const updateFullGridData = async (svgGridData: string[]) => {
+  const gridGallery: { [key: string]: string } = svgGridData.reduce((obj: { [key: string]: string }, item, index) => {
+    obj[index] = item
+    return obj
+  }, {})
+  useStoreGridGallery.setState({ gridGallery })
+}
+
+export const clearPixelSelect = (nftId = '') => {
+  useStoreSelectedTiles.setState({ selectedTiles: [], nftId: nftId, selectedColor: '4' })
 }
 
 export const getStatus = (amount: string, balance: BigNumber, id: ERRORS_TYPE): boolean => {

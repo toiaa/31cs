@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import Amount from '../Amount'
 import Button from '../Button'
 
-const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
+const ControlPanel = ({ clearPixelSelect }: GridActionsInterface) => {
   const [selectedColor, setSelectedColor] = useState('4')
   const { getBalance, getPrice } = useBalance()
   const balanceOTOKEN = getBalance('otoken')
@@ -42,7 +42,7 @@ const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
       </div>
       <div className='flex justify-between items-center gap-2 w-full p-1'>
         <div
-          className={`bg-${TILE_COLORS[selectedColor]} h-10 w-10`}
+          className={`bg-${TILE_COLORS[selectedColor]} h-14 w-14  border border-gray-borders`}
           style={{
             backgroundColor: `${TILE_COLORS[selectedColor]}`,
           }}></div>
@@ -62,10 +62,10 @@ const ControlPanel = ({ clearSelection }: GridActionsInterface) => {
         </div>
       </div>
       <div className='flex gap-3'>
-        <Button notMinW onClick={() => clearSelection && clearSelection()}>
+        <Button notMinW onClick={() => clearPixelSelect && clearPixelSelect()}>
           Clear
         </Button>
-        <PlaceTile clearSelection={clearSelection} />
+        <PlaceTile clearPixelSelect={clearPixelSelect} />
       </div>
     </div>
   )

@@ -1,10 +1,10 @@
-import useGridNft from '@/hooks/useGridNft'
+import useMulticall from '@/hooks/useMulticall'
 import GridActions from '../GridActions'
 import SquareLoader from '../Loader/SquareLoader'
 import GalleryGrid from './GalleryGrid'
 
 function MainBoardGallery() {
-  const { isLoading } = useGridNft()
+  const { isLoading } = useMulticall()
   return (
     <div className='flex flex-col md:flex-col lg:flex-row gap-2 rounded bg-box p-2 h-full'>
       <div className='card-custom flex flex-col gap-2'>
