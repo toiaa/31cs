@@ -23,6 +23,10 @@ interface LinkProps extends WrapperInterface {
   target?: string
 }
 
+export interface StatsInterface {
+  isLoading: boolean
+}
+
 export interface ButtonInterface extends WrapperInterface {
   onClick?: (() => void) | (() => Promise<void>)
   isDisabled?: boolean
@@ -189,11 +193,11 @@ export interface PixelGridInterface {
   nftId: string
   handleSaveSelection: (x: number, y: number, owner: string) => void
   selectedTiles: Tile[]
-  clearSelection: () => void
+  clearPixelSelect?: (nftId: string) => void
 }
 export interface SingleGridInterface {
   nftId: string
 }
 export interface GridActionsInterface {
-  clearSelection?: () => null
+  clearPixelSelect?: (nftId?: string) => void
 }

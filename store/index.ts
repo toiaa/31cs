@@ -140,14 +140,10 @@ export const useStatusContracts = create<StoreStatusContractsType>(() => ({
 /* Store for Grid Gallery SVGs*/
 
 export const useStoreGridGallery = create<StoreGridGalleryType>(() => ({
-  gridGallery: [''],
+  gridGallery: {},
 }))
-export const useStorePixelGrid = create<StorePixelGrids>(() => ({
-  nftId: {
-    nftId: '',
-    pixels: [],
-  },
-}))
+
+export const useStorePixelGrid = create<StorePixelGrids>(() => ({}))
 
 export const useStoreSelectedTiles = create<StoreSelectedTiles>(() => ({
   quantity: 0,

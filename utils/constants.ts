@@ -7,14 +7,12 @@ import {
   colorMapType,
   ContractsType,
 } from '@/ts/types'
-import { BigNumber } from 'ethers'
 
 export const IS_DEMO = true
 export const WEBSITE = 'TOKENPROJECT'
 export const MINT_AMOUNT = '10'
 export const POLYGON = 80001
 export const TIMEOUT = 800
-export const MAX_VALUE = BigNumber.from('1000000000000000000')
 export const NAVLINKS: NavLinkInterface[] = [
   {
     id: 'home',

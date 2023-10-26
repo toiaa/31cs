@@ -1,5 +1,6 @@
 import ArrowLeftIcon from '@/assets/Icons/ArrowLeftIcon'
 import { useStorePixelGrid } from '@/store'
+import { clearPixelSelect } from '@/store/methods'
 import { PixelGridInterface } from '@/ts/interfaces'
 import { Tile } from '@/ts/types'
 import { TILE_COLORS } from '@/utils/constants'
@@ -21,13 +22,14 @@ const PixelGrid = ({ nftId, handleSaveSelection, selectedTiles }: PixelGridInter
     tileOwner.length - 4,
     tileOwner.length,
   )}`
-  function isSelected(x: number, y: number, selectedTiles: Tile[]): boolean {
+  const isSelected = (x: number, y: number, selectedTiles: Tile[]): boolean => {
     return selectedTiles.some((tile) => tile.x === x && tile.y === y)
   }
   return (
     <>
       <div className='flex w-full gap-2'>
         <Link
+          onClick={() => clearPixelSelect()}
           href='/grid'
           className=' w-1/3 flex gap-3 items-center bg-box border border-button-main-light rounded p-2'>
           <ArrowLeftIcon />
@@ -52,7 +54,7 @@ const PixelGrid = ({ nftId, handleSaveSelection, selectedTiles }: PixelGridInter
               const owner = tile[1] as string
               return (
                 <div
-                  key={'colIndex' + 'rowIndex'}
+                  key={colIndex + rowIndex + nftId}
                   onClick={() => {
                     handleSaveSelection(colIndex, rowIndex, owner)
                   }}
