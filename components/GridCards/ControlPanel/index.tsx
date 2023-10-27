@@ -1,16 +1,18 @@
+import PlaceTile from '@/components/GridCards/ControlPanel/PlaceTile'
 import useBalance from '@/hooks/useBalance'
+import useMulticall from '@/hooks/useMulticall'
 import { useStoreSelectedTiles } from '@/store'
 import { clearPixelSelect } from '@/store/methods'
 import { GridActionsInterface } from '@/ts/interfaces'
 import { TILE_COLORS } from '@/utils/constants'
 import { formatEther } from 'ethers/lib/utils'
 import React, { useState } from 'react'
-import Amount from '../Amount'
-import Button from '../Button'
-import PlaceTile from '../GridCards/ControlPanel/PlaceTile'
+import Amount from '../../Amount'
+import Button from '../../Button'
 
 const ControlPanel = ({ isPixel }: GridActionsInterface) => {
   const [selectedColor, setSelectedColor] = useState('4')
+  const { isLoading } = useMulticall()
   const { getBalance, getPrice } = useBalance()
   const balanceOTOKEN = getBalance('otoken')
   const priceOTOKEN = getPrice('otoken')
@@ -37,7 +39,7 @@ const ControlPanel = ({ isPixel }: GridActionsInterface) => {
           </div>
           <div className='flex gap-2'>
             <p className='font-thin text-sm text-gray-subtitle'>Balance:</p>
-            <Amount amount={formatBalanceOTOKEN} type='number' />
+            <Amount isLoading={isLoading} amount={formatBalanceOTOKEN} type='number' />
           </div>
         </div>
       </div>
