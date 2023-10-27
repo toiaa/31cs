@@ -195,6 +195,7 @@ export type OptionType =
 
 export type StoreStatusContractsType = {
   loadingBonding: boolean
+  loadingGridGallery: boolean
 }
 
 export type colorMapType = { [key: string]: string }

@@ -136,6 +136,7 @@ export const useStoreTx = create<StoreTxType>(() => ({
 /* Store for tracking inputs */
 export const useStatusContracts = create<StoreStatusContractsType>(() => ({
   loadingBonding: true,
+  loadingGridGallery: true,
 }))
 /* Store for Grid Gallery SVGs*/
 
@@ -146,7 +147,6 @@ export const useStoreGridGallery = create<StoreGridGalleryType>(() => ({
 export const useStorePixelGrid = create<StorePixelGrids>(() => ({}))
 
 export const useStoreSelectedTiles = create<StoreSelectedTiles>(() => ({
-  quantity: 0,
   nftId: '',
   selectedTiles: [],
   selectedColor: '',

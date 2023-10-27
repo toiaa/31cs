@@ -1,8 +1,7 @@
 import usePixelGrid from '@/hooks/usePixelGrid'
 import { useStoreSelectedTiles } from '@/store'
-import { clearPixelSelect } from '@/store/methods'
 import { SingleGridInterface } from '@/ts/interfaces'
-import GridActions from '../GridActions'
+import GridActions from '../GridCards'
 import SquareLoader from '../Loader/SquareLoader'
 import PixelGrid from './PixelGrid'
 const SingleGrid = ({ nftId }: SingleGridInterface) => {
@@ -12,7 +11,10 @@ const SingleGrid = ({ nftId }: SingleGridInterface) => {
     const isTileSelected = selectedTilesStore.some((tile) => tile.x === x && tile.y === y)
     if (isTileSelected) {
       const updatedTiles = selectedTilesStore.filter((tile) => !(tile.x === x && tile.y === y))
-      useStoreSelectedTiles.setState({ selectedTiles: updatedTiles, nftId: nftId })
+      useStoreSelectedTiles.setState({
+        selectedTiles: updatedTiles,
+        nftId: nftId,
+      })
     } else {
       useStoreSelectedTiles.setState({ selectedTiles: [...selectedTilesStore, { x, y }], nftId: nftId })
     }
@@ -26,15 +28,10 @@ const SingleGrid = ({ nftId }: SingleGridInterface) => {
             <SquareLoader />
           </div>
         ) : (
-          <PixelGrid
-            nftId={nftId}
-            handleSaveSelection={handleSaveSelection}
-            selectedTiles={selectedTilesStore}
-            clearPixelSelect={clearPixelSelect}
-          />
+          <PixelGrid nftId={nftId} handleSaveSelection={handleSaveSelection} selectedTiles={selectedTilesStore} />
         )}
       </div>
-      <GridActions clearPixelSelect={clearPixelSelect} />
+      <GridActions />
     </div>
   )
 }

@@ -193,11 +193,10 @@ export interface PixelGridInterface {
   nftId: string
   handleSaveSelection: (x: number, y: number, owner: string) => void
   selectedTiles: Tile[]
-  clearPixelSelect?: (nftId: string) => void
 }
 export interface SingleGridInterface {
   nftId: string
 }
 export interface GridActionsInterface {
-  clearPixelSelect?: (nftId?: string) => void
+  isPixel?: boolean
 }

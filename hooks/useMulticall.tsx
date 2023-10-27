@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 
 const useMulticall = () => {
   const { primaryWallet, network } = useDynamicContext()
-  const { loadingBonding } = useStatusContracts()
+  const { loadingBonding, loadingGridGallery } = useStatusContracts()
 
   useEffect(() => {
     if (!primaryWallet) {
@@ -29,7 +29,7 @@ const useMulticall = () => {
         isConnected: primaryWallet ? true : false,
         whitelistedNetwork: NETWORKS_LIST.includes(Number(network)),
       })
-      useStatusContracts.setState({ loadingBonding: false })
+      useStatusContracts.setState({ loadingBonding: false, loadingGridGallery: false })
     }
 
     const timeoutId = setTimeout(() => {
@@ -39,7 +39,7 @@ const useMulticall = () => {
     return () => clearTimeout(timeoutId)
   }, [primaryWallet, network])
 
-  return { isLoading: loadingBonding }
+  return { isLoading: loadingBonding, isLoadingGridGallery: loadingGridGallery }
 }
 
 export default useMulticall
