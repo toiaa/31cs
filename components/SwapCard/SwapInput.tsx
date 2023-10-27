@@ -16,7 +16,7 @@ const SwapInput = ({ value, onInput, isDisabled, type = 'number', maxW, textCent
         onChange={(e) => onInput(e.target.value)}
         className={`${
           textCenter && 'text-center'
-        } bg-transparent text-bold h-[35px] text-sm md:text-lg rounded-lg w-full p-2 outline-none border-2 border-gray-borders focus:border-button-main-darkest transition-ease`}
+        } bg-transparent text-bold h-[35px] text-sm md:text-lg rounded-lg w-full p-2 outline-none border-2 border-gray-borders focus:border-button-secondary-color transition-ease`}
         placeholder='0'
         type='text'
       />

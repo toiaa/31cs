@@ -19,7 +19,7 @@ const PercentageButtons = ({ handleInput, balance }: PercentageInterface) => {
           <li
             onClick={() => handlePercentage(percentage.value)}
             key={index}
-            className='text-center bg-button-main-darkest bg-opacity-50 text-main-400 rounded p-1 w-64 hover:opacity-40 transition-ease cursor-pointer'>
+            className='text-center bg-button-secondary-color bg-opacity-50 text-main-400 rounded p-1 w-64 hover:opacity-40 transition-ease cursor-pointer'>
             {percentage.label}
           </li>
         )

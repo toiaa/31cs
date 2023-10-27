@@ -11,11 +11,10 @@ module.exports = {
         main: '#4338ca', //purple
         'button-main-border': '#8b5cf6', // dark purple
         'button-main-light': '#64748b', // gray
-        'button-main-dark': '#c084fc', // light purple
+        'button-main-dark': '#c084fc', // purple
         'button-secondary-color': '#a78bfa', // light purple
-        'button-main-darkest': '#a78bfa', // light purple
-        'tile-hover-border': '#c4b5fd', // light purple
-        'tile-selected-border': '#d8b4fe', // light purple
+        'tile-hover-border': '#c4b5fd', // pale purple
+        'tile-selected-border': '#d8b4fe', // pink purple
         // white
         white: '#ffffff',
         'button-text': '#ffffff',

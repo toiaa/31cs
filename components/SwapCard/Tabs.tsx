@@ -10,7 +10,7 @@ const Tabs = ({ activeTab, list, onUpdate }: SwapTabsInterface) => {
         <li onClick={() => onUpdate(i)} key={`${option}-${i}`}>
           <div
             className={`flex-center cursor-pointer transition-ease py-4 gap-2 ${
-              activeTab === i ? 'bg-button-main-darkest  text-button-text rounded bg-opacity-6' : ''
+              activeTab === i ? 'bg-button-secondary-color  text-button-text rounded bg-opacity-6' : ''
             }`}>
             {option}
             <TooltipQuestion

@@ -46,7 +46,9 @@ const PixelGrid = ({ nftId, handleSaveSelection, selectedTiles }: PixelGridInter
           </p>
         </div>
       </div>
-      <div className='grid grid-cols-10 gap-0 w-auto h-auto mx-auto' onMouseLeave={() => hoverTile(null, null, '')}>
+      <div
+        className='grid grid-cols-10 gap-0 w-auto h-auto mx-auto min-w-[450px]'
+        onMouseLeave={() => hoverTile(null, null, '')}>
         {svgs?.nftId.pixels &&
           svgs.nftId.pixels.map((row, rowIndex) => {
             return row.map((tile, colIndex) => {
