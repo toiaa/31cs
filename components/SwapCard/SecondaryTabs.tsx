@@ -12,7 +12,7 @@ const SecondaryTabs = ({ activeTab, list, onUpdate }: SwapTabsInterface) => {
         <li
           key={`${option}-${i}`}
           className={`${
-            activeTab === i ? ' bg-button-main-darkest bg-opacity-80 text-button-text' : ''
+            activeTab === i ? ' bg-button-secondary-color bg-opacity-80 text-button-text' : ''
           }  rounded p-1 w-full`}>
           <div className='w-full' onClick={() => onUpdate(i)}>
             <div className='flex justify-center gap-2'>

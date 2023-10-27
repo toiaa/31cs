@@ -358,7 +358,7 @@ export const getNftGallery = async (chainId: number) => {
   return { svgGridData }
 }
 
-export const getSingleGridData = async (userAddress: ADDRESS, chainId: number, nftId: string) => {
+export const getSingleGridData = async (chainId: number, nftId: string) => {
   const provider = getProvider()
   const gridNftContract = new ethers.Contract(CONTRACTS[chainId].gridNFT, grid_abi, provider)
   try {

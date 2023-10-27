@@ -24,7 +24,7 @@ const Slippage = ({ activeTabId, list, onSelect }: SlippageSettingsTabsInterface
                 onClick={() => onSelect(tab.id)}
                 onChange={(e) => handleInput(e.target.value)}
                 className={`rounded p-2 w-full  text-center placeholder:text-white transition-ease outline-none ${
-                  activeTabId === tab.id ? 'bg-button-main-darkest bg-opacity-6' : 'bg-modal-neutral'
+                  activeTabId === tab.id ? 'bg-button-secondary-color bg-opacity-6' : 'bg-modal-neutral'
                 }`}
                 placeholder={tab.label}
                 value={customSlippage}
@@ -35,7 +35,7 @@ const Slippage = ({ activeTabId, list, onSelect }: SlippageSettingsTabsInterface
             <li
               key={`${tab.id}-${index}-slippage`}
               className={`${
-                activeTabId === tab.id ? '  bg-button-main-darkest bg-opacity-6 ' : ''
+                activeTabId === tab.id ? '  bg-button-secondary-color bg-opacity-6 ' : ''
               }  rounded p-2 w-full transition-ease`}>
               <button className='w-full' onClick={() => onSelect(tab.id)}>
                 <p>{tab.label}</p>

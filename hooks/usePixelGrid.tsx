@@ -19,7 +19,7 @@ const usePixelGrid = (nftId: string) => {
     const fetchPixelGrid = async () => {
       const address = primaryWallet ? (primaryWallet.address as ADDRESS) : CONTRACT_ZERO
       const validNetwork = getNetwork(Number(network ?? POLYGON))
-      const { pixels } = await getSingleGridData(address, validNetwork, nftId)
+      const { pixels } = await getSingleGridData(validNetwork, nftId)
       useStorePixelGrid.setState({ nftId: { nftId, pixels } })
       setSingleGridData({ pixels, nftId })
       useStoreAccount.setState({
@@ -36,7 +36,7 @@ const usePixelGrid = (nftId: string) => {
     }, TIMEOUT)
 
     return () => clearTimeout(timeoutId)
-  }, [primaryWallet, network])
+  }, [primaryWallet, network, nftId])
 
   return { isLoading: loading, singleGridData }
 }

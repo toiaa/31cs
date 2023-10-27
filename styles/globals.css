@@ -43,7 +43,7 @@ body {
     @apply disabled:bg-gray-borders disabled:cursor-pointer disabled:border-gray-borders disabled:hover:opacity-50;
   }
   .button-custom {
-    @apply flex-center px-[12px] py-[6px] text-sm lg:text-base w-full bg-button-main-darkest border border-button-main-border shadow-md shadow-box rounded-md cursor-pointer transition-ease button-disabled hover:opacity-70;
+    @apply flex-center px-[12px] py-[6px] text-sm lg:text-base w-full bg-button-secondary-color border border-button-main-border shadow-md shadow-box rounded-md cursor-pointer transition-ease button-disabled hover:opacity-70;
   }
   .button-no-min-width {
     @apply min-w-0;
@@ -52,13 +52,13 @@ body {
     @apply min-w-[150px];
   }
   .selected-nav {
-    @apply bg-button-main-darkest bg-opacity-50 rounded gap-1 flex items-center px-2 py-1 text-[#d8b4fe];
+    @apply bg-button-secondary-color bg-opacity-50 rounded gap-1 flex items-center px-2 py-1 text-[#d8b4fe];
   }
   .nav-mobile {
     @apply flex flex-col w-full items-center justify-center gap-1 p-0;
   }
   .grid-cards {
-    @apply flex flex-col p-3 w-full min-h-[210px] bg-box items-center border border-button-main-light rounded;
+    @apply flex flex-col p-3 w-full min-h-[210px] min-w-[210px] bg-box items-center border border-button-main-light rounded;
   }
   .selectedTile {
     @apply border-2 border-tile-selected-border;

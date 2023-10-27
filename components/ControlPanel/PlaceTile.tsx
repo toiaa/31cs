@@ -46,7 +46,6 @@ const PlaceTile = ({ clearPixelSelect }: GridActionsInterface) => {
     const spenderAddress = spender as ADDRESS
     const allowance = await checkAllowance(tokenAddress, address, spenderAddress)
     const allowanceBN = BigNumber.from(allowance)
-    console.log('allowance:', allowanceBN.toString(), 'approval:', approvalValue.toString())
     if (allowanceBN.lt(ethers.constants.MaxUint256)) {
       updateTxStatus('txPrepared')
       const { error, tx } = await approve({ contractAddress: tokenAddress, spenderAddress }, approvalValue)
@@ -70,7 +69,7 @@ const PlaceTile = ({ clearPixelSelect }: GridActionsInterface) => {
       error: 'Error, Placing tiles failed',
     }
     await awaitTransaction(tx, error, message)
-    const { pixels } = await getSingleGridData(address, validNetwork, nftId)
+    const { pixels } = await getSingleGridData(validNetwork, nftId)
     const { svgGridData } = await getNftGallery(validNetwork)
     updateFullGridData(svgGridData)
     updateGridData({ nftId, pixels })

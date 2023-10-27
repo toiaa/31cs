@@ -10,7 +10,7 @@ const SettingsTabs = ({ activeTabId, list, onSelect }: SettingsTabsInterface) =>
             <li
               key={`${tab.id}-${index}-tabs`}
               className={`${
-                activeTabId === tab.id ? ' bg-button-main-darkest bg-opacity-6 ' : ''
+                activeTabId === tab.id ? ' bg-button-secondary-color bg-opacity-6 ' : ''
               }  rounded p-2 w-full bg-opacity-75 transition-ease`}>
               <button className='w-full' onClick={() => onSelect(tab.id)}>
                 <p>{tab.label}</p>
