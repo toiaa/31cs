@@ -208,8 +208,8 @@ export const TOOLTIPS_TOKEN_CARD: { [key: string]: string } = {
 export const TOOLTIPS_SECONDARY_SWAP_TABS: { [key: string]: string } = {
   buy: 'Buy TOKEN with WETH at its market price.',
   sell: 'Sell TOKEN for WETH at its market price.',
-  exercise: 'Exercise 1 OTOKEN to Buy 1 TOKEN with 1 WETH.',
-  redeem: 'Redeem to sell 1 TOKEN for 1 WETH.',
+  exercise: 'Exercise 1 OTOKEN to Buy 1 TOKEN with 0.0001 WETH.',
+  redeem: 'Redeem to sell 1 TOKEN for 0.0001 WETH.',
   stake: 'Staken 1 TOKEN for 1 VTOKEN to receive 1 Power, 1 WETH Credit, and earn rewards.',
   unstake: `Unstake 1 VTOKEN to receive 1 TOKEN.
   Must reset votes and repay debts to unstake.`,

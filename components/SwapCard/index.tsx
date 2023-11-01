@@ -28,7 +28,7 @@ const SwapCard = () => {
     // Options
     if (tab.id === 1) {
       if (option === 0) return [OTOKEN, TOKEN, WRAPPED]
-      return [TOKEN, WRAPPED]
+      return [TOKEN, WRAPPED, WRAPPED]
     }
     // Earn
     if (tab.id === 2) {
@@ -55,6 +55,8 @@ const SwapCard = () => {
         resetInputs()
         useStoreAction.setState({ isBuy: true })
       } else if (tab.id !== 0 && newTab.id === 0) {
+        resetInputs()
+      } else if (tab.id !== 0 && newTab.id === 1) {
         resetInputs()
       }
       setCurrentTabOption((prevState) => ({ ...prevState, tab: newTab, option: 0 }))
