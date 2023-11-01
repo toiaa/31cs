@@ -74,7 +74,7 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
       useStoreInput.setState({
         inputValue: value,
         craftValue: optionValue(value),
-        outputValue: optionValue(value),
+        outputValue: value,
         activeValue: 'inputValue',
       })
     }
