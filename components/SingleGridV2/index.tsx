@@ -6,7 +6,6 @@ import React, { useState } from 'react'
 
 const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
-  console.log(nftId)
   const svgs = useStorePixelGrid()
   const id = Number(nftId)
 
