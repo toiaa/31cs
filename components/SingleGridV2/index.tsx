@@ -37,6 +37,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
         <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-6 overflow-y-scroll overscroll-none'>
           <div className='grid grid-cols-10 gap-0 h-full mx-auto p-3' onMouseLeave={() => hoverTile(null, null, '')}>
             {svgs?.nftId?.pixels &&
+              !isLoading &&
               svgs.nftId.pixels.map((row, rowIndex) => {
                 return row.map((tile, colIndex) => {
                   const tileColorIndex = Number(tile[0])
