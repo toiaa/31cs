@@ -1,6 +1,5 @@
 import Arrows from '@/components/Joystick/Arrows'
 import Buttons from '@/components/Joystick/Buttons'
-import SingleGridV2 from '@/components/SingleGridV2'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -22,7 +21,7 @@ export default function Page() {
         <Arrows />
       </div>
       {/* Screen */}
-      <SingleGridV2 />
+      {/* <SingleGridV2 /> */}
       {/*Joystick Buttons */}
       <div className='lg:flex hidden'>
         <Buttons />
