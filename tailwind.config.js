@@ -3,9 +3,6 @@ module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './app/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        jostsans: ['Jost', 'sans-serif'],
-      },
       colors: {
         // main
         main: '#4338ca', //purple
@@ -39,6 +36,8 @@ module.exports = {
         pink: '#f0abfc',
         //yelow-pastel,
         yellow: '#fef5ca',
+        // Blues
+        'blue-bg': '#0D1F3F',
       },
 
       fontSize: {
