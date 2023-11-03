@@ -11,9 +11,7 @@ export default function Layout({ children }: WrapperInterface) {
         <Navbar />
       </header>
       <main className='flex flex-1'>{children}</main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   )
 }

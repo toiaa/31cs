@@ -14,7 +14,7 @@ export default function Page() {
         'flex lg:flex-row flex-col mt-4 p-4 container-custom bg-blue-bg lg:rounded-[70px] rounded-[50px] justify-between'
       }>
       <Head key='home-page'>
-        <title>31CSGAME</title>
+        <title>31ST CENTURY GAME</title>
         <meta name='description' content='An incentive coordination game.' />
       </Head>
       {/* Joystick Arrows */}

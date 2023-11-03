@@ -1,10 +1,8 @@
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
-import dynamic from 'next/dynamic'
 import React from 'react'
 import Logo from './Logo'
+import MobileNav from './MobileNav'
 import Navigation from './Navigation'
-
-const MobileNav = dynamic(() => import('./MobileNav'))
 
 const Navbar = () => {
   return (
@@ -13,7 +11,9 @@ const Navbar = () => {
         {/* Left Side Logo and navLinks */}
         <div className='flex items-center w-1/2 justify-start gap-[80px] h-16'>
           <Logo />
-          <Navigation />
+          <div className='lg:flex hidden'>
+            <Navigation />
+          </div>
         </div>
 
         {/* Right Side */}
