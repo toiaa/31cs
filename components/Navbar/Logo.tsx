@@ -3,9 +3,9 @@ import React from 'react'
 
 const Logo = () => {
   return (
-    <div className='flex items-center gap-2'>
-      <Link href='/' className='font-bold text-md lg:text-lg text-pink cursor-pointer'>
-        31CS<span className='text-yellow'>GAME</span>
+    <div className='flex items-center'>
+      <Link href='/' className='text-xl tracking-wider text-pink cursor-pointer'>
+        31ST <span className='text-yellow'>CENTURY GAME</span>
       </Link>
     </div>
   )

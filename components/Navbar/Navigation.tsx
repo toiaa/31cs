@@ -4,7 +4,7 @@ import NavLink from './NavLink'
 
 const Navigation = () => {
   return (
-    <div className='lg:flex hidden items-center gap-1'>
+    <div className='lg:flex lg:flex-row flex-col items-center gap-1'>
       {NAVLINKS.map(({ id, label, path }) => (
         <NavLink key={id} label={label} path={path} id={id} />
       ))}

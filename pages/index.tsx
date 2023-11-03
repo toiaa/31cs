@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className={'flex flex-col gap-[40px] mt-4 items-center container-custom'}>
       <Head key='home-page'>
-        <title>31CSGAME</title>
+        <title>31ST CENTURY GAME</title>
         <meta name='description' content='An incentive coordination game.' />
       </Head>
       {/* STATS SECTION */}

@@ -5,7 +5,7 @@ export default function Grid() {
   return (
     <main className={'flex flex-col mt-4 items-center container-custom'}>
       <Head key='home-page'>
-        <title>31CSGAME</title>
+        <title>31ST CENTURY GAME</title>
         <meta name='description' content='An incentive coordination game.' />
       </Head>
       {/* GRID SECTION */}
