@@ -33,8 +33,10 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
           </p>
           <p>OWNER: {addressShowed}</p>
         </div>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-6 overflow-y-scroll overscroll-none'>
-          <div className='grid grid-cols-10 gap-0 h-full mx-auto p-3' onMouseLeave={() => hoverTile(null, null, '')}>
+        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-2'>
+          <div
+            className='grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto p-3'
+            onMouseLeave={() => hoverTile(null, null, '')}>
             {svgs?.nftId?.pixels &&
               !isLoading &&
               svgs.nftId.pixels.map((row, rowIndex) => {
@@ -47,11 +49,12 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
                       onMouseOver={() => {
                         hoverTile(colIndex, rowIndex, owner)
                       }}
-                      className='w-full h-auto items-center
+                      className='w-full h-full
                   cursor-pointer'
                       style={{
                         backgroundColor: TILE_COLORS[tileColorIndex],
-                      }}></div>
+                      }}
+                    />
                   )
                 })
               })}

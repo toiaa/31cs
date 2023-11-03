@@ -12,7 +12,7 @@ const NavLink = ({ path, id, isMobile, label }: NavInterface) => {
   const renderIcon = () => {
     if (id === 'home') return <HomeIcon />
     if (id === 'docs') return <DocsIcon />
-    if (id === 'grid') return <GridIcon />
+    if (id === 'game') return <GridIcon />
     return <HomeIcon />
   }
   return (

@@ -61,7 +61,16 @@ body {
     @apply border-2 border-tile-selected-border;
   }
   .joystick-btn {
-    @apply w-10 h-10 rounded-full text-black font-medium text-3xl flex justify-center items-center bg-[#D9D9D9] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
+    @apply lg:w-10 w-7 h-7 lg:h-10 rounded-full text-black font-medium lg:text-3xl text-lg flex justify-center items-center bg-[#D9D9D9] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
+  }
+  .arrow {
+    @apply bg-[#D9D9D9] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
+  }
+  .arrow-horizontal {
+    @apply lg:w-12 w-10 lg:h-6 h-5 arrow;
+  }
+  .arrow-vertical {
+    @apply lg:w-6 w-5 lg:h-12 h-10 arrow;
   }
 }
 

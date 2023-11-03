@@ -20,11 +20,6 @@ export const NAVLINKS: NavLinkInterface[] = [
     label: 'Home',
   },
   {
-    id: 'grid',
-    path: '/grid',
-    label: 'Grid',
-  },
-  {
     id: 'game',
     path: '/game',
     label: 'Game',
