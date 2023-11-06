@@ -1,12 +1,18 @@
 import { WrapperInterface } from '@/ts/interfaces'
-import localFont from 'next/font/local'
+import { Jost } from 'next/font/google'
 import Footer from '../Footer'
 import Navbar from '../Navbar'
 
-const pixeBoy = localFont({ src: '../../utils/fonts/Pixeboy.ttf' })
+const jost = Jost({
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 export default function Layout({ children }: WrapperInterface) {
   return (
-    <div className={`relative sm:px-20 px-2 py-4 min-h-screen flex flex-col ${pixeBoy.className}`}>
+    <div className={`relative sm:px-20 px-2 py-4 min-h-screen flex flex-col ${jost.className}`}>
       <header>
         <Navbar />
       </header>
