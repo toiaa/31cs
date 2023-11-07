@@ -197,6 +197,3 @@ export interface PixelGridInterface {
 export interface SingleGridInterface {
   nftId: string
 }
-export interface GridActionsInterface {
-  isPixel?: boolean
-}

@@ -2,7 +2,6 @@ import Button from '@/components/Button'
 import useBalance from '@/hooks/useBalance'
 import { useStoreSelectedTiles } from '@/store'
 import { clearPixelSelect, updateFullGridData, updateGridData } from '@/store/methods'
-import { GridActionsInterface } from '@/ts/interfaces'
 import { ADDRESS, ToastMessageType, Token, TransactionType } from '@/ts/types'
 import { CONTRACTS, CONTRACT_ZERO, POLYGON } from '@/utils/constants'
 import { getNetwork } from '@/utils/methods'
@@ -15,7 +14,7 @@ import { useState } from 'react'
 import useNotification from '../../../hooks/useNotification'
 import useTransaction from '../../../hooks/useTransaction'
 
-const PlaceTile = ({ isPixel }: GridActionsInterface) => {
+const PlaceTile = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
@@ -85,7 +84,7 @@ const PlaceTile = ({ isPixel }: GridActionsInterface) => {
     setLoading(false)
   }
   return (
-    <Button isDisabled={isPixel || disabled} isLoading={loading} onClick={placeTile}>
+    <Button isDisabled={disabled} isLoading={loading} onClick={placeTile}>
       Place Tile
     </Button>
   )

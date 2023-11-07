@@ -1,8 +1,10 @@
 import usePixelGrid from '@/hooks/usePixelGrid'
-import { useStorePixelGrid } from '@/store'
+import { useStorePixelGrid, useStoreSelectedTiles } from '@/store'
 import { SingleGridInterface } from '@/ts/interfaces'
+import { Tile } from '@/ts/types'
 import { TILE_COLORS } from '@/utils/constants'
 import React, { useState } from 'react'
+import ControlPanel from '../ControlPanel'
 
 const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
@@ -21,6 +23,23 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
     tileOwner.length - 4,
     tileOwner.length,
   )}`
+
+  const { selectedTiles: selectedTilesStore } = useStoreSelectedTiles()
+  const handleSaveSelection = (x: number, y: number) => {
+    const isTileSelected = selectedTilesStore.some((tile) => tile.x === x && tile.y === y)
+    if (isTileSelected) {
+      const updatedTiles = selectedTilesStore.filter((tile) => !(tile.x === x && tile.y === y))
+      useStoreSelectedTiles.setState({
+        selectedTiles: updatedTiles,
+        nftId: nftId,
+      })
+    } else {
+      useStoreSelectedTiles.setState({ selectedTiles: [...selectedTilesStore, { x, y }], nftId: nftId })
+    }
+  }
+  const isSelected = (x: number, y: number, selectedTiles: Tile[]): boolean => {
+    return selectedTiles.some((tile) => tile.x === x && tile.y === y)
+  }
 
   return (
     <section className='bg-[#D9D9D9] p-4 rounded-[25px] w-full h-full flex gap-1'>
@@ -46,15 +65,29 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
                   return (
                     <div
                       key={colIndex + rowIndex + nftId}
-                      onMouseOver={() => {
-                        hoverTile(colIndex, rowIndex, owner)
-                      }}
-                      className='w-full h-full
-                  cursor-pointer'
+                      className={`p-[2px] ${
+                        isSelected(colIndex, rowIndex, selectedTilesStore)
+                          ? 'selectedTile hover:bg-border-tile-hover-border'
+                          : 'hover:bg-border-tile-hover-border'
+                      }`}
                       style={{
-                        backgroundColor: TILE_COLORS[tileColorIndex],
-                      }}
-                    />
+                        backgroundColor: `${
+                          isSelected(colIndex, rowIndex, selectedTilesStore) ? '' : TILE_COLORS[tileColorIndex]
+                        }`,
+                      }}>
+                      <div
+                        onClick={() => {
+                          handleSaveSelection(colIndex, rowIndex)
+                        }}
+                        onMouseOver={() => {
+                          hoverTile(colIndex, rowIndex, owner)
+                        }}
+                        className='w-full h-full
+                  cursor-pointer'
+                        style={{
+                          backgroundColor: TILE_COLORS[tileColorIndex],
+                        }}></div>
+                    </div>
                   )
                 })
               })}
@@ -62,8 +95,10 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
         </div>
       </div>
       <div className='lg:flex hidden gap-2 flex-col w-full max-w-[250px]'>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-6'>PLACE TILE SECTION</div>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-6'>INFORMATION SECTION</div>
+        <div className='flex items-center bg-[#1D242F] w-full rounded-[25px] h-full p-3'>
+          <ControlPanel />
+        </div>
+        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-3'>INFORMATION SECTION</div>
       </div>
     </section>
   )

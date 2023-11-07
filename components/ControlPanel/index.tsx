@@ -1,7 +1,6 @@
 import useBalance from '@/hooks/useBalance'
 import { useStoreSelectedTiles } from '@/store'
 import { clearPixelSelect } from '@/store/methods'
-import { GridActionsInterface } from '@/ts/interfaces'
 import { TILE_COLORS } from '@/utils/constants'
 import { formatEther } from 'ethers/lib/utils'
 import React, { useState } from 'react'
@@ -9,7 +8,7 @@ import Amount from '../Amount'
 import Button from '../Button'
 import PlaceTile from '../GridCards/ControlPanel/PlaceTile'
 
-const ControlPanel = ({ isPixel }: GridActionsInterface) => {
+const ControlPanel = () => {
   const [selectedColor, setSelectedColor] = useState('4')
   const { getBalance, getPrice } = useBalance()
   const balanceOTOKEN = getBalance('otoken')
@@ -23,7 +22,7 @@ const ControlPanel = ({ isPixel }: GridActionsInterface) => {
     useStoreSelectedTiles.setState({ selectedColor: colorIndex })
   }
   return (
-    <div className='grid-cards'>
+    <div className='flex flex-col items-center justify-center gap-2 '>
       <div className='w-full flex flex-col rounded '>
         <div className='flex justify-between items-center gap-2'>
           <div className='flex flex-center border border-gray-borders rounded w-full h-7'>
@@ -41,9 +40,9 @@ const ControlPanel = ({ isPixel }: GridActionsInterface) => {
           </div>
         </div>
       </div>
-      <div className='flex justify-between items-center gap-2 w-full p-1'>
+      <div className='flex justify-between items-center gap-2 w-full'>
         <div
-          className={`bg-${TILE_COLORS[selectedColor]} h-14 w-14  border border-gray-borders`}
+          className={`bg-${TILE_COLORS[selectedColor]} h-12 w-12  border border-gray-borders`}
           style={{
             backgroundColor: `${TILE_COLORS[selectedColor]}`,
           }}></div>
@@ -63,10 +62,10 @@ const ControlPanel = ({ isPixel }: GridActionsInterface) => {
         </div>
       </div>
       <div className='flex gap-3'>
-        <Button isDisabled={isPixel} notMinW onClick={() => clearPixelSelect()}>
+        <Button notMinW onClick={() => clearPixelSelect()}>
           Clear
         </Button>
-        <PlaceTile isPixel={isPixel && isPixel} />
+        <PlaceTile />
       </div>
     </div>
   )
