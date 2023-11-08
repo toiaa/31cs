@@ -22,7 +22,7 @@ const REAL_BASE_Polygon: Token = {
 }
 
 const OTOKEN_Polygon: Token = {
-  address: '0x21C1289F81310397d9b1103F30eBa3279D5417de',
+  address: '0x2fC8267952E7971fa3D2838Ac9e9ed5d45248209',
   decimals: 18,
   img: `${TOKENS_PATH}/otoken.png`,
   name: 'TRINO',
@@ -30,7 +30,7 @@ const OTOKEN_Polygon: Token = {
   id: 'otoken',
 }
 const TOKEN_Polygon: Token = {
-  address: '0x3b53Da4DE9B159e3EB70aC6763023f529ea89CA1',
+  address: '0x488aA4F1f43FD854823e8Ce38A34Fd2d877f5913',
   decimals: 18,
   img: `${TOKENS_PATH}/token.png`,
   name: 'XULTHUM',
@@ -39,7 +39,7 @@ const TOKEN_Polygon: Token = {
 }
 
 const VTOKEN_Polygon: Token = {
-  address: '0xB12c1346E1e2FBadB12Deed34ff91ce4554d3276',
+  address: '0x0407b5B793e6EE080e98e1Ac65Ed29363Be8F617',
   decimals: 18,
   img: `${TOKENS_PATH}/vtoken.png`,
   name: 'MINE',
