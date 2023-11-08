@@ -8,7 +8,7 @@ import { getNetwork } from '@/utils/methods'
 import { TOKENS } from '@/utils/tokens'
 import { approve, checkAllowance, getNftGallery, getSingleGridData, placeTiles } from '@/utils/web3Methods'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
-import { BigNumber, ethers } from 'ethers'
+import { BigNumber } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
 import { useState } from 'react'
 import useNotification from '../../../hooks/useNotification'
@@ -52,7 +52,7 @@ const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
     const spenderAddress = spender as ADDRESS
     const allowance = await checkAllowance(tokenAddress, address, spenderAddress)
     const allowanceBN = BigNumber.from(allowance)
-    if (allowanceBN.lt(ethers.constants.MaxUint256)) {
+    if (allowanceBN.lt(quantityBN)) {
       updateTxStatus('txPrepared')
       const { error, tx } = await approve({ contractAddress: tokenAddress, spenderAddress }, approvalValue)
       const message: ToastMessageType = {
