@@ -4,7 +4,8 @@ import { SingleGridInterface } from '@/ts/interfaces'
 import { Tile } from '@/ts/types'
 import { TILE_COLORS } from '@/utils/constants'
 import React, { useState } from 'react'
-import ControlPanel from '../ControlPanel'
+import ControlPanel from '../GridCards/ControlPanel'
+import LoaderGrid from './Loader'
 
 const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
@@ -52,46 +53,50 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
           </p>
           <p>OWNER: {addressShowed}</p>
         </div>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-2'>
-          <div
-            className='grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto p-3'
-            onMouseLeave={() => hoverTile(null, null, '')}>
-            {svgs?.nftId?.pixels &&
-              !isLoading &&
-              svgs.nftId.pixels.map((row, rowIndex) => {
-                return row.map((tile, colIndex) => {
-                  const tileColorIndex = Number(tile[0])
-                  const owner = tile[1] as string
-                  return (
-                    <div
-                      key={colIndex + rowIndex + nftId}
-                      className={`p-[2px] ${
-                        isSelected(colIndex, rowIndex, selectedTilesStore)
-                          ? 'selectedTile hover:bg-border-tile-hover-border'
-                          : 'hover:bg-border-tile-hover-border'
-                      }`}
-                      style={{
-                        backgroundColor: `${
-                          isSelected(colIndex, rowIndex, selectedTilesStore) ? '' : TILE_COLORS[tileColorIndex]
-                        }`,
-                      }}>
+        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-2 transition-ease'>
+          {isLoading ? (
+            <LoaderGrid />
+          ) : (
+            <div
+              className='grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto p-3'
+              onMouseLeave={() => hoverTile(null, null, '')}>
+              {svgs?.nftId?.pixels &&
+                !isLoading &&
+                svgs.nftId.pixels.map((row, rowIndex) => {
+                  return row.map((tile, colIndex) => {
+                    const tileColorIndex = Number(tile[0])
+                    const owner = tile[1] as string
+                    return (
                       <div
-                        onClick={() => {
-                          handleSaveSelection(colIndex, rowIndex)
-                        }}
-                        onMouseOver={() => {
-                          hoverTile(colIndex, rowIndex, owner)
-                        }}
-                        className='w-full h-full
-                  cursor-pointer'
+                        key={colIndex + rowIndex + nftId}
+                        className={`p-[2px] ${
+                          isSelected(colIndex, rowIndex, selectedTilesStore)
+                            ? 'selectedTile hover:bg-border-tile-hover-border'
+                            : 'hover:bg-border-tile-hover-border'
+                        }`}
                         style={{
-                          backgroundColor: TILE_COLORS[tileColorIndex],
-                        }}></div>
-                    </div>
-                  )
-                })
-              })}
-          </div>
+                          backgroundColor: `${
+                            isSelected(colIndex, rowIndex, selectedTilesStore) ? '' : TILE_COLORS[tileColorIndex]
+                          }`,
+                        }}>
+                        <div
+                          onClick={() => {
+                            handleSaveSelection(colIndex, rowIndex)
+                          }}
+                          onMouseOver={() => {
+                            hoverTile(colIndex, rowIndex, owner)
+                          }}
+                          className='w-full h-full
+                  cursor-pointer'
+                          style={{
+                            backgroundColor: TILE_COLORS[tileColorIndex],
+                          }}></div>
+                      </div>
+                    )
+                  })
+                })}
+            </div>
+          )}
         </div>
       </div>
       <div className='lg:flex hidden gap-2 flex-col w-full max-w-[250px]'>
