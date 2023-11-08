@@ -14,7 +14,7 @@ import { useState } from 'react'
 import useNotification from '../../../hooks/useNotification'
 import useTransaction from '../../../hooks/useTransaction'
 
-const PlaceTile = () => {
+const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
@@ -84,7 +84,7 @@ const PlaceTile = () => {
     setLoading(false)
   }
   return (
-    <Button isDisabled={disabled} isLoading={loading} onClick={placeTile}>
+    <Button isDisabled={disabled || isLoading} isLoading={loading} onClick={placeTile}>
       Place Tile
     </Button>
   )

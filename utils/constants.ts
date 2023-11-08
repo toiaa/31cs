@@ -13,6 +13,7 @@ export const WEBSITE = 'TOKENPROJECT'
 export const MINT_AMOUNT = '10'
 export const POLYGON = 80001
 export const TIMEOUT = 800
+export const PIXELS_TOTAL = 90
 export const NAVLINKS: NavLinkInterface[] = [
   {
     id: 'home',
