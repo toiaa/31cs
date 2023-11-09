@@ -1,16 +1,29 @@
+import dynamic from 'next/dynamic'
 import React from 'react'
+
+const Tooltip = dynamic(() => import('../Tooltip'), {
+  ssr: false,
+})
 
 const Buttons = () => {
   return (
-    <section className='flex items-center h-full lg:pl-8 lg:pr-4 lg:py-14 pr-14 py-4'>
+    <section className='flex items-center h-full lg:pl-4 pl-0'>
       <div className='flex items-center h-fit'>
-        <div className='joystick-btn'>Y</div>
+        <Tooltip position='left' text='Open Stats'>
+          <div className='joystick-btn'>Y</div>
+        </Tooltip>
         <div className='flex flex-col'>
-          <div className='joystick-btn'>X</div>
+          <Tooltip position='up' text='Change Color'>
+            <div className='joystick-btn'>X</div>
+          </Tooltip>
           <div className='p-3' />
-          <div className='joystick-btn'>B</div>
+          <Tooltip position='down' text='Back'>
+            <div className='joystick-btn'>B</div>
+          </Tooltip>
         </div>
-        <div className='joystick-btn'>A</div>
+        <Tooltip position='right' text='Place'>
+          <div className='joystick-btn'>A</div>
+        </Tooltip>
       </div>
     </section>
   )

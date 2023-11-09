@@ -179,6 +179,7 @@ export type StatsType = 'tvl' | 'circulatingTOKEN' | 'stakedTOKEN' | 'apr' | 'lt
 export type TokenType = 'token' | 'otoken' | 'vtoken' | 'credit' | 'debt' | 'wrapped' | 'votingPower' | 'external'
 export type InputType = 'inputValue' | 'craftValue' | 'outputValue'
 export type ActionType = 'Swap' | 'Options' | 'Earn' | 'Lend' | 'Wrap'
+export type DirectionsType = 'up' | 'right' | 'left' | 'down'
 export type OptionType =
   | 'Buy'
   | 'Sell'
@@ -218,4 +219,8 @@ export type StoreSelectedTiles = {
 }
 export type StoreGridApproved = {
   gridApproved: boolean
+}
+
+export type StorePointerType = {
+  pointer: Tile | null
 }

@@ -224,6 +224,14 @@ export const getAllowanceInfo = (chainId: number, actionSelected: OptionType) =>
 export const isValid = (value: string) => Number(value) > 0
 
 /**
+ * trim an address
+ * @param {string} address - The wallet address
+ * @returns {string} - Return a trim address
+ */
+export const shortAddress = (address: string | null) =>
+  `${address?.substring(0, 3)}...${address?.substring(address.length - 4, address.length)}`
+
+/**
  * Generates an array of random numbers in string format between "0" and "7".
  *
  * @param {number} length - The desired length of the generated array.

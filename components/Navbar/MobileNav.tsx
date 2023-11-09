@@ -4,7 +4,7 @@ import { useState } from 'react'
 import NavLink from './NavLink'
 
 const MobileNav = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
   const handleClick = () => {
     setIsOpen(!isOpen)
