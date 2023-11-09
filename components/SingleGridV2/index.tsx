@@ -1,33 +1,41 @@
 import usePixelGrid from '@/hooks/usePixelGrid'
-import { useStorePixelGrid, useStoreSelectedTiles } from '@/store'
+import { useStorePixelGrid, useStorePointer, useStoreSelectedTiles } from '@/store'
+import { clearPixelSelect } from '@/store/methods'
 import { SingleGridInterface } from '@/ts/interfaces'
 import { Tile } from '@/ts/types'
 import { TILE_COLORS } from '@/utils/constants'
-import React, { useState } from 'react'
+import { shortAddress } from '@/utils/methods'
+import React, { useEffect, useState } from 'react'
 import ControlPanel from '../ControlPanel'
-
+import WrapperSelected from './WrapperSelected'
 const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
   const svgs = useStorePixelGrid()
+  const { selectedTiles: selectedTilesStore } = useStoreSelectedTiles()
+  const { pointer } = useStorePointer()
   const id = Number(nftId)
 
   const [tileOwner, setTileOwner] = useState<string | null>('')
   const [hoverCoorX, setHoverCoorX] = useState<number | null>(null)
   const [hoverCoorY, setHoverCoorY] = useState<number | null>(null)
+
   const hoverTile = (x: number | null, y: number | null, owner: string) => {
     setHoverCoorX(x)
     setHoverCoorY(y)
     setTileOwner(owner)
   }
-  const addressShowed = `${tileOwner?.substring(0, 3)}...${tileOwner?.substring(
-    tileOwner.length - 4,
-    tileOwner.length,
-  )}`
+  const addressShowed = shortAddress(tileOwner)
 
-  const { selectedTiles: selectedTilesStore } = useStoreSelectedTiles()
-  const handleSaveSelection = (x: number, y: number) => {
-    const isTileSelected = selectedTilesStore.some((tile) => tile.x === x && tile.y === y)
-    if (isTileSelected) {
+  const isSelected = ({ x, y }: Tile): boolean => {
+    return selectedTilesStore.some((tile) => tile.x === x && tile.y === y)
+  }
+
+  const isPointer = ({ x, y }: Tile): boolean => {
+    return pointer?.x === x && pointer.y === y
+  }
+
+  const handleSaveSelection = ({ x, y }: Tile) => {
+    if (isSelected({ x, y })) {
       const updatedTiles = selectedTilesStore.filter((tile) => !(tile.x === x && tile.y === y))
       useStoreSelectedTiles.setState({
         selectedTiles: updatedTiles,
@@ -37,8 +45,15 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
       useStoreSelectedTiles.setState({ selectedTiles: [...selectedTilesStore, { x, y }], nftId: nftId })
     }
   }
-  const isSelected = (x: number, y: number, selectedTiles: Tile[]): boolean => {
-    return selectedTiles.some((tile) => tile.x === x && tile.y === y)
+
+  useEffect(() => {
+    return () => {
+      clearPixelSelect()
+    }
+  }, [nftId])
+
+  const updatePointer = (tile: Tile) => {
+    useStorePointer.setState({ pointer: tile })
   }
 
   return (
@@ -47,8 +62,8 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
         <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between'>
           <p>TOKEN ID: {id}</p>
           <p>
-            X:{hoverCoorX != null && hoverCoorX >= 0 ? hoverCoorX : '...'} Y:
-            {hoverCoorY != null && hoverCoorY >= 0 ? hoverCoorY : '...'}
+            X:{hoverCoorX !== null ? hoverCoorX : '...'} Y:
+            {hoverCoorY !== null ? hoverCoorY : '...'}
           </p>
           <p>OWNER: {addressShowed}</p>
         </div>
@@ -58,36 +73,31 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
             onMouseLeave={() => hoverTile(null, null, '')}>
             {svgs?.nftId?.pixels &&
               !isLoading &&
-              svgs.nftId.pixels.map((row, rowIndex) => {
-                return row.map((tile, colIndex) => {
+              svgs.nftId.pixels.map((row, y) => {
+                return row.map((tile, x) => {
                   const tileColorIndex = Number(tile[0])
                   const owner = tile[1] as string
                   return (
-                    <div
-                      key={colIndex + rowIndex + nftId}
-                      className={`p-[2px] ${
-                        isSelected(colIndex, rowIndex, selectedTilesStore)
-                          ? 'selectedTile hover:bg-border-tile-hover-border'
-                          : 'hover:bg-border-tile-hover-border'
-                      }`}
-                      style={{
-                        backgroundColor: `${
-                          isSelected(colIndex, rowIndex, selectedTilesStore) ? '' : TILE_COLORS[tileColorIndex]
-                        }`,
-                      }}>
+                    <WrapperSelected
+                      key={x + y + nftId}
+                      isSelected={isSelected({ x, y })}
+                      isPointer={isPointer({ x, y })}
+                      tileColorIndex={tileColorIndex}>
                       <div
                         onClick={() => {
-                          handleSaveSelection(colIndex, rowIndex)
+                          handleSaveSelection({ x, y })
+                          updatePointer({ x, y })
                         }}
                         onMouseOver={() => {
-                          hoverTile(colIndex, rowIndex, owner)
+                          hoverTile(x, y, owner)
                         }}
                         className='w-full h-full
                   cursor-pointer'
                         style={{
                           backgroundColor: TILE_COLORS[tileColorIndex],
-                        }}></div>
-                    </div>
+                        }}
+                      />
+                    </WrapperSelected>
                   )
                 })
               })}
@@ -95,7 +105,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
         </div>
       </div>
       <div className='lg:flex hidden gap-2 flex-col w-full max-w-[250px]'>
-        <div className='flex items-center bg-[#1D242F] w-full rounded-[25px] h-full p-3'>
+        <div className='flex items-start bg-[#1D242F] w-full rounded-[25px] h-fit p-3'>
           <ControlPanel />
         </div>
         <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-3'>INFORMATION SECTION</div>

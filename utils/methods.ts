@@ -222,3 +222,11 @@ export const getAllowanceInfo = (chainId: number, actionSelected: OptionType) =>
  * @returns {boolean} - Return a boolean if is greater or not
  */
 export const isValid = (value: string) => Number(value) > 0
+
+/**
+ * trim an address
+ * @param {string} address - The wallet address
+ * @returns {string} - Return a trim address
+ */
+export const shortAddress = (address: string | null) =>
+  `${address?.substring(0, 3)}...${address?.substring(address.length - 4, address.length)}`

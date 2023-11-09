@@ -47,6 +47,19 @@ module.exports = {
         'text-lg': '18px',
         'text-xl': '20px',
       },
+      animation: {
+        glow: 'glow 3s ease infinite',
+      },
+      keyframes: {
+        glow: {
+          '0%,100%': {
+            'background-color': 'transparent',
+          },
+          '50%': {
+            'background-color': '#8b5cf6',
+          },
+        },
+      },
     },
   },
   plugins: [],
