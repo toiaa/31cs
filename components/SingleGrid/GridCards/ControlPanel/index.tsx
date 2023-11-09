@@ -5,8 +5,8 @@ import { clearPixelSelect } from '@/store/methods'
 import { TILE_COLORS } from '@/utils/constants'
 import { formatEther } from 'ethers/lib/utils'
 import React, { useState } from 'react'
-import Amount from '../../Amount'
-import Button from '../../Button'
+import Amount from '../../../Amount'
+import Button from '../../../Button'
 import PlaceTile from './PlaceTile'
 
 const ControlPanel = () => {

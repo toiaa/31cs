@@ -3,6 +3,7 @@ import useMulticall from '@/hooks/useMulticall'
 import { useStoreGridGallery } from '@/store'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import LoaderGrid from '../LoaderGrid'
 
 const GeneralGrid = () => {
   const { isLoadingGridGallery } = useMulticall()
@@ -20,7 +21,8 @@ const GeneralGrid = () => {
         <p>TOKEN ID: {tokenId}</p>
         <p>OWNER: 0x....00000</p>
       </div>
-      <div className='bg-[#1D242F] w-full h-full rounded-[25px] p-4 max-h-[550px] overflow-y-scroll overscroll-none'>
+      <div className='bg-[#1D242F] w-full h-full rounded-[25px] p-4 lg:min-h-[400px] max-h-[550px] overflow-y-scroll overscroll-none'>
+        {isLoadingGridGallery && <LoaderGrid isGallery />}
         <div className='grid grid-cols-4'>
           {Object.keys(gridGallery).map((id: string) => {
             const svg = gridGallery[id]

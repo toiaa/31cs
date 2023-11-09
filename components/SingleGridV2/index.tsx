@@ -4,14 +4,13 @@ import { SingleGridInterface } from '@/ts/interfaces'
 import { Tile } from '@/ts/types'
 import { TILE_COLORS } from '@/utils/constants'
 import React, { useState } from 'react'
-import ControlPanel from '../GridCards/ControlPanel'
-import LoaderGrid from './Loader'
+import LoaderGrid from '../LoaderGrid'
+import ControlPanel from '../SingleGrid/GridCards/ControlPanel'
 
 const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
   const svgs = useStorePixelGrid()
   const id = Number(nftId)
-
   const [tileOwner, setTileOwner] = useState<string | null>('')
   const [hoverCoorX, setHoverCoorX] = useState<number | null>(null)
   const [hoverCoorY, setHoverCoorY] = useState<number | null>(null)
@@ -55,7 +54,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
         </div>
         <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-2 transition-ease'>
           {isLoading ? (
-            <LoaderGrid />
+            <LoaderGrid isGallery={false} />
           ) : (
             <div
               className='grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto p-3'

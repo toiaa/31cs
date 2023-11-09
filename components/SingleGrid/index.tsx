@@ -1,8 +1,8 @@
 import usePixelGrid from '@/hooks/usePixelGrid'
 import { useStoreSelectedTiles } from '@/store'
 import { SingleGridInterface } from '@/ts/interfaces'
-import GridActions from '../GridCards'
 import SquareLoader from '../Loader/SquareLoader'
+import GridActions from './GridCards'
 import PixelGrid from './PixelGrid'
 const SingleGrid = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)

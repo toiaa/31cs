@@ -3,7 +3,7 @@ import { TILE_COLORS } from '@/utils/constants'
 import { generateRandomPixels } from '@/utils/methods'
 import React, { useMemo } from 'react'
 
-function LoaderGrid() {
+function LoaderGrid({ isGallery = false }: { isGallery?: boolean }) {
   const colorLength = Object.keys(TILE_COLORS).length - 1
   const loaderPixels = useMemo(() => generateRandomPixels(colorLength), [])
   return (
@@ -11,15 +11,17 @@ function LoaderGrid() {
       <div className='z-50 absolute'>
         <Spinner />
       </div>
-      <div className='blur-lg opacity-60 grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto p-3'>
-        {loaderPixels.map((tile, index) => (
-          <div
-            key={tile + index}
-            style={{
-              backgroundColor: TILE_COLORS[tile],
-            }}></div>
-        ))}
-      </div>
+      {!isGallery && (
+        <div className='blur-lg opacity-60 grid grid-cols-9 gap-0 h-full min-h-[350px] w-full mx-auto p-3'>
+          {loaderPixels.map((tile, index) => (
+            <div
+              key={tile + index}
+              style={{
+                backgroundColor: TILE_COLORS[tile],
+              }}></div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

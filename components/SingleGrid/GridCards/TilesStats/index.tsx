@@ -1,5 +1,5 @@
 import React from 'react'
-import Amount from '../../Amount'
+import Amount from '../../../Amount'
 
 const TilesStats = () => {
   return (
