@@ -12,6 +12,7 @@ module.exports = {
         'button-secondary-color': '#a78bfa', // light purple
         'tile-hover-border': '#c4b5fd', // pale purple
         'tile-selected-border': '#d8b4fe', // pink purple
+        'spinner-cube': '#a78bfa33', // light purple less opacity
         // white
         white: '#ffffff',
         'button-text': '#ffffff',
