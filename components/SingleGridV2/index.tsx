@@ -1,8 +1,11 @@
+import ArrowGameBoy from '@/assets/Icons/ArrowGameBoy'
 import usePixelGrid from '@/hooks/usePixelGrid'
 import { useStorePixelGrid, useStoreSelectedTiles } from '@/store'
+import { clearPixelSelect } from '@/store/methods'
 import { SingleGridInterface } from '@/ts/interfaces'
 import { Tile } from '@/ts/types'
-import { TILE_COLORS } from '@/utils/constants'
+import { CONTRACT_ZERO, TILE_COLORS } from '@/utils/constants'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import LoaderGrid from '../LoaderGrid'
 import ControlPanel from '../SingleGrid/GridCards/ControlPanel'
@@ -11,7 +14,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
   const svgs = useStorePixelGrid()
   const id = Number(nftId)
-  const [tileOwner, setTileOwner] = useState<string | null>('')
+  const [tileOwner, setTileOwner] = useState<string | null>(CONTRACT_ZERO)
   const [hoverCoorX, setHoverCoorX] = useState<number | null>(null)
   const [hoverCoorY, setHoverCoorY] = useState<number | null>(null)
   const hoverTile = (x: number | null, y: number | null, owner: string) => {
@@ -23,7 +26,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
     tileOwner.length - 4,
     tileOwner.length,
   )}`
-
+  console.log(tileOwner)
   const { selectedTiles: selectedTilesStore } = useStoreSelectedTiles()
   const handleSaveSelection = (x: number, y: number) => {
     const isTileSelected = selectedTilesStore.some((tile) => tile.x === x && tile.y === y)
@@ -44,11 +47,16 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   return (
     <section className='bg-[#D9D9D9] p-4 rounded-[25px] w-full h-full flex gap-1'>
       <div className='flex gap-2 flex-col w-full min-w-[400px]'>
-        <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between'>
-          <p>TOKEN ID: {id}</p>
+        <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between items-center'>
+          <div className='flex items-center gap-3'>
+            <Link href='/game'>
+              <ArrowGameBoy onClick={clearPixelSelect} />
+            </Link>
+            <p>TOKEN ID: {id}</p>
+          </div>
           <p>
-            X:{hoverCoorX != null && hoverCoorX >= 0 ? hoverCoorX : '...'} Y:
-            {hoverCoorY != null && hoverCoorY >= 0 ? hoverCoorY : '...'}
+            X:{hoverCoorX != null && hoverCoorX >= 0 ? hoverCoorX : '-'} Y:
+            {hoverCoorY != null && hoverCoorY >= 0 ? hoverCoorY : '-'}
           </p>
           <p>OWNER: {addressShowed}</p>
         </div>

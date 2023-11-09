@@ -19,7 +19,7 @@ const GeneralGrid = () => {
     <section className='bg-[#D9D9D9] p-4 rounded-[25px] w-full h-full flex gap-2 flex-col'>
       <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between'>
         <p>TOKEN ID: {tokenId}</p>
-        <p>OWNER: 0x....00000</p>
+        <p>OWNER: 0x0...0000</p>
       </div>
       <div className='bg-[#1D242F] w-full h-full rounded-[25px] p-4 lg:min-h-[400px] max-h-[550px] overflow-y-scroll overscroll-none'>
         {isLoadingGridGallery && <LoaderGrid isGallery />}

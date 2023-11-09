@@ -119,6 +119,7 @@ export interface IconInterface {
   maxWidth?: string
   size?: number
   text?: string
+  onClick?: () => void
 }
 
 export interface TokensInterface {
