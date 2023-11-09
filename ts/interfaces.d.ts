@@ -120,6 +120,7 @@ export interface IconInterface {
   maxWidth?: string
   size?: number
   text?: string
+  onClick?: () => void
   direction?: DirectionsType
 }
 
