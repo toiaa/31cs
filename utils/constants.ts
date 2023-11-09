@@ -13,6 +13,7 @@ export const WEBSITE = 'TOKENPROJECT'
 export const MINT_AMOUNT = '10'
 export const POLYGON = 80001
 export const TIMEOUT = 800
+export const PIXELS_TOTAL = 81
 export const NAVLINKS: NavLinkInterface[] = [
   {
     id: 'home',
@@ -169,11 +170,11 @@ export const DEFAULT_NETWORK = POLYGON
 
 export const CONTRACTS: ContractsType = {
   [POLYGON]: {
-    multicall: '0x31e7B6ed09B863f952c9648754a146eF30Df33bc',
-    gridNFT: '0xde84d1E00cA5c27F598dea68320F25167fde308F',
-    gridRewarder: '0xA0377Fe6d61f8D568344dBD3bEBb5D3721931Ab6',
-    minter: '0x5bB6134c6a4559dDBa0c60b1AcE7c2597E91E7e2',
-    fees: '0x6ae1b766cB88eE2c403D861bd1a8Fc0FD3512466',
+    multicall: '0xC252DddA61d59c24CE6E061b00814494165b1C40',
+    gridNFT: '0x61b4b61C90885BCD4c3325C835e8CB3A35902F76',
+    gridRewarder: '0xb4727FbFdf52F90A305A192c84c5ea586C48bc61',
+    minter: '0xc2b30aaBbd0a5eb37C2F1Fd13AE42D44921472aa',
+    fees: '0x7366FB914D43EA92Acd6cF3f1cFbEc86571A92B3',
   },
 }
 
@@ -231,11 +232,13 @@ export const WEEK = 604800
 
 export const TILE_COLORS: colorMapType = {
   0: '#000000', // black
-  1: '#18fc03', // green
-  2: '#fce303', // yellow
-  3: '#fc0317', // red
-  4: '#03a5fc', // blue
-  5: '#db03fc', // purple
-  6: '#FFFFFF', // white
-  7: '#FF9700', // orange
+  1: '#FFFFFF', // white
+  2: '#FF0000', // red
+  3: '#0135FF', // blue
+  4: '#03FF00', // green
+  5: '#FFDE02', // yellow
+  6: '#FF5C02', // orange
+  7: '#03FFF7', // cyan
+  8: '#AD00FF', // purple
+  9: '#FF00C7', // pink
 }

@@ -72,9 +72,12 @@ body {
   .arrow-vertical {
     @apply lg:w-6 w-5 lg:h-12 h-10 arrow flex;
   }
+  .spinner-child {
+    @apply bg-spinner-cube h-full absolute w-full border-2 border-button-main-dark;
+  }
 }
 
-/* REMOVE IT WHEN WE FIND A GOOD LOADER DESIGN */
+/* LOADER DESIGN */
 .loader {
   border-top-color: #3498db;
   -webkit-animation: spinner 1.5s linear infinite;
@@ -283,5 +286,55 @@ body {
   }
   91% {
     background-color: rgb(255, 0, 127);
+  }
+}
+/* CUBE SPINNER */
+
+.spinner {
+  width: 44px;
+  height: 44px;
+  animation: spinner-y0fdc1 2s infinite ease;
+  transform-style: preserve-3d;
+}
+
+.spinner div:nth-of-type(1) {
+  transform: translateZ(-22px) rotateY(180deg);
+}
+
+.spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+}
+
+.spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+}
+
+.spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+}
+
+.spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+}
+
+.spinner div:nth-of-type(6) {
+  transform: translateZ(22px);
+}
+
+@keyframes spinner-y0fdc1 {
+  0% {
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+
+  50% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+
+  100% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
   }
 }

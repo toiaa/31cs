@@ -1,16 +1,18 @@
 import useBalance from '@/hooks/useBalance'
+import useMulticall from '@/hooks/useMulticall'
 import { useStoreSelectedTiles } from '@/store'
 import { clearPixelSelect } from '@/store/methods'
 import { TILE_COLORS } from '@/utils/constants'
 import { formatEther } from 'ethers/lib/utils'
 import React, { useState } from 'react'
-import Amount from '../Amount'
-import Button from '../Button'
-import PlaceTile from '../GridCards/ControlPanel/PlaceTile'
+import Amount from '../../../Amount'
+import Button from '../../../Button'
+import PlaceTile from './PlaceTile'
 
 const ControlPanel = () => {
   const [selectedColor, setSelectedColor] = useState('4')
   const { getBalance, getPrice } = useBalance()
+  const { isLoading } = useMulticall()
   const balanceOTOKEN = getBalance('otoken')
   const priceOTOKEN = getPrice('otoken')
   const { selectedTiles } = useStoreSelectedTiles()
@@ -47,7 +49,7 @@ const ControlPanel = () => {
             backgroundColor: `${TILE_COLORS[selectedColor]}`,
           }}></div>
 
-        <div className='flex flex-wrap py-1 justify-end w-32'>
+        <div className='flex flex-wrap py-1 justify-end w-5/6'>
           {Object.keys(TILE_COLORS).map((colorIndex) => {
             return (
               <div
@@ -65,7 +67,7 @@ const ControlPanel = () => {
         <Button notMinW onClick={() => clearPixelSelect()}>
           Clear
         </Button>
-        <PlaceTile />
+        <PlaceTile isLoading={isLoading} />
       </div>
     </div>
   )

@@ -11,8 +11,8 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { BigNumber } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
 import { useState } from 'react'
-import useNotification from '../../../hooks/useNotification'
-import useTransaction from '../../../hooks/useTransaction'
+import useNotification from '../../../../hooks/useNotification'
+import useTransaction from '../../../../hooks/useTransaction'
 
 const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
   const [loading, setLoading] = useState<boolean>(false)

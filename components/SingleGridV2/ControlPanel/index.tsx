@@ -1,4 +1,3 @@
-import PlaceTile from '@/components/GridCards/ControlPanel/PlaceTile'
 import useBalance from '@/hooks/useBalance'
 import useMulticall from '@/hooks/useMulticall'
 import { useStoreSelectedTiles } from '@/store'
@@ -8,11 +7,12 @@ import { formatEther } from 'ethers/lib/utils'
 import React, { useState } from 'react'
 import Amount from '../../Amount'
 import Button from '../../Button'
+import PlaceTile from './PlaceTile'
 
 const ControlPanel = () => {
   const [selectedColor, setSelectedColor] = useState('4')
-  const { isLoading } = useMulticall()
   const { getBalance, getPrice } = useBalance()
+  const { isLoading } = useMulticall()
   const balanceOTOKEN = getBalance('otoken')
   const priceOTOKEN = getPrice('otoken')
   const { selectedTiles } = useStoreSelectedTiles()
@@ -24,7 +24,7 @@ const ControlPanel = () => {
     useStoreSelectedTiles.setState({ selectedColor: colorIndex })
   }
   return (
-    <div className='grid-cards'>
+    <div className='flex flex-col items-center justify-center gap-2 '>
       <div className='w-full flex flex-col rounded '>
         <div className='flex justify-between items-center gap-2'>
           <div className='flex flex-center border border-gray-borders rounded w-full h-7'>
@@ -38,18 +38,18 @@ const ControlPanel = () => {
           </div>
           <div className='flex gap-2'>
             <p className='font-thin text-sm text-gray-subtitle'>Balance:</p>
-            <Amount isLoading={isLoading} amount={formatBalanceOTOKEN} type='number' />
+            <Amount amount={formatBalanceOTOKEN} type='number' />
           </div>
         </div>
       </div>
-      <div className='flex justify-between items-center gap-2 w-full p-1'>
+      <div className='flex justify-between items-center gap-2 w-full'>
         <div
-          className={`bg-${TILE_COLORS[selectedColor]} h-14 w-14  border border-gray-borders`}
+          className={`bg-${TILE_COLORS[selectedColor]} h-12 w-12  border border-gray-borders`}
           style={{
             backgroundColor: `${TILE_COLORS[selectedColor]}`,
           }}></div>
 
-        <div className='flex flex-wrap py-1 justify-end w-32'>
+        <div className='flex flex-wrap py-1 justify-end w-5/6'>
           {Object.keys(TILE_COLORS).map((colorIndex) => {
             return (
               <div
@@ -67,7 +67,7 @@ const ControlPanel = () => {
         <Button notMinW onClick={() => clearPixelSelect()}>
           Clear
         </Button>
-        <PlaceTile />
+        <PlaceTile isLoading={isLoading} />
       </div>
     </div>
   )

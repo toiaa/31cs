@@ -1,6 +1,6 @@
 import useMulticall from '@/hooks/useMulticall'
-import GridActions from '../GridCards'
 import SquareLoader from '../Loader/SquareLoader'
+import GridActions from '../SingleGrid/GridCards'
 import GalleryGrid from './GalleryGrid'
 
 function MainBoardGallery() {

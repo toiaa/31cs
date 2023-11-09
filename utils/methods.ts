@@ -1,5 +1,5 @@
 import { ActionType, AmountType, InputType, OptionType, TokensApproveType, TokensType } from '@/ts/types'
-import { DEFAULT_NETWORK } from './constants'
+import { DEFAULT_NETWORK, PIXELS_TOTAL } from './constants'
 import { NETWORKS_LIST } from './networks'
 import { TOKENS } from './tokens'
 
@@ -230,3 +230,25 @@ export const isValid = (value: string) => Number(value) > 0
  */
 export const shortAddress = (address: string | null) =>
   `${address?.substring(0, 3)}...${address?.substring(address.length - 4, address.length)}`
+
+/**
+ * Generates an array of random numbers in string format between "0" and "7".
+ *
+ * @param {number} length - The desired length of the generated array.
+ * @returns {string[]} - An array containing random numbers as strings.
+ */
+export const generateRandomPixels = (colorLength: number) => {
+  const numbersArray = []
+  const probabilityOfZero = 0.6
+  for (let i = 0; i < PIXELS_TOTAL; i++) {
+    const randomNumber = Math.random()
+    let number
+    if (randomNumber < probabilityOfZero) {
+      number = '0'
+    } else {
+      number = Math.floor(1 + Math.random() * colorLength).toString()
+    }
+    numbersArray.push(number)
+  }
+  return numbersArray
+}
