@@ -10,6 +10,7 @@ import {
   OptionType,
   TokenType,
   WeightTypes,
+  DirectionsType,
 } from '@/ts/types'
 import { BigNumber } from '@ethersproject/bignumber'
 import { ReactNode } from 'react'
@@ -120,6 +121,7 @@ export interface IconInterface {
   size?: number
   text?: string
   onClick?: () => void
+  direction?: DirectionsType
 }
 
 export interface TokensInterface {

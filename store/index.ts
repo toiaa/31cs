@@ -13,6 +13,7 @@ import {
   StoreGridGalleryType,
   StorePixelGrids,
   StoreSelectedTiles,
+  StorePointerType,
 } from '@/ts/types'
 import { APPROVAL_TABS, CONTRACT_ZERO, DEFAULT_NETWORK, SLIPPAGE_TABS, TRANSACTION_SPEED_TABS } from '@/utils/constants'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -150,4 +151,7 @@ export const useStoreSelectedTiles = create<StoreSelectedTiles>(() => ({
   nftId: '',
   selectedTiles: [],
   selectedColor: '',
+}))
+export const useStorePointer = create<StorePointerType>(() => ({
+  pointer: null,
 }))
