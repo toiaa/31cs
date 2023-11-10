@@ -64,13 +64,13 @@ body {
     @apply lg:w-10 w-7 h-7 lg:h-10 rounded-full text-gray font-medium lg:text-3xl text-lg flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
   }
   .arrow {
-    @apply bg-[#2F312E] transform transition-all active:scale-95 active:shadow-xl cursor-pointer;
+    @apply bg-[#2F312E] transform transition-all active:scale-95 active:shadow-xl cursor-pointer rounded-sm;
   }
   .arrow-horizontal {
-    @apply lg:w-12 w-10 lg:h-6 h-5 arrow flex;
+    @apply w-16 h-6 arrow flex;
   }
   .arrow-vertical {
-    @apply lg:w-6 w-5 lg:h-12 h-10 arrow flex;
+    @apply w-6 h-16 arrow flex;
   }
   .spinner-child {
     @apply bg-spinner-cube h-full absolute w-full border-2 border-button-main-dark;

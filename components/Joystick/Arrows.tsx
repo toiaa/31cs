@@ -64,8 +64,10 @@ const Arrows = () => {
   }, [pointer])
 
   return (
-    <section className='flex items-center h-fit lg:pr-4 pr-0 lg:py-24'>
-      <button className='arrow-horizontal active:translate-x-1 justify-start' onClick={() => updatePointer('left')}>
+    <section className='flex items-center h-fit pr-0'>
+      <button
+        className='arrow-horizontal active:translate-x-1 items-center justify-start'
+        onClick={() => updatePointer('left')}>
         <JoystickArrowsIcon direction='left' />
       </button>
 
@@ -74,14 +76,16 @@ const Arrows = () => {
           <JoystickArrowsIcon direction='up' />
         </button>
 
-        <div className='lg:p-3 p-2' />
+        <div className='p-3' />
         <button
           className='arrow-vertical active:-translate-y-1 justify-center items-end'
           onClick={() => updatePointer('down')}>
           <JoystickArrowsIcon direction='down' />
         </button>
       </div>
-      <button className='arrow-horizontal active:-translate-x-1 justify-end' onClick={() => updatePointer('right')}>
+      <button
+        className='arrow-horizontal active:-translate-x-1 items-center justify-end'
+        onClick={() => updatePointer('right')}>
         <JoystickArrowsIcon direction='right' />
       </button>
     </section>

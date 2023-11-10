@@ -46,7 +46,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
 
   return (
     <section className='bg-[#D9D9D9] p-4 max-md:p-2 rounded-[25px] w-full h-full flex max-md:flex-col flex-row max-md:gap-1 gap-2'>
-      <div className='flex gap-2 flex-col w-full max-md:h-full  md:min-w-[400px]'>
+      <div className='flex gap-2 flex-col w-full max-md:h-full md:min-w-[400px]'>
         <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between items-center'>
           <div className='flex items-center gap-3'>
             <Link href='/game'>
@@ -102,7 +102,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
         </div>
       </div>
       <div className='flex gap-2 max-md:min-w-full max-w-[250px] max-md:flex-row flex-col '>
-        <div className=' items-start bg-[#1D242F] w-full  max-md:rounded-b-[25px] md:rounded-[25px] h-fit p-3'>
+        <div className='items-start bg-[#1D242F] w-full max-md:rounded-b-[25px] md:rounded-[25px] h-fit p-3'>
           <ControlPanel />
         </div>
         <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-3 hidden md:flex'>INFORMATION SECTION</div>
