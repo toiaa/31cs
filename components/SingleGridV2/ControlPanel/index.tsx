@@ -24,15 +24,15 @@ const ControlPanel = () => {
     useStoreSelectedTiles.setState({ selectedColor: colorIndex })
   }
   return (
-    <div className='flex max-md:flex-row-reverse flex-col items-center justify-center gap-2'>
+    <div className='flex flex-row-reverse items-center justify-center gap-2'>
       <div className='w-full flex flex-col rounded '>
-        <div className='flex max-md:flex-row-reverse  flex-row justify-between items-center gap-2 p-1'>
+        <div className='flex flex-row-reverse justify-between items-center gap-2 p-1'>
           <div className='flex flex-center border border-gray-borders rounded w-full h-7'>
             <Amount amount={OTOKENAmount} type='number' />
           </div>
           <p className='font-thin text-md'>OTOKEN</p>
         </div>
-        <div className='flex max-md:flex-col-reverse md:flex-row md:items-center justify-between gap-2 p-1'>
+        <div className='flex flex-col-reverse justify-between gap-2 p-1'>
           <div className='flex items-center gap-2'>
             ≈<Amount amount={priceAmount.toString()} decimals={2} type='price' />
           </div>
@@ -44,7 +44,7 @@ const ControlPanel = () => {
       </div>
       <div className='flex justify-between items-center gap-2 w-full'>
         <div
-          className={`bg-${TILE_COLORS[selectedColor]} max-md:hidden flex h-12 w-12  border border-gray-borders`}
+          className={`bg-${TILE_COLORS[selectedColor]} hidden h-12 w-12  border border-gray-borders`}
           style={{
             backgroundColor: `${TILE_COLORS[selectedColor]}`,
           }}></div>
@@ -63,7 +63,7 @@ const ControlPanel = () => {
           })}
         </div>
       </div>
-      <div className='max-md:hidden flex gap-3'>
+      <div className='hidden gap-3'>
         <Button notMinW onClick={() => clearPixelSelect()}>
           Clear
         </Button>

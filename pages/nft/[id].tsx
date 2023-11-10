@@ -12,23 +12,15 @@ export default function Page() {
   const { id } = router.query as { id: string }
   return (
     <main
-      className={`flex lg:flex-row flex-col mt-4 p-4 container-custom bg-[#5D379D] lg:rounded-[70px] rounded-[50px] justify-between ${pixeBoy.className}`}>
+      className={`flex flex-col mt-4 p-4 container-custom bg-[#5D379D] w-[700px] rounded-[50px] justify-between ${pixeBoy.className}`}>
       <Head key='home-page'>
         <title>31ST CENTURY GAME</title>
         <meta name='description' content='An incentive coordination game.' />
       </Head>
-      {/* Joystick Arrows */}
-      <div className='lg:flex hidden'>
-        <Arrows />
-      </div>
       {/* Screen */}
       <SingleGridV2 nftId={id} />
-      {/*Joystick Buttons */}
-      <div className='lg:flex hidden'>
-        <Buttons />
-      </div>
       {/* MOBILE BUTTONS */}
-      <section className='lg:hidden w-full flex justify-between pt-4 px-4'>
+      <section className='w-full flex justify-between pt-4 px-4'>
         <Arrows />
         <Buttons />
       </section>
