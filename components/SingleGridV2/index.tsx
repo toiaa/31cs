@@ -45,9 +45,9 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   }
 
   return (
-    <section className='bg-[#334155] p-4 max-md:p-2 rounded-[25px] w-full h-full flex flex-col gap-1'>
-      <div className='flex gap-2 flex-col w-full max-md:h-full  md:min-w-[400px]'>
-        <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between items-center'>
+    <section className='bg-[#1D242F] rounded-t-[25px] w-full flex flex-col gap-1'>
+      <div className='flex gap-2 flex-col w-full md:min-w-[400px]'>
+        <div className='w-full p-4 text-lg tracking-wider flex justify-between items-center'>
           <div className='flex items-center gap-3'>
             <Link href='/game'>
               <ArrowGameBoy onClick={clearPixelSelect} />
@@ -60,12 +60,12 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
           </p>
           <p className='min-w-[135px]'>OWNER: {addressShowed}</p>
         </div>
-        <div className='bg-[#131820] w-full rounded-[25px] h-full p-2'>
+        <div className='bg-[#1D242F] w-full rounded-[25px] h-full '>
           {isLoading ? (
             <LoaderGrid isGallery={false} />
           ) : (
             <div
-              className='grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto p-3'
+              className='grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto'
               onMouseLeave={() => hoverTile(null, null, '')}>
               {svgs?.nftId?.pixels &&
                 !isLoading &&
@@ -101,12 +101,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
           )}
         </div>
       </div>
-      <div className='flex gap-2 max-md:min-w-full max-w-[250px] flex-row'>
-        <div className='items-start bg-[#1D242F] w-full max-md:rounded-b-[25px] md:rounded-[25px] h-fit p-3'>
-          <ControlPanel />
-        </div>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-3 hidden md:flex'>INFORMATION SECTION</div>
-      </div>
+      <ControlPanel />
     </section>
   )
 }

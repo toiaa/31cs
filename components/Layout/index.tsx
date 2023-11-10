@@ -12,7 +12,7 @@ const jost = Jost({
 
 export default function Layout({ children }: WrapperInterface) {
   return (
-    <div className={`relative sm:px-20 px-2 py-4 min-h-screen flex flex-col ${jost.className}`}>
+    <div className={`relative px-2 py-4 min-h-screen flex flex-col ${jost.className}`}>
       <header>
         <Navbar />
       </header>
