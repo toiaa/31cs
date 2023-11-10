@@ -16,7 +16,7 @@ const GeneralGrid = () => {
   if (!gridGallery) return null
 
   return (
-    <section className='bg-[#D9D9D9] p-4 rounded-[25px] w-full h-full flex gap-2 flex-col'>
+    <section className='bg-[#334155] p-4 rounded-[25px] w-full h-full flex gap-2 flex-col'>
       <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between'>
         <p>TOKEN ID: {tokenId}</p>
         <p>OWNER: 0x0...0000</p>
