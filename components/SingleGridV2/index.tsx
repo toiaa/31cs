@@ -1,6 +1,7 @@
 import ArrowGameBoy from '@/assets/Icons/ArrowGameBoy'
+import useControls from '@/hooks/useControls'
 import usePixelGrid from '@/hooks/usePixelGrid'
-import { useStorePixelGrid, useStorePointer, useStoreSelectedTiles } from '@/store'
+import { useStorePixelGrid, useStorePointer } from '@/store'
 import { clearPixelSelect } from '@/store/methods'
 import { SingleGridInterface } from '@/ts/interfaces'
 import { Tile } from '@/ts/types'
@@ -15,8 +16,8 @@ import WrapperSelected from './WrapperSelected'
 const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   const { isLoading } = usePixelGrid(nftId)
   const svgs = useStorePixelGrid()
-  const { selectedTiles: selectedTilesStore } = useStoreSelectedTiles()
   const { pointer } = useStorePointer()
+  const { handleSaveSelection, isSelected } = useControls({ nftId })
   const id = Number(nftId)
   const [tileOwner, setTileOwner] = useState<string | null>(CONTRACT_ZERO)
   const [hoverCoorX, setHoverCoorX] = useState<number | null>(null)
@@ -29,24 +30,8 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   }
   const addressShowed = shortAddress(tileOwner)
 
-  const isSelected = ({ x, y }: Tile): boolean => {
-    return selectedTilesStore.some((tile) => tile.x === x && tile.y === y)
-  }
-
   const isPointer = ({ x, y }: Tile): boolean => {
     return pointer?.x === x && pointer.y === y
-  }
-
-  const handleSaveSelection = ({ x, y }: Tile) => {
-    if (isSelected({ x, y })) {
-      const updatedTiles = selectedTilesStore.filter((tile) => !(tile.x === x && tile.y === y))
-      useStoreSelectedTiles.setState({
-        selectedTiles: updatedTiles,
-        nftId: nftId,
-      })
-    } else {
-      useStoreSelectedTiles.setState({ selectedTiles: [...selectedTilesStore, { x, y }], nftId: nftId })
-    }
   }
 
   useEffect(() => {
@@ -73,9 +58,9 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
             X:{hoverCoorX !== null ? hoverCoorX : '...'} Y:
             {hoverCoorY !== null ? hoverCoorY : '...'}
           </p>
-          <p>OWNER: {addressShowed}</p>
+          <p className='min-w-[135px]'>OWNER: {addressShowed}</p>
         </div>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-2'>
+        <div className='bg-[#131820] w-full rounded-[25px] h-full p-2'>
           {isLoading ? (
             <LoaderGrid isGallery={false} />
           ) : (
