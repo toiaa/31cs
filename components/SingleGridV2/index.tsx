@@ -60,7 +60,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   }
 
   return (
-    <section className='bg-[#D9D9D9] p-4 rounded-[25px] w-full h-full flex flex-col md:flex-row lg:flex-row gap-1'>
+    <section className='bg-[#D9D9D9] p-2 lg:p-4 md:p-4 rounded-[25px] w-full h-full flex flex-col md:flex-row lg:flex-row gap-2 md:gap-1 lg:gap-1'>
       <div className='flex gap-2 flex-col w-full md:min-w-[400px] lg:min-w-[400px]'>
         <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between items-center'>
           <div className='flex items-center gap-3'>
@@ -117,7 +117,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
         </div>
       </div>
       <div className='flex gap-2 w-full lg:max-w-[250px] md:max-w-[250px] flex-row md:flex-col lg:flex-col '>
-        <div className=' items-start bg-[#1D242F] w-full rounded-[25px] h-fit p-3'>
+        <div className=' items-start bg-[#1D242F] w-full rounded-b-[25px] md:rounded-[25px] lg:rounded-[25px] h-fit p-3'>
           <ControlPanel />
         </div>
         <div className='bg-[#1D242F] w-full rounded-[25px] h-full p-3 hidden md:flex'>INFORMATION SECTION</div>
