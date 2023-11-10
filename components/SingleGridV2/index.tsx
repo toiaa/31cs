@@ -60,7 +60,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
   }
 
   return (
-    <section className='bg-[#D9D9D9] p-4 max-md:p-2 rounded-[25px] w-full h-full flex max-md:flex-col flex-row max-md:gap-1 gap-2'>
+    <section className='bg-[#334155] p-4 max-md:p-2 rounded-[25px] w-full h-full flex max-md:flex-col flex-row max-md:gap-1 gap-2'>
       <div className='flex gap-2 flex-col w-full max-md:h-full  md:min-w-[400px]'>
         <div className='bg-[#1D242F] w-full rounded-[100px] p-4 text-lg tracking-wider flex justify-between items-center'>
           <div className='flex items-center gap-3'>
