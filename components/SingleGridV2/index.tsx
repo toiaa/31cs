@@ -87,8 +87,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
                           onMouseOver={() => {
                             hoverTile(x, y, owner)
                           }}
-                          className='w-full h-full
-                  cursor-pointer'
+                          className='w-full h-full cursor-pointer'
                           style={{
                             backgroundColor: TILE_COLORS[tileColorIndex],
                           }}

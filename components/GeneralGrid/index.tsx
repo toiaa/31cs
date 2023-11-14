@@ -38,20 +38,6 @@ const GeneralGrid = () => {
               </div>
             )
           })}
-          {Object.keys(gridGallery).map((id: string) => {
-            const svg = gridGallery[id]
-            return (
-              <div key={id}>
-                <Link href={`/nft/${id}`} onMouseOver={() => handlehover(id)}>
-                  <img
-                    className='hover:opacity-30 w-full h-auto transition-opacity'
-                    src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
-                    alt='nft'
-                  />
-                </Link>
-              </div>
-            )
-          })}
         </div>
       </div>
     </section>

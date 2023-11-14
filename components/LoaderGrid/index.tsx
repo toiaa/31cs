@@ -7,12 +7,12 @@ function LoaderGrid({ isGallery = false }: { isGallery?: boolean }) {
   const colorLength = Object.keys(TILE_COLORS).length - 1
   const loaderPixels = useMemo(() => generateRandomPixels(colorLength), [])
   return (
-    <div className='w-full h-full flex items-center justify-center '>
+    <div className='w-full h-full flex items-center justify-center min-h-[350px] '>
       <div className='z-50 absolute'>
         <Spinner />
       </div>
       {!isGallery && (
-        <div className='blur-lg opacity-60 grid grid-cols-9 gap-0 h-full min-h-[350px] w-full mx-auto p-3'>
+        <div className='blur-lg opacity-60 grid grid-cols-9 gap-0 h-full w-full mx-auto p-3'>
           {loaderPixels.map((tile, index) => (
             <div
               key={tile + index}
