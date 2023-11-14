@@ -1,12 +1,7 @@
 import useControls from '@/hooks/useControls'
 import { useStorePointer } from '@/store'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
-
-const Tooltip = dynamic(() => import('../Tooltip'), {
-  ssr: false,
-})
 
 const Buttons = () => {
   const router = useRouter()
@@ -22,25 +17,27 @@ const Buttons = () => {
   }
 
   return (
-    <section className='flex items-center h-full lg:pl-4 pl-0'>
-      <div className='flex items-center h-fit'>
-        <Tooltip position='left' text='Open Stats'>
-          <div className='joystick-btn'>Y</div>
-        </Tooltip>
-        <div className='flex flex-col'>
-          <Tooltip position='up' text='Change Color'>
-            <div className='joystick-btn'>X</div>
-          </Tooltip>
-          <div className='p-3' />
-          <Tooltip position='down' text='Select'>
-            <div onClick={handleSelect} className='joystick-btn'>
-              B
-            </div>
-          </Tooltip>
+    <section className='flex items-center h-full mb-4'>
+      <div className='flex flex-col items-center relative'>
+        <div className='joystick-btn'>Y</div>
+        <p className='absolute right-3 top-10'>Clear</p>
+      </div>
+      <div className='flex flex-col gap-6'>
+        <div className='flex flex-col items-center relative'>
+          <p className='absolute whitespace-nowrap bottom-9'>Change Color</p>
+          <div className='joystick-btn'>X</div>
         </div>
-        <Tooltip position='right' text='Place'>
-          <div className='joystick-btn'>A</div>
-        </Tooltip>
+
+        <div className='flex flex-col items-center relative'>
+          <div onClick={handleSelect} className='joystick-btn'>
+            B
+          </div>
+          <p className='absolute whitespace-nowrap top-10'>Select</p>
+        </div>
+      </div>
+      <div className='flex flex-col items-center relative'>
+        <div className='joystick-btn'>A</div>
+        <p className='absolute left-3 top-10'>Place</p>
       </div>
     </section>
   )

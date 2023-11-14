@@ -1,6 +1,7 @@
 import GeneralGrid from '@/components/GeneralGrid'
 import Arrows from '@/components/Joystick/Arrows'
 import Buttons from '@/components/Joystick/Buttons'
+import MiddleButtons from '@/components/Joystick/MiddleButtons'
 import localFont from 'next/font/local'
 import Head from 'next/head'
 const pixeBoy = localFont({ src: '../utils/fonts/Pixeboy.ttf' })
@@ -15,8 +16,9 @@ export default function Game() {
       {/* Screen */}
       <GeneralGrid />
       {/* MOBILE BUTTONS */}
-      <section className='flex justify-between'>
+      <section className='flex justify-between items-end p-4 pb-0'>
         <Arrows />
+        <MiddleButtons />
         <Buttons />
       </section>
     </main>

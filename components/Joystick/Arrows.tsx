@@ -29,6 +29,7 @@ const Arrows = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      event.preventDefault()
       if (pointer === null) {
         useStorePointer.setState({ pointer: { x: 0, y: 0 } })
         return
@@ -64,7 +65,7 @@ const Arrows = () => {
   }, [pointer])
 
   return (
-    <section className='flex items-center h-fit pr-0'>
+    <section className='flex items-center h-full'>
       <button
         className='arrow-horizontal active:translate-x-1 items-center justify-start'
         onClick={() => updatePointer('left')}>
