@@ -7,7 +7,7 @@ function LoaderGrid({ isGallery = false }: { isGallery?: boolean }) {
   const colorLength = Object.keys(TILE_COLORS).length - 1
   const loaderPixels = useMemo(() => generateRandomPixels(colorLength), [])
   return (
-    <div className='w-full h-full flex items-center justify-center min-h-[350px] '>
+    <div className='w-full h-full flex items-center justify-center'>
       <div className='z-50 absolute'>
         <Spinner />
       </div>
