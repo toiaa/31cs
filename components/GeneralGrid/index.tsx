@@ -23,7 +23,21 @@ const GeneralGrid = () => {
       </div>
       <div className='w-full h-full'>
         {isLoadingGridGallery && <LoaderGrid isGallery />}
-        <div className='grid grid-cols-4'>
+        <div className='grid grid-cols-4 min-h-[350px]'>
+          {Object.keys(gridGallery).map((id: string) => {
+            const svg = gridGallery[id]
+            return (
+              <div key={id}>
+                <Link href={`/nft/${id}`} onMouseOver={() => handlehover(id)}>
+                  <img
+                    className='hover:opacity-30 w-full h-auto transition-opacity'
+                    src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
+                    alt='nft'
+                  />
+                </Link>
+              </div>
+            )
+          })}
           {Object.keys(gridGallery).map((id: string) => {
             const svg = gridGallery[id]
             return (
