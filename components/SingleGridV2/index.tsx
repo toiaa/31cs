@@ -11,6 +11,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import LoaderGrid from '../LoaderGrid'
 import ControlPanel from './ControlPanel'
+import InputCard from './ControlPanel/InputCard'
 import WrapperSelected from './WrapperSelected'
 
 const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
@@ -46,26 +47,29 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
 
   return (
     <section className='bg-[#1D242F] rounded-t-[25px] w-full flex flex-col gap-1'>
-      <div className='flex gap-2 flex-col w-full md:min-w-[400px]'>
-        <div className='w-full p-4 text-lg tracking-wider flex justify-between items-center'>
-          <div className='flex items-center gap-3'>
-            <Link href='/game'>
-              <ArrowGameBoy onClick={clearPixelSelect} />
-            </Link>
-            <p>TOKEN ID: {id}</p>
+      <div className='flex flex-col w-full md:min-w-[400px]'>
+        <div className='flex flex-col'>
+          <div className='w-full p-2 border-b border-gray-subtitle text-lg tracking-wider flex justify-between items-center'>
+            <div className='flex items-center gap-3'>
+              <Link href='/game'>
+                <ArrowGameBoy onClick={clearPixelSelect} />
+              </Link>
+              <p>TOKEN ID: {id}</p>
+            </div>
+            <p>
+              X:{hoverCoorX !== null ? hoverCoorX : '...'} Y:
+              {hoverCoorY !== null ? hoverCoorY : '...'}
+            </p>
+            <p className='min-w-[135px]'>OWNER: {addressShowed}</p>
           </div>
-          <p>
-            X:{hoverCoorX !== null ? hoverCoorX : '...'} Y:
-            {hoverCoorY !== null ? hoverCoorY : '...'}
-          </p>
-          <p className='min-w-[135px]'>OWNER: {addressShowed}</p>
+          <InputCard />
         </div>
         <div className='bg-[#1D242F] w-full rounded-[25px] h-full '>
           {isLoading ? (
             <LoaderGrid isGallery={false} />
           ) : (
             <div
-              className='grid grid-cols-10 gap-0 h-full min-h-[350px] w-full mx-auto'
+              className='grid grid-cols-10 gap-0 h-[250px] w-[250px] lg:h-[350px] lg:w-[350px] mx-auto'
               onMouseLeave={() => hoverTile(null, null, '')}>
               {svgs?.nftId?.pixels &&
                 !isLoading &&
