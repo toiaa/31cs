@@ -6,13 +6,14 @@ module.exports = {
       colors: {
         // main
         main: '#4338ca', //purple
-        'button-main-border': '#8b5cf6', // dark purple
-        'button-main-light': '#64748b', // gray
-        'button-main-dark': '#c084fc', // purple
-        'button-secondary-color': '#a78bfa', // light purple
-        'tile-hover-border': '#c4b5fd', // pale purple
-        'tile-selected-border': '#d8b4fe', // pink purple
-        'spinner-cube': '#a78bfa33', // light purple less opacity
+        'button-main-light': '#64748b', // slate-500
+        'button-main-dark': '#c084fc', // purple-400
+        'tile-hover-border': '#c4b5fd', // violet-300
+        'button-main-border': '#8b5cf6', // violet-500
+        'button-secondary-color': '#a78bfa', //violet-400
+        'tile-selected-border': '#d8b4fe', // purple-300
+        'spinner-cube': '#a78bfa33', // violet-400 less opacity
+        'color-selected': '#60a5fa', // blue-400
         // white
         white: '#ffffff',
         'button-text': '#ffffff',

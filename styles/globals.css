@@ -61,16 +61,16 @@ body {
     @apply bg-tile-selected-border;
   }
   .joystick-btn {
-    @apply w-10 h-10 rounded-full text-gray font-medium text-3xl flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
+    @apply w-8 h-8 rounded-full text-gray font-medium text-2xl flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
   }
   .arrow {
     @apply bg-[#2F312E] transform transition-all active:scale-95 active:shadow-xl cursor-pointer rounded-sm;
   }
   .arrow-horizontal {
-    @apply w-14 h-6 arrow flex;
+    @apply w-12 h-6 arrow flex;
   }
   .arrow-vertical {
-    @apply w-6 h-14 arrow flex;
+    @apply w-6 h-12 arrow flex;
   }
   .spinner-child {
     @apply bg-spinner-cube h-full absolute w-full border-2 border-button-main-dark;
