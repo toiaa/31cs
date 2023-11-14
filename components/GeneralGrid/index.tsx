@@ -21,38 +21,41 @@ const GeneralGrid = () => {
         <p>TOKEN ID: {tokenId}</p>
         <p>OWNER: 0x0...0000</p>
       </div>
-      <div className='w-full h-full'>
-        {isLoadingGridGallery && <LoaderGrid isGallery />}
-        <div className='grid grid-cols-4 min-h-[350px]'>
-          {Object.keys(gridGallery).map((id: string) => {
-            const svg = gridGallery[id]
-            return (
-              <div key={id}>
-                <Link href={`/nft/${id}`} onMouseOver={() => handlehover(id)}>
-                  <img
-                    className='hover:opacity-30 w-full h-auto transition-opacity'
-                    src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
-                    alt='nft'
-                  />
-                </Link>
-              </div>
-            )
-          })}
-          {Object.keys(gridGallery).map((id: string) => {
-            const svg = gridGallery[id]
-            return (
-              <div key={id}>
-                <Link href={`/nft/${id}`} onMouseOver={() => handlehover(id)}>
-                  <img
-                    className='hover:opacity-30 w-full h-auto transition-opacity'
-                    src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
-                    alt='nft'
-                  />
-                </Link>
-              </div>
-            )
-          })}
-        </div>
+      <div className='w-full h-full min-h-[420px] flex-center'>
+        {isLoadingGridGallery ? (
+          <LoaderGrid isGallery />
+        ) : (
+          <div className='grid grid-cols-4'>
+            {Object.keys(gridGallery).map((id: string) => {
+              const svg = gridGallery[id]
+              return (
+                <div key={id}>
+                  <Link href={`/nft/${id}`} onMouseOver={() => handlehover(id)}>
+                    <img
+                      className='hover:opacity-30 w-full h-auto transition-opacity'
+                      src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
+                      alt='nft'
+                    />
+                  </Link>
+                </div>
+              )
+            })}
+            {Object.keys(gridGallery).map((id: string) => {
+              const svg = gridGallery[id]
+              return (
+                <div key={id}>
+                  <Link href={`/nft/${id}`} onMouseOver={() => handlehover(id)}>
+                    <img
+                      className='hover:opacity-30 w-full h-auto transition-opacity'
+                      src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`}
+                      alt='nft'
+                    />
+                  </Link>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )

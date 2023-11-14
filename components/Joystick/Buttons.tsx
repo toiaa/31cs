@@ -1,15 +1,17 @@
 import useControls from '@/hooks/useControls'
+import useMulticall from '@/hooks/useMulticall'
 import { useStorePointer } from '@/store'
 import { clearPixelSelect } from '@/store/methods'
 import { useRouter } from 'next/router'
 import React from 'react'
+import PlaceTile from '../SingleGridV2/ControlPanel/PlaceTile'
 
 const Buttons = () => {
   const router = useRouter()
   const { id: nftId } = router.query as { id: string }
   const { pointer } = useStorePointer()
   const { handleSaveSelection } = useControls({ nftId })
-
+  const { isLoading } = useMulticall()
   const handleSelect = () => {
     if (pointer) {
       const { x, y } = pointer
@@ -39,7 +41,7 @@ const Buttons = () => {
         </div>
       </div>
       <div className='flex flex-col items-center relative'>
-        <div className='joystick-btn'>A</div>
+        <PlaceTile isLoading={isLoading} />
         <p className='absolute left-3 top-8'>Place</p>
       </div>
     </section>
