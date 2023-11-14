@@ -64,12 +64,12 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
           </div>
           <InputCard />
         </div>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full '>
+        <div className='bg-[#1D242F] w-full rounded-[25px] h-full min-h-[350px] flex flex-center'>
           {isLoading ? (
             <LoaderGrid isGallery={false} />
           ) : (
             <div
-              className='grid grid-cols-10 gap-0 h-[250px] w-[250px] lg:h-[350px] lg:w-[350px] mx-auto'
+              className='grid grid-cols-10 gap-0 w-[250px] lg:h-[350px] lg:w-[350px] mx-auto'
               onMouseLeave={() => hoverTile(null, null, '')}>
               {svgs?.nftId?.pixels &&
                 !isLoading &&

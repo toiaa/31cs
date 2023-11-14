@@ -40,6 +40,11 @@ export interface ButtonInterface extends WrapperInterface {
   textLoading?: string | null
   notMinW?: boolean
 }
+export interface PlaceButtonInterface {
+  onClick?: (() => void) | (() => Promise<void>)
+  isDisabled?: boolean
+  isLoading?: boolean
+}
 
 export type IconButtonInterface = ButtonInterface
 
