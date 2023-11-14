@@ -1,4 +1,4 @@
-import Button from '@/components/Button'
+import PlaceButton from '@/components/Button/PlaceButton'
 import useBalance from '@/hooks/useBalance'
 import { useStoreSelectedTiles } from '@/store'
 import { clearPixelSelect, updateFullGridData, updateGridData } from '@/store/methods'
@@ -83,11 +83,7 @@ const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
     clearPixelSelect()
     setLoading(false)
   }
-  return (
-    <Button isDisabled={disabled || isLoading} isLoading={loading} onClick={placeTile}>
-      Place Tile
-    </Button>
-  )
+  return <PlaceButton isDisabled={disabled || isLoading || loading} onClick={placeTile}></PlaceButton>
 }
 
 export default PlaceTile
