@@ -69,7 +69,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
             <LoaderGrid isGallery={false} />
           ) : (
             <div
-              className='grid grid-cols-10 gap-0 w-[250px] lg:h-[350px] lg:w-[350px] mx-auto'
+              className='grid grid-cols-10 gap-0 h-[350px] w-[350px] mx-auto'
               onMouseLeave={() => hoverTile(null, null, '')}>
               {svgs?.nftId?.pixels &&
                 !isLoading &&
