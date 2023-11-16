@@ -1,4 +1,4 @@
-import { ERRORS, ERRORS_TYPE } from '@/utils/constants'
+import { ERRORS, ERRORS_TYPE, TILE_COLORS } from '@/utils/constants'
 import { BigNumber } from '@ethersproject/bignumber'
 import { parseEther } from 'ethers/lib/utils.js'
 import {
@@ -141,4 +141,11 @@ export const getStatus = (amount: string, balance: BigNumber, id: ERRORS_TYPE): 
 
 export const resetStatus = () => {
   useStoreSwap.setState({ isDisabled: false, message: '' })
+}
+
+export const handleChangeColor = () => {
+  const limit = Object.keys(TILE_COLORS).length - 1
+  const { selectedColor } = useStoreSelectedTiles.getState()
+  const newSelection = Number(selectedColor) < limit ? `${Number(selectedColor) + 1}` : '0'
+  useStoreSelectedTiles.setState({ selectedColor: newSelection })
 }
