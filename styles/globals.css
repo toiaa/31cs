@@ -61,10 +61,10 @@ body {
     @apply bg-tile-selected-border;
   }
   .joystick-btn {
-    @apply w-8 h-8 rounded-full text-gray font-medium text-2xl flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
+    @apply rounded w-14  text-gray font-medium text-base p-1 flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
   }
   .place-joystick-btn {
-    @apply w-8 h-8 rounded-full text-gray font-medium text-2xl flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl;
+    @apply rounded w-14 text-gray font-medium text-base p-1 flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl;
   }
   .arrow {
     @apply bg-[#2F312E] transform transition-all active:scale-95 active:shadow-xl cursor-pointer rounded-sm;

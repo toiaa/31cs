@@ -1,7 +1,7 @@
 import useControls from '@/hooks/useControls'
 import useMulticall from '@/hooks/useMulticall'
 import { useStorePointer } from '@/store'
-import { clearPixelSelect } from '@/store/methods'
+import { clearPixelSelect, handleChangeColor } from '@/store/methods'
 import { useRouter } from 'next/router'
 import React from 'react'
 import PlaceTile from '../SingleGridV2/ControlPanel/PlaceTile'
@@ -20,29 +20,22 @@ const Buttons = () => {
   }
 
   return (
-    <section className='flex items-center h-full mb-4'>
-      <div className='flex flex-col items-center relative'>
+    <section className='flex flex-col h-full mb-4 gap-2'>
+      <div className='flex gap-2'>
         <div className='joystick-btn' onClick={() => clearPixelSelect()}>
-          Y
+          Clear
         </div>
-        <p className='absolute right-3 top-8'>Clear</p>
-      </div>
-      <div className='flex flex-col gap-6'>
-        <div className='flex flex-col items-center relative'>
-          <p className='absolute whitespace-nowrap bottom-7'>Change Color</p>
-          <div className='joystick-btn'>X</div>
-        </div>
-
-        <div className='flex flex-col items-center relative'>
-          <div onClick={handleSelect} className='joystick-btn'>
-            B
-          </div>
-          <p className='absolute whitespace-nowrap top-8'>Select</p>
+        <div className='joystick-btn' onClick={() => handleChangeColor()}>
+          Color
         </div>
       </div>
-      <div className='flex flex-col items-center relative'>
-        <PlaceTile isLoading={isLoading} />
-        <p className='absolute left-3 top-8'>Place</p>
+      <div className='flex ml-4 gap-2'>
+        <div className='flex  items-center relative gap-2'>
+          <PlaceTile isLoading={isLoading} />
+        </div>
+        <div onClick={handleSelect} className='joystick-btn'>
+          Select
+        </div>
       </div>
     </section>
   )
