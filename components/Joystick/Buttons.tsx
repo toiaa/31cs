@@ -20,29 +20,24 @@ const Buttons = () => {
   }
 
   return (
-    <section className='flex items-center h-full mb-4'>
-      <div className='flex flex-col items-center relative'>
+    <section className='flex flex-col h-full mb-4 gap-2'>
+      <div className='flex items-center relative gap-2'>
         <div className='joystick-btn' onClick={() => clearPixelSelect()}>
-          Y
+          Clear
         </div>
-        <p className='absolute right-3 top-8'>Clear</p>
+        <div className='flex items-center relative'>
+          <div className='joystick-btn'> Color</div>
+        </div>
       </div>
-      <div className='flex flex-col gap-6'>
-        <div className='flex flex-col items-center relative'>
-          <p className='absolute whitespace-nowrap bottom-7'>Change Color</p>
-          <div className='joystick-btn'>X</div>
+      <div className='flex ml-5 gap-2'>
+        <div className='flex  items-center relative gap-2'>
+          <PlaceTile isLoading={isLoading} />
         </div>
-
-        <div className='flex flex-col items-center relative'>
+        <div className='flex  items-center relative'>
           <div onClick={handleSelect} className='joystick-btn'>
-            B
+            Select
           </div>
-          <p className='absolute whitespace-nowrap top-8'>Select</p>
         </div>
-      </div>
-      <div className='flex flex-col items-center relative'>
-        <PlaceTile isLoading={isLoading} />
-        <p className='absolute left-3 top-8'>Place</p>
       </div>
     </section>
   )
