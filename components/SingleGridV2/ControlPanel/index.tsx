@@ -2,16 +2,15 @@ import useMulticall from '@/hooks/useMulticall'
 import { useStoreSelectedTiles } from '@/store'
 import { clearPixelSelect } from '@/store/methods'
 import { TILE_COLORS } from '@/utils/constants'
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../../Button'
 import PlaceTile from './PlaceTile'
 
 const ControlPanel = () => {
-  const [selectedColor, setSelectedColor] = useState('4')
+  const { selectedColor } = useStoreSelectedTiles()
   const { isLoading } = useMulticall()
 
   const handleColorSelection = (colorIndex: string) => {
-    setSelectedColor(colorIndex)
     useStoreSelectedTiles.setState({ selectedColor: colorIndex })
   }
   return (

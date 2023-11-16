@@ -150,7 +150,7 @@ export const useStorePixelGrid = create<StorePixelGrids>(() => ({}))
 export const useStoreSelectedTiles = create<StoreSelectedTiles>(() => ({
   nftId: '',
   selectedTiles: [],
-  selectedColor: '',
+  selectedColor: '4',
 }))
 export const useStorePointer = create<StorePointerType>(() => ({
   pointer: null,
