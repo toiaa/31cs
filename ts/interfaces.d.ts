@@ -180,11 +180,8 @@ export interface UserBalancesI {
   [address: string]: BigNumber
 }
 
-export interface TokenModalI {
+export interface ModalI {
   onClose: () => void
-  items: Token[]
-  onSelectItem: (item: Token) => void
-  type: string
 }
 
 export interface TokenInfoSectionI {

@@ -8,7 +8,7 @@ import Head from 'next/head'
 export default function Home() {
   const { isLoading } = useMulticall()
   return (
-    <main className={'flex flex-col gap-[40px] mt-4 items-center container-custom'}>
+    <main className={'flex flex-col gap-[40px] mt-4 items-center container-custom max-w-[1220px]'}>
       <Head key='home-page'>
         <title>31ST CENTURY GAME</title>
         <meta name='description' content='An incentive coordination game.' />

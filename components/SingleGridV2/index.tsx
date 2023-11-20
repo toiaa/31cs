@@ -2,7 +2,7 @@ import ArrowGameBoy from '@/assets/Icons/ArrowGameBoy'
 import useControls from '@/hooks/useControls'
 import usePixelGrid from '@/hooks/usePixelGrid'
 import { useStorePixelGrid, useStorePointer } from '@/store'
-import { clearPixelSelect } from '@/store/methods'
+import { clearPixelSelect, toggleStatsModal } from '@/store/methods'
 import { SingleGridInterface } from '@/ts/interfaces'
 import { Tile } from '@/ts/types'
 import { CONTRACT_ZERO, TILE_COLORS } from '@/utils/constants'
@@ -10,6 +10,7 @@ import { shortAddress } from '@/utils/methods'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import LoaderGrid from '../LoaderGrid'
+import StatsModal from '../StatsModal'
 import ControlPanel from './ControlPanel'
 import InputCard from './ControlPanel/InputCard'
 import WrapperSelected from './WrapperSelected'
@@ -45,6 +46,11 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
     useStorePointer.setState({ pointer: tile })
   }
 
+  const backGeneralGrid = () => {
+    clearPixelSelect()
+    toggleStatsModal(true)
+  }
+
   return (
     <section className='bg-[#1D242F] rounded-t-[25px] w-full flex flex-col gap-1'>
       <div className='flex flex-col w-full md:min-w-[400px]'>
@@ -52,7 +58,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
           <div className='w-full p-2 border-b border-gray-subtitle text-lg tracking-wider flex justify-between items-center'>
             <div className='flex items-center gap-3'>
               <Link href='/game'>
-                <ArrowGameBoy onClick={clearPixelSelect} />
+                <ArrowGameBoy onClick={backGeneralGrid} />
               </Link>
               <p>TOKEN ID: {id}</p>
             </div>
@@ -64,7 +70,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
           </div>
           <InputCard />
         </div>
-        <div className='bg-[#1D242F] w-full rounded-[25px] h-full min-h-[350px] flex flex-center'>
+        <div className='bg-[#1D242F] w-full rounded-[25px] h-full min-h-[350px] flex flex-center relative'>
           {isLoading ? (
             <LoaderGrid isGallery={false} />
           ) : (
@@ -102,6 +108,7 @@ const SingleGridV2 = ({ nftId }: SingleGridInterface) => {
                 })}
             </div>
           )}
+          <StatsModal />
         </div>
       </div>
       <ControlPanel />

@@ -2,6 +2,7 @@ import { ERRORS, ERRORS_TYPE, TILE_COLORS } from '@/utils/constants'
 import { BigNumber } from '@ethersproject/bignumber'
 import { parseEther } from 'ethers/lib/utils.js'
 import {
+  useModalStats,
   useStoreAccountStats,
   useStoreBalance,
   useStoreGridGallery,
@@ -126,6 +127,13 @@ export const updateFullGridData = async (svgGridData: string[]) => {
 
 export const clearPixelSelect = (nftId = '') => {
   useStoreSelectedTiles.setState({ selectedTiles: [], nftId: nftId, selectedColor: '4' })
+}
+export const toggleStatsModal = (onClose?: boolean) => {
+  if (onClose) {
+    useModalStats.setState(() => ({ isOpen: false }))
+  } else {
+    useModalStats.setState((state) => ({ isOpen: !state.isOpen }))
+  }
 }
 
 export const getStatus = (amount: string, balance: BigNumber, id: ERRORS_TYPE): boolean => {
