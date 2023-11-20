@@ -4,9 +4,9 @@ import React from 'react'
 
 const Amount = dynamic(() => import('../Amount'))
 
-const DetailAmount = ({ label, type, amount, weight, color, isLoading }: DetailAmountInterface) => {
+const DetailAmount = ({ label, type, amount, weight, color, isLoading, onMax }: DetailAmountInterface) => {
   return (
-    <div className='flex gap-1 text-gray text-sm'>
+    <div onClick={() => onMax && onMax(amount)} className='flex gap-1 text-gray text-sm cursor-pointer'>
       <p>
         {label.charAt(0).toUpperCase() + label.slice(1)}
         {label != '≈' ? ':' : ''}

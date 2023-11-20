@@ -6,17 +6,14 @@ import { DetailAmountInterface, TokenAmountCardInterface } from '@/ts/interfaces
 import { TokenType } from '@/ts/types'
 import { calculateAmountUSD, formatInputValue, isInputDisabled } from '@/utils/methods'
 import { formatEther } from 'ethers/lib/utils'
-import dynamic from 'next/dynamic'
 import React, { useCallback, useMemo } from 'react'
 import DetailAmount from './DetailAmount'
 import SwapInput from './SwapInput'
 import TokenInfoSection from './TokenInfoSection'
 
-const PercentageButtons = dynamic(() => import('@/components/PercentageButtons'))
-
 const TokenAmountCard = ({
   token,
-  showPercentage,
+
   inputKey,
   currentAction,
   currentOption,
@@ -93,9 +90,9 @@ const TokenAmountCard = ({
           showLend={showLend}
           showMaxWithdraw={showMaxWithdraw}
           isLoading={isLoading}
+          onMax={handleInput}
         />
       </div>
-      {showPercentage && <PercentageButtons handleInput={handleInput} balance={showLend ? lendBalance : balance} />}
     </div>
   )
 }

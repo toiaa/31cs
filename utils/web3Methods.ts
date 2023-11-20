@@ -8,7 +8,7 @@ import {
   useStoreSwap,
 } from '@/store'
 import { getStatus } from '@/store/methods'
-import { ADDRESS, ApproveType, OptionType, SettingsTabsType, TransactionType } from '@/ts/types'
+import { ADDRESS, ApproveType, InputType, OptionType, SettingsTabsType, TransactionType } from '@/ts/types'
 import base_abi from '@/utils/abis/base.json'
 import grid_abi from '@/utils/abis/grid.json'
 import abi_minter from '@/utils/abis/minter.json'
@@ -84,6 +84,7 @@ export const setQuote = async (
   isInput: boolean,
   isBuy: boolean,
   balance: BigNumber,
+  optionKey: OptionType,
 ) => {
   // Determine the key based on whether it's an input or output value
   const key = isInput ? 'outputValue' : 'inputValue'
@@ -99,7 +100,10 @@ export const setQuote = async (
     isMoreThanMarketSell = getStatus(amount, maxMarketSell, 'sell')
   }
 
-  if ((isInput && parsedAmount.eq(DEFAULT_VALUE)) || (isInput && parsedAmount.gt(balance))) {
+  if (
+    (['Buy', 'Sell'].includes(optionKey) && parsedAmount.eq(DEFAULT_VALUE)) ||
+    (isInput && parsedAmount.gt(balance))
+  ) {
     useStoreInput.setState({ [key]: amount })
   } else if (!isMoreThanMarketSell) {
     const provider = getProvider()
@@ -389,12 +393,25 @@ export const placeTiles = async (
 }
 
 /**
- * Get the value from the Excersice or Reedem value on the Swap Page.
- * @param {otokenValue} string - The otoken value.
+ * Get the value from the Exercise or Redeem value on the Swap Page.
+ * @param {string} otokenValue - The otoken value.
+ * @param {string} inputKey - The key indicating the input type.
+ * @param {string} inputValue - The value of the input.
  * @returns {string} - A new string value.
  */
-export const optionValue = (otokenValue: string): string => {
+export const optionValue = (otokenValue: string, inputKey: InputType, inputValue: InputType): string => {
   const OTOKEN_parsed = parseEther(otokenValue)
-  const WETH_parsed = parseEther('0.0001')
-  return formatUnits(OTOKEN_parsed.mul(WETH_parsed), 36)
+  const WETH_minor_parsed = parseEther('0.0001')
+  const WETH_greater_parsed = parseEther('10000')
+
+  if (inputKey === 'craftValue' && inputValue === 'craftValue') {
+    return otokenValue
+  }
+
+  if (inputValue === 'craftValue') {
+    const multiplier = inputKey !== 'craftValue' ? WETH_minor_parsed : WETH_greater_parsed
+    return formatUnits(OTOKEN_parsed.mul(multiplier), 36)
+  }
+
+  return otokenValue
 }

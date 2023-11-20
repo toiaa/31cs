@@ -28,21 +28,21 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
     if (optionKey === 'Buy') {
       if (inputKey === 'inputValue') {
         useStoreInput.setState({ inputValue: value, activeValue: 'inputValue', craftValue: value })
-        await currentSetQuote(chainId, value, slippageTolerance, true, true, inputBalance)
+        await currentSetQuote(chainId, value, slippageTolerance, true, true, inputBalance, optionKey)
       }
       if (inputKey === 'outputValue') {
         useStoreInput.setState({ outputValue: value, activeValue: 'outputValue' })
-        await currentSetQuote(chainId, value, slippageTolerance, false, true, inputBalance)
+        await currentSetQuote(chainId, value, slippageTolerance, false, true, inputBalance, optionKey)
       }
     }
     if (optionKey === 'Sell') {
       if (inputKey === 'inputValue') {
         useStoreInput.setState({ inputValue: value, activeValue: 'inputValue', craftValue: value })
-        await currentSetQuote(chainId, value, slippageTolerance, true, false, inputBalance)
+        await currentSetQuote(chainId, value, slippageTolerance, true, false, inputBalance, optionKey)
       }
       if (inputKey === 'outputValue') {
         useStoreInput.setState({ outputValue: value, activeValue: 'outputValue', craftValue: value })
-        await currentSetQuote(chainId, value, slippageTolerance, false, false, inputBalance)
+        await currentSetQuote(chainId, value, slippageTolerance, false, false, inputBalance, optionKey)
       }
     }
   }
@@ -61,20 +61,12 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
    *
    * @param {string} value - The new value to set on Option.
    */
-  const optionAction = async (optionKey: OptionType, value: string) => {
-    if (optionKey === 'Exercise') {
+  const optionAction = async (optionKey: OptionType, value: string, inputKey: InputType) => {
+    if (['Redeem', 'Exercise'].includes(optionKey)) {
       useStoreInput.setState({
-        inputValue: value,
-        craftValue: optionValue(value),
-        outputValue: value,
-        activeValue: 'inputValue',
-      })
-    }
-    if (optionKey === 'Redeem') {
-      useStoreInput.setState({
-        inputValue: value,
-        craftValue: optionValue(value),
-        outputValue: value,
+        inputValue: optionValue(value, inputKey, 'inputValue'),
+        craftValue: optionValue(value, inputKey, 'craftValue'),
+        outputValue: optionValue(value, inputKey, 'outputValue'),
         activeValue: 'inputValue',
       })
     }
@@ -90,7 +82,7 @@ const useInput = (actionKey?: ActionType, optionKey?: OptionType, inputKey?: Inp
       await swapAction(optionKey, inputKey, value)
     }
     if (actionKey === 'Options') {
-      await optionAction(optionKey, value)
+      await optionAction(optionKey, value, inputKey)
     }
     if (['Earn', 'Lend', 'Wrap'].includes(actionKey)) {
       await staticAction(value)
