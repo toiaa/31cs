@@ -224,3 +224,6 @@ export type StoreGridApproved = {
 export type StorePointerType = {
   pointer: Tile | null
 }
+export type StoreModalStatsType = {
+  isOpen: boolean
+}

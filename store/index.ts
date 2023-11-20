@@ -14,6 +14,7 @@ import {
   StorePixelGrids,
   StoreSelectedTiles,
   StorePointerType,
+  StoreModalStatsType,
 } from '@/ts/types'
 import { APPROVAL_TABS, CONTRACT_ZERO, DEFAULT_NETWORK, SLIPPAGE_TABS, TRANSACTION_SPEED_TABS } from '@/utils/constants'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -154,4 +155,8 @@ export const useStoreSelectedTiles = create<StoreSelectedTiles>(() => ({
 }))
 export const useStorePointer = create<StorePointerType>(() => ({
   pointer: null,
+}))
+
+export const useModalStats = create<StoreModalStatsType>(() => ({
+  isOpen: false,
 }))
