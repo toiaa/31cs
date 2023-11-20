@@ -11,6 +11,7 @@ const TokenInfoSection = ({
   showLend,
   isLoading,
   showMaxWithdraw,
+  onMax,
 }: TokenInfoSectionI) => {
   const isNotVotingPower = symbol !== 'Power'
   const [detailAmount, detailMaxWithdraw, detailVotingPower, detailLendAmount] = detailAmountProps
@@ -29,7 +30,7 @@ const TokenInfoSection = ({
         {showMaxWithdraw && <DetailAmount {...detailMaxWithdraw} isLoading={isLoading} />}
 
         {isNotVotingPower ? (
-          <DetailAmount {...detailAmount} isLoading={isLoading} />
+          <DetailAmount {...detailAmount} isLoading={isLoading} onMax={onMax} />
         ) : (
           <DetailAmount {...detailVotingPower} isLoading={isLoading} />
         )}

@@ -78,6 +78,7 @@ export interface StatsDataInterface extends AmountInterface {
 }
 export interface DetailAmountInterface extends AmountInterface {
   label: string
+  onMax?: (typeValue: string) => Promise<void>
 }
 
 export interface TokenItemInterface {
@@ -112,7 +113,6 @@ export interface TokenAmountCardInterface {
   currentAction: ActionType
   currentOption: OptionType
   isLoading?: boolean
-  showPercentage?: boolean
   items?: Token[]
 }
 
@@ -192,6 +192,7 @@ export interface TokenInfoSectionI {
   showLend: boolean
   isLoading: boolean
   showMaxWithdraw: boolean
+  onMax?: (typeValue: string) => Promise<void>
 }
 
 export interface PixelGridInterface {
