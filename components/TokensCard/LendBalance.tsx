@@ -20,8 +20,8 @@ const LendBalance = () => {
   return (
     <div className='flex flex-col lg:w-[200px] text-sm w-full text-center'>
       <div className='flex gap-2 w-full items-center justify-center'>
-        <p className='font-semibold text-button-secondary-color'>APR</p>
-        <Amount amount={formatVTOKEN_APR} type='percentage' decimals={2} color='#6d28d9' />
+        <p className='font-semibold text-button-subtitle-color'>APR</p>
+        <Amount amount={formatVTOKEN_APR} type='percentage' decimals={2} color='#a78bfa' />
       </div>
       <div className='flex gap-2 w-full items-center justify-center'>
         <p className='font-semibold'>Power</p>

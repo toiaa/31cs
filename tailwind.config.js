@@ -14,6 +14,7 @@ module.exports = {
         'button-main-border': '#8b5cf6', // violet-500
         'button-secondary-color': '#5D379C', // violet-800
         'tile-selected-border': '#d8b4fe', // purple-300
+        'subtitle-color': '#a78bfa', // violet-400
         'spinner-cube': '#a78bfa33', // violet-400 less opacity
         'color-selected': '#60a5fa', // blue-400
         // white
