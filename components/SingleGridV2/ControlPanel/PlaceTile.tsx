@@ -1,4 +1,3 @@
-import PlaceButton from '@/components/Button/PlaceButton'
 import useBalance from '@/hooks/useBalance'
 import { useStoreSelectedTiles } from '@/store'
 import { clearPixelSelect, updateFullGridData, updateGridData } from '@/store/methods'
@@ -10,12 +9,10 @@ import { approve, checkAllowance, getNftGallery, getSingleGridData, placeTiles }
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { BigNumber } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
-import { useState } from 'react'
 import useNotification from '../../../hooks/useNotification'
 import useTransaction from '../../../hooks/useTransaction'
 
 const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
-  const [loading, setLoading] = useState<boolean>(false)
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
   const { updateTxStatus, updateHash } = useTransaction()
@@ -64,7 +61,6 @@ const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
     }
   }
   const placeTile = async () => {
-    setLoading(true)
     const xValues = selectedTiles.map((coor) => BigInt(coor.x))
     const yValues = selectedTiles.map((coor) => BigInt(coor.y))
     await onAllowanceAndApprove(TOKENS[validNetwork].OTOKEN, CONTRACTS[validNetwork].gridNFT)
@@ -81,9 +77,16 @@ const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
     updateFullGridData(svgGridData)
     updateGridData({ nftId, pixels })
     clearPixelSelect()
-    setLoading(false)
   }
-  return <PlaceButton isDisabled={disabled || isLoading || loading} onClick={placeTile}></PlaceButton>
+  return (
+    <button
+      disabled={isLoading || disabled}
+      className={`place-joystick-btn ${isLoading || disabled ? 'opacity-75' : ''} `}
+      type='button'
+      onClick={placeTile}>
+      <p>Place</p>
+    </button>
+  )
 }
 
 export default PlaceTile
