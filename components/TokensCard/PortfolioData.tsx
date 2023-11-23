@@ -13,7 +13,7 @@ function PortfolioData() {
   const totalRewardsNumber = formatUnits(totalRewards, 18)
 
   return (
-    <div className='item-portfolio-custom gap-3 w-full md:gap-2 lg:gap-3'>
+    <div className='item-portfolio-custom bg-card-neutral gap-3 w-full md:gap-2 lg:gap-3'>
       <div className='flex justify-between items-center w-full'>
         <p className='title'>Portfolio</p>
         <Amount size='lg' amount={totalRewardsNumber} type='price' weight='semibold' />

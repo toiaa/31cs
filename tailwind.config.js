@@ -6,12 +6,13 @@ module.exports = {
       colors: {
         // main
         main: '#4338ca', //purple
+        'main-home': '#1F182F', //dark purple
         'button-main-light': '#64748b', // slate-500
         'button-main-dark': '#c084fc', // purple-400
         'button-gameboy-gray': '#2F312E', // buttons gray
         'tile-hover-border': '#c4b5fd', // violet-300
         'button-main-border': '#8b5cf6', // violet-500
-        'button-secondary-color': '#a78bfa', //violet-400
+        'button-secondary-color': '#5D379C', // violet-800
         'tile-selected-border': '#d8b4fe', // purple-300
         'spinner-cube': '#a78bfa33', // violet-400 less opacity
         'color-selected': '#60a5fa', // blue-400
@@ -35,6 +36,7 @@ module.exports = {
         'box-pale-neutral': '#4b5563',
         'box-dark-neutral': '#1f2937',
         'modal-neutral': '#111726',
+        'card-neutral': '#1f2937', // '#403858', // #5D379C '#1f2937',
         //pink-pastel
         pink: '#f0abfc',
         //yelow-pastel,

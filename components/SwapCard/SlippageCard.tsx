@@ -16,7 +16,7 @@ const SlippageCard = () => {
   const minOutputValue = slippage.id === 2 ? formatautoMinOutput : formatMinAmount
 
   return (
-    <div className='text-gray item-custom flex-col text-sm'>
+    <div className='text-gray item-custom flex-col text-sm bg-transparent'>
       <div className='w-full flex justify-between items-center'>
         <p>{'Losses (0.3% fee + slippage)'}</p>
         <Amount amount={slippageToletance} type='percentage' />

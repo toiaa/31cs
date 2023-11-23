@@ -7,6 +7,25 @@ const ONLY_NUMBER = /^[0-9]*\.?[0-9]*$/
 const ONLY_LETTERS = /[a-zA-Z]/
 
 /**
+ * Format a large number string to a concise representation.
+ * @param {string} stringValue - The number string to be formatted.
+ * @returns {string} - Formatted string, possibly appended with 'M'.
+ */
+export const formatLargeNumber = (value: string): string => {
+  const million = 1000000
+
+  if (value.includes('.')) {
+    value = value.split('.')[0]
+  }
+  if (value.length >= 7) {
+    const millions = (parseFloat(value) / million).toFixed(0)
+    return millions + 'M'
+  }
+
+  return value
+}
+
+/**
  * Formats an `amount` as a string with commas for the integer part and a period and `decimals` decimals (if any) for the decimal part.
  * @param {string} amount - The amount to format as a string.
  * @param {AmountType} type - The type of formatting to use ('price' for dollar formatting, 'percentage' for percentage formatting, or anything else for plain formatting).
@@ -18,7 +37,9 @@ export const formatAmount = (amount: string, type: AmountType, decimals = 2): st
     const amountNum = Number(amount)
     let formatAmount = ''
     if (amount) {
+      if (amountNum >= 1_000_000) return formatLargeNumber(amount)
       if (ONLY_LETTERS.test(amount)) return amount
+
       const hasDecimal = amount.includes('.')
       const [integerPart, decimalPart] = hasDecimal ? amount.split('.') : [amount, null]
       const decimalPartWithoutZero = decimalPart && decimalPart === '0' ? '' : decimalPart

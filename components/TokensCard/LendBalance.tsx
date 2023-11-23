@@ -18,21 +18,21 @@ const LendBalance = () => {
   const formatVotingPowerBalance = formatEther(votingPowerBalance)
   const formatVTOKEN_APR = formatEther(store['apr'])
   return (
-    <div className='flex flex-col lg:w-[200px] text-sm'>
-      <div className='flex gap-1 w-full items-center'>
+    <div className='flex flex-col lg:w-[200px] text-sm w-full text-center'>
+      <div className='flex gap-2 w-full items-center justify-center'>
         <p className='font-semibold text-button-secondary-color'>APR</p>
-        <Amount amount={formatVTOKEN_APR} type='percentage' decimals={2} color='#a78bfa' />
+        <Amount amount={formatVTOKEN_APR} type='percentage' decimals={2} color='#6d28d9' />
       </div>
-      <div className='flex gap-1 w-full items-center'>
+      <div className='flex gap-2 w-full items-center justify-center'>
         <p className='font-semibold'>Power</p>
         <Amount amount={formatVotingPowerBalance} type='number' decimals={4} />
       </div>
-      <div className='flex gap-1 w-full items-center'>
+      <div className='flex gap-2 w-full items-center justify-center'>
         <p className='font-semibold'>Credit</p>
         <Amount amount={formatCreditBalance} type='number' decimals={4} />
         <p>{WRAPPED.symbol}</p>
       </div>
-      <div className='flex gap-1 w-full items-center'>
+      <div className='flex gap-2 w-full items-center justify-center'>
         <p className='font-semibold'>Debt</p>
         <Amount amount={formatDebitBalance} type='number' decimals={4} />
         <p>{WRAPPED.symbol}</p>

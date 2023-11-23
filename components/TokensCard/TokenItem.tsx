@@ -15,7 +15,6 @@ const TokenItem = ({ token }: TokenItemInterface) => {
   const { getBalance, getPrice } = useBalance()
   const { isConnected } = useStoreAccount()
   const { loadingBonding } = useStatusContracts()
-
   const balance = getBalance(id)
   const price = getPrice(id)
   const formatBalance = formatEther(balance)
@@ -23,13 +22,14 @@ const TokenItem = ({ token }: TokenItemInterface) => {
   const rewardList = ['wrapped', 'token', 'otoken']
   const isVtoken = id === 'vtoken'
   return (
-    <li className='item-custom'>
-      <div className='flex flex-col gap-3 w-full md:flex-row lg:flex-row md:gap-4 lg:gap-5'>
+    <li className='item-custom-token items-center border-transparent transition-ease'>
+      <div className='flex gap-2 w-full items-start md:flex-row lg:flex-row'>
         <TokenLabel name={name} symbol={symbol} img={img} id={id} />
-        {isConnected && !loadingBonding && rewardList.includes(id) && <RewardBalance id={id} />}
-        {isConnected && !loadingBonding && isVtoken && <LendBalance />}
+        <TokenBalance amount={formatBalance} price={formatPrice} />
       </div>
-      <TokenBalance amount={formatBalance} price={formatPrice} />
+
+      {isConnected && !loadingBonding && rewardList.includes(id) && <RewardBalance id={id} />}
+      {isConnected && !loadingBonding && isVtoken && <LendBalance />}
     </li>
   )
 }

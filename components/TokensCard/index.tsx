@@ -11,7 +11,7 @@ const TokensCard = () => {
   return (
     <div className='card-swap flex flex-col items-center justify-between gap-5'>
       <PortfolioData />
-      <div className='flex flex-col gap-3 w-full h-full'>
+      <div className='flex flex-wrap justify-center gap-2 '>
         <TokenItem key={`${VTOKEN.symbol}-item`} token={VTOKEN} />
         <TokenItem key={`${OTOKEN.symbol}-item`} token={OTOKEN} />
         <TokenItem key={`${TOKEN.symbol}-item`} token={TOKEN} />

@@ -10,8 +10,8 @@ const RewardBalance = ({ id }: RewardInterface) => {
   const reward = rewards[id] as BigNumber
   const formatReward = formatEther(reward)
   return (
-    <div className='flex gap-1 items-center'>
-      <p className='font-semibold text-sm'>Earned</p>
+    <div className='flex gap-1 items-center justify-center'>
+      <p className='font-semibold text-sm text-center'>Earned</p>
       <Amount amount={formatReward} type='number' decimals={4} />
     </div>
   )
