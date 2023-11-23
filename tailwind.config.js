@@ -8,6 +8,7 @@ module.exports = {
         main: '#4338ca', //purple
         'button-main-light': '#64748b', // slate-500
         'button-main-dark': '#c084fc', // purple-400
+        'button-gameboy-gray': '#2F312E', // buttons gray
         'tile-hover-border': '#c4b5fd', // violet-300
         'button-main-border': '#8b5cf6', // violet-500
         'button-secondary-color': '#a78bfa', //violet-400

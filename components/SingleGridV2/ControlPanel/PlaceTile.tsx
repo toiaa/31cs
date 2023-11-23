@@ -9,10 +9,12 @@ import { approve, checkAllowance, getNftGallery, getSingleGridData, placeTiles }
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { BigNumber } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
+import { useState } from 'react'
 import useNotification from '../../../hooks/useNotification'
 import useTransaction from '../../../hooks/useTransaction'
 
 const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
+  const [loading, setLoading] = useState<boolean>(false)
   const { primaryWallet, network } = useDynamicContext()
   const { pendingToast, errorToast } = useNotification()
   const { updateTxStatus, updateHash } = useTransaction()
@@ -61,6 +63,7 @@ const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
     }
   }
   const placeTile = async () => {
+    setLoading(true)
     const xValues = selectedTiles.map((coor) => BigInt(coor.x))
     const yValues = selectedTiles.map((coor) => BigInt(coor.y))
     await onAllowanceAndApprove(TOKENS[validNetwork].OTOKEN, CONTRACTS[validNetwork].gridNFT)
@@ -69,7 +72,7 @@ const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
     const message: ToastMessageType = {
       pending: 'Placing tiles with OTOKEN',
       success: 'Placed tiles success',
-      error: 'Error, Placing tiles failed',
+      error: 'Error placing tiles failed or rejected',
     }
     await awaitTransaction(tx, error, message)
     const { pixels } = await getSingleGridData(validNetwork, nftId)
@@ -77,13 +80,26 @@ const PlaceTile = ({ isLoading }: { isLoading: boolean }) => {
     updateFullGridData(svgGridData)
     updateGridData({ nftId, pixels })
     clearPixelSelect()
+    setLoading(false)
+  }
+  const handlePlaceTile = async () => {
+    if (selectedTiles.length === 0) {
+      const message: ToastMessageType = {
+        pending: 'Placing tiles with OTOKEN',
+        success: 'Placed tiles success',
+        error: 'Error, there are no tiles selected',
+      }
+      errorToast('error', message.error)
+    } else {
+      await placeTile()
+    }
   }
   return (
     <button
-      disabled={isLoading || disabled}
-      className={`place-joystick-btn ${isLoading || disabled ? 'opacity-75' : ''} `}
+      disabled={isLoading || disabled || loading}
+      className={`place-joystick-btn ${isLoading || disabled || loading ? 'opacity-80 bg-[#2F312E] ' : ''} `}
       type='button'
-      onClick={placeTile}>
+      onClick={() => handlePlaceTile()}>
       <p>Place</p>
     </button>
   )

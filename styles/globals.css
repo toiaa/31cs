@@ -61,13 +61,13 @@ body {
     @apply bg-tile-selected-border;
   }
   .joystick-btn {
-    @apply rounded w-14  text-gray font-medium text-base p-1 flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
+    @apply rounded w-14  text-gray font-medium text-base p-1 flex justify-center items-center bg-button-gameboy-gray transform transition-transform active:scale-95 active:shadow-xl cursor-pointer;
   }
   .place-joystick-btn {
-    @apply rounded w-14 text-gray font-medium text-base p-1 flex justify-center items-center bg-[#2F312E] transform transition-transform active:scale-95 active:shadow-xl;
+    @apply rounded w-14 text-gray font-medium text-base p-1 flex justify-center items-center bg-button-gameboy-gray transform transition-transform active:scale-95 active:shadow-xl;
   }
   .arrow {
-    @apply bg-[#2F312E] transform transition-all active:scale-95 active:shadow-xl cursor-pointer rounded-sm;
+    @apply bg-button-gameboy-gray transform transition-all active:scale-95 active:shadow-xl cursor-pointer rounded-sm;
   }
   .arrow-horizontal {
     @apply w-12 h-6 arrow flex;
