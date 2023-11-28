@@ -76,12 +76,8 @@ const TokenAmountCard = ({
   }
 
   return (
-    <div className='w-full flex flex-col px-5 py-3 bg-box-dark-neutral rounded-lg gap-4'>
-      <div className='w-full flex justify-between'>
-        <div className='flex flex-col gap-1 w-full justify-between h-[68px]'>
-          <SwapInput value={value} isDisabled={isDisabled} onInput={handleInput} />
-          {!showUsdPrice && <DetailAmount amount={amountUSD} label='≈' type='price' isLoading={isLoading} />}
-        </div>
+    <div className='w-full flex flex-col px-5 py-3 rounded-lg gap-4'>
+      <div className='w-full flex flex-col justify-between'>
         <TokenInfoSection
           items={items}
           img={img}
@@ -92,6 +88,10 @@ const TokenAmountCard = ({
           isLoading={isLoading}
           onMax={handleInput}
         />
+        <div className='flex flex-col gap-1 w-full bg-card-neutral rounded p-2 justify-between h-[75px]'>
+          <SwapInput value={value} isDisabled={isDisabled} onInput={handleInput} />
+          {!showUsdPrice && <DetailAmount amount={amountUSD} label='≈' type='price' isLoading={isLoading} />}
+        </div>
       </div>
     </div>
   )

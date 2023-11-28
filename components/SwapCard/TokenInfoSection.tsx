@@ -17,7 +17,7 @@ const TokenInfoSection = ({
   const [detailAmount, detailMaxWithdraw, detailVotingPower, detailLendAmount] = detailAmountProps
 
   return (
-    <div className='flex flex-col w-full justify-between items-end h-[68px]'>
+    <div className='flex items-center w-full justify-between pb-2'>
       <div
         className={`flex justify-end gap-2 p-2 rounded-md items-center h-[35px] transition-all ${
           items && 'cursor-pointer hover:bg-box-pale-neutral'

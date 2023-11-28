@@ -33,6 +33,9 @@ body {
   .item-custom {
     @apply w-full flex items-start justify-between bg-box-dark-neutral transition-ease rounded-md px-3 py-3 md:items-center lg:items-center;
   }
+  .item-custom-token {
+    @apply flex flex-col items-center justify-between border border-card-neutral bg-card-neutral transition-ease rounded-md px-3 py-3 md:items-center lg:items-center h-[150px] hover:border-[#8b5cf6] hover:shadow-[-0px_-0px_10px_rgba(0,0,0,0.7)] hover:shadow-[#8b5cf6];
+  }
   .item-portfolio-custom {
     @apply w-full flex flex-col items-start justify-between  bg-box-dark-neutral rounded-md px-3 py-3;
   }

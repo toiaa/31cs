@@ -13,7 +13,7 @@ function PortfolioData() {
   const totalRewardsNumber = formatUnits(totalRewards, 18)
 
   return (
-    <div className='item-portfolio-custom gap-3 w-full md:gap-2 lg:gap-3'>
+    <div className='item-portfolio-custom bg-card-neutral gap-3 w-full md:gap-2 lg:gap-3'>
       <div className='flex justify-between items-center w-full'>
         <p className='title'>Portfolio</p>
         <Amount size='lg' amount={totalRewardsNumber} type='price' weight='semibold' />
@@ -23,7 +23,7 @@ function PortfolioData() {
           <p>Staking Rewards</p>
           <div className='flex gap-1 items-center text-sm md:text-md lg:text-md'>
             {showTextStaking && !loadingBonding ? (
-              <p className='text-base text-button-secondary-color '>Get VTOKEN to earn</p>
+              <p className='text-base text-subtitle-color '>Get VTOKEN to earn</p>
             ) : (
               <>
                 <Amount amount={stakingRewardsNumber} isLoading={loadingBonding} type='price' size='md' />
@@ -37,7 +37,7 @@ function PortfolioData() {
           <div className='flex'>
             <div className='flex gap-1 items-center text-sm md:text-md lg:text-md'>
               {showTextFarming && !loadingBonding ? (
-                <p className='text-base text-button-secondary-color '>Get VTOKEN to earn</p>
+                <p className='text-base text-subtitle-color '>Get VTOKEN to earn</p>
               ) : (
                 <>
                   <Amount size='md' isLoading={loadingBonding} amount={farmingRewardsNumber} type='price' />
