@@ -18,7 +18,7 @@ const SwapPanel = ({ currentOption, currentTokens, currentAction, onTransactionS
   }
 
   return (
-    <div className='w-full flex flex-col items-center h-full justify-between gap-2'>
+    <div className='w-full flex flex-col flex-1 items-center h-full justify-between '>
       <UpperSwap
         onTransactionStatus={onTransactionStatus}
         currentOption={currentOption}
@@ -26,7 +26,7 @@ const SwapPanel = ({ currentOption, currentTokens, currentAction, onTransactionS
         currentTokens={currentTokens}
       />
       <ErrorMessage error={getErrorMessage()} />
-      <div className='flex flex-col justify-end w-full items-center'>
+      <div className='flex flex-col justify-end w-full h-full items-center'>
         <BottomSwap
           onTransactionStatus={onTransactionStatus}
           currentOption={currentOption}

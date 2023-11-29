@@ -83,13 +83,15 @@ const SwapCard = () => {
   }, [])
 
   return (
-    <div className='card-swap relative flex flex-col justify-between'>
-      {isTransactionOpen && <TransactionStatus />}
-      <div className='flex flex-col gap-1'>
-        <Tabs activeTab={tab.id} list={TABS_LIST[chainId]} onUpdate={updateTab} />
-        <SecondaryTabs activeTab={option} list={tab.options} onUpdate={updateOption} />
+    <div className='card-swap relative flex flex-col gap-5 h-full'>
+      <div className='flex flex-col justify-start gap-4'>
+        {isTransactionOpen && <TransactionStatus />}
+        <div className='flex flex-col gap-1'>
+          <Tabs activeTab={tab.id} list={TABS_LIST[chainId]} onUpdate={updateTab} />
+          <SecondaryTabs activeTab={option} list={tab.options} onUpdate={updateOption} />
+        </div>
+        <SettingModal />
       </div>
-      <SettingModal />
       <SwapPanel
         onTransactionStatus={handleTransactionStatus}
         currentOption={tab.options[option]}
